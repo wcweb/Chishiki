@@ -85,7 +85,6 @@ describe('Users', function () {
 
             it('should insert a record to the database', function (done) {
                 User.count(function (err, cnt) {
-                  console.log("after count:" + count);
                     cnt.should.equal(count + 1)
                     done()
                 })
