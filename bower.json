@@ -1,0 +1,9 @@
+{
+    "name": "brust",
+    "dependencies": {
+        "jquery": "~1.9.1",
+        "qunit": "~1.12.0",
+        "ic-ajax": "~0.3.0",
+        "bootstrap":"v3.0.3"
+    }
+}
