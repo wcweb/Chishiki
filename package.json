@@ -12,7 +12,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "",
+    "test": "mocha ",
     "initDb":"",
     "install-windows-service": "winser -i",
     "uninstall-windows-service": "winser -r"
