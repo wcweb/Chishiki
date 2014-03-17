@@ -1,0 +1,3 @@
+[submodule "public/kashikoi"]
+	path = public/kashikoi
+	url = git://github.com/wcweb/kashikoi.git
