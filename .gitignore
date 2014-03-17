@@ -19,5 +19,6 @@ Thumbs.db
 /coverage/*
 
 # public
-/public/**/*.mp4
-/public/**/*.f4v
+*.mp4
+*.f4v
+*.m4v
