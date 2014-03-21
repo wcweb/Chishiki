@@ -1,4 +1,4 @@
-# Chishiki[![BuildStatus](https://travis-ci.org/wcweb/Chishiki.png)]
+# Chishiki[![BuildStatus](https://travis-ci.org/wcweb/Chishiki.png)](https://travis-ci.org/wcweb/Chishiki)
 
 This is a demo with express & mongodb & ember(eak).
 
