@@ -33,5 +33,14 @@ module.exports = {
             name: 'Nodejs Express Mongoose Demo'
         }
     },
-    production:{}
+    production:{
+        db: 'mongodb://localhost/Chishiki_pro',
+        root: rootPath,
+        notifier: notifier,
+        app: {
+          name: 'Chishiki ',
+          title: 'Chishiki App'
+        }
+
+    }
 }

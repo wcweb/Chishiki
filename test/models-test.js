@@ -64,7 +64,7 @@ describe('Models test : ', function(){
                 correct:" correct  ",
                 incorrect:" incorrect keep going on."
             }
-            article.quizs.push(question);
+            article.quizzes.push(question);
             article.save(function(err){
                 if(err) console.log(err.message);
             })
@@ -85,6 +85,41 @@ describe('Models test : ', function(){
                         article.user.name.should.equal('Foo bar')
                         done()
                     })
+            })
+
+            it('should get list article group by user', function(done){
+                User
+                    .find({})
+                    .exec(function(err,users){
+                        Article.find()
+                            .populate('user', 'name email username')
+                            .exec(function(err,articles){
+                                var article, usr, results=[];
+                                for(var i=0; i< articles.length; i++){
+                                    article = articles[i];
+
+                                    (function(){
+                                        for(var j=0; j< users.length; j++){
+                                            usr= users[j];
+                                            if( article.user.name == usr.name ){
+                                                var userArticle = {}
+                                                userArticle = usr;
+                                                userArticle['articles']=[];
+                                                userArticle['articles'].push(article);
+                                                results.push(userArticle);
+                                            }
+                                        }
+                                    })();
+                                }
+                                should.not.exist(err);
+                                for(var j=0; j< users.length; j++){
+                                    results[j].articles[0].should.be.an.instanceOf(Article);
+                                }
+                                done();
+                            });
+
+
+                    });
             })
         })
 

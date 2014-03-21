@@ -1,6 +1,6 @@
 {
   "restartable": "rs",
+  "ignore": ["public/*"],
   "env":{
-    "NODE_ENV":"test"
   }
 }

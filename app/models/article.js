@@ -5,7 +5,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../../config/config')[env];
 var imagerConfig = require(config.root + '/config/imager.js');
 var Schema = mongoose.Schema;
-var utils = require('../../lib/utils');
+var _= utils = require('../../lib/utils');
 
 /**
  * Getters
@@ -33,9 +33,10 @@ var ArticleSchema = new Schema({
     body: {type : String, default : '', trim : true},
     user: {type : Schema.ObjectId, ref : 'User'},
     videos:[{
-        url: { type : String, default :''}
+        title:{ type : String, default :''},
+        link: { type : String, default :''}
     }],
-    quizs:[{
+    quizzes:[{
         question: { type : String, default : '', trim : true},
         answers: [{
            option : { type: String, default : '', trim : true},
@@ -158,6 +159,52 @@ ArticleSchema.methods = {
     },
 
 
+    /**
+     * Add Video
+     *
+     * @param {Object} quiz
+     * @param {Function} cb
+     * @api private
+     */
+    addVideo: function(videos,cb){
+        console.log("body.videos",videos);
+        var self = this;
+        var video_orig = self.videos;
+
+        //@TODO upate video array.
+//        self.videos = _.extend(video_orig,videos);
+
+            for(var i=0; i< videos.length;i++){
+                (function(){
+                   // @TODO
+                   var index = utils.indexof(self.videos, { link: videos[i].link });
+                   if (~index) {
+                       // exist  update.
+                       self.videos[index].title = videos[i].title;
+                       self.videos[index].link = videos[i].link;
+                   }else{
+                       self.videos.push({
+                           title: videos[i].title,
+                           link: videos[i].link
+                       });
+                   }
+
+                })();
+
+            }
+
+        this.save(cb);
+
+
+
+    },
+//    @TODO no remove , update whole videos.
+    removeVideo: function(videoId,cb){
+        var index = utils.indexof(this.videos, { id: videoId });
+        if (~index) this.videos.splice(index, 1);
+        else return cb('not found');
+        this.save(cb);
+    },
     /**
      * Add Quiz Answer
      *

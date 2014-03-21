@@ -44,6 +44,9 @@ require('./config/api')(app);
 console.log("instant init: "+process.env.NODE_ENV);
 
 if( process.env.NODE_ENV !== 'test'){
+    require('./lib/dbUtils')
+        .clearDb(require('./lib/dbUtils').initDb());
+
     var port = process.env.PORT || 3000;
     app.listen(port);
     console.log('Express server listening on port ' + port);

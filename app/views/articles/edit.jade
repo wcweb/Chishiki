@@ -1,1 +1,45 @@
-extends form
+extends ../layouts/default
+block main
+  - if(!article.isNew)
+    | &nbsp;
+    a(href="/articles/"+article._id, class="")
+      span [back]
+  h1= title
+
+
+block content
+  - var action = '/articles'
+  - action += article.isNew? '' : '/' + article.id
+  .row
+    - if(!article.isNew)
+      .col-md-8
+        ul.nav.nav-tabs
+          li.active
+            a(href="#basic",data-toggle="tab") Basic
+          li
+            a(href="#video",data-toggle="tab") Video
+          li
+            a(href="#quiz",data-toggle="tab") Quiz
+          li
+            a(href="#reading",data-toggle="tab") Reading
+          li
+            a(href="#discuss",data-toggle="tab") Discuss
+        hr
+        .tab-content
+          .tab-pane.active#basic
+            include components/_basicForm
+
+          .tab-pane#video
+            include  components/_videoForm
+          .tab-pane#quiz
+            include components/_quizForm
+
+          .tab-pane#reading
+            //include components/_readingForm
+
+          .tab-pane#discuss
+            //include components/_discussForm
+
+    - else
+      .col-md-8
+        include components/_basicForm

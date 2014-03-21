@@ -12,7 +12,8 @@ exports.load = function(req, res, next, id){
     var User = mongoose.model('User');
     Article.load(id, function(err, article){
         if (err) return next(err);
-        if (!article) return next(new Error('not found'));
+        //if (!article) return next(new Error('not found'));
+        if (!article) return res.redirect('/');
         req.article = article;
         next();
     });
@@ -68,7 +69,7 @@ exports.create = function (req, res){
 
 exports.edit = function (req, res){
     res.render('articles/edit', {
-        title: 'Edit' + req.article.title,
+        title: 'Edit: ' + req.article.title,
         article: req.article
     });
 }

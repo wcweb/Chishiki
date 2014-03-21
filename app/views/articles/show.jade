@@ -12,6 +12,12 @@ block content
           - var name = article.user.name ? article.user.name : article.user.username
           p Author :&nbsp;
             a(href="/users/"+article.user._id)= name
+        - if (article.videos.length)
+          p Videos &nbsp;
+            - each video in article.videos
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/videos/"+video.url)= video.title
+              | &nbsp;&nbsp;
 
         - if (article.tags)
           p Tags &nbsp;

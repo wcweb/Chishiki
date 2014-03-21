@@ -1,0 +1,55 @@
+- if(!article.videos.length)
+  form.form-horizontal(method="post", action="/articles/#{article._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
+    input(type="hidden", name="_csrf", value="#{csrf_token}")
+    #videos-group
+      .video-group
+        .form-group
+          label.col-sm-2.control-label(for='title') Title
+          .col-sm-10
+            input.form-control#video_title(type='text', name="videos[0][title]", placeholder='Enter the title')
+
+        .form-group
+          label.col-sm-2.control-label(for='link') Link
+          .col-sm-10
+            textarea.form-control#video_url(rows="1", name="videos[0][link]", placeholder='Enter address of the video')
+        .form-group.crud-video-control.hide
+          .col-sm-12
+            button(class="btn btn-primary pull-right remove-video-btn" ,data-target=0 ,id="") remove this one.
+        hr
+
+    .form-group
+      .col-sm-offset-2.col-sm-10
+        button.btn.btn-primary(type='submit') Save
+        | &nbsp;
+        a.btn(href='/articles', title="cancel") Cancel
+        button.btn.btn-primary.pull-right#add Add
+- else
+  form.form-horizontal(method="post", action="/articles/#{article._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
+    input(type="hidden", name="_csrf", value="#{csrf_token}")
+    #videos-group
+      - each video, index in article.videos
+        .video-group
+          .form-group
+            label.col-sm-2.control-label(for='title') Title
+            .col-sm-10
+              input.form-control#video_title(type='text', name="videos["+index+"][title]",value=video.title, placeholder='Enter the title')
+          .form-group
+            label.col-sm-2.control-label(for='link') Link
+            .col-sm-10
+              textarea.form-control#video_url(rows="1", name="videos["+index+"][link]", placeholder='Enter address of the video')= video.link
+           if index == 0
+            .form-group.crud-video-control.hide
+              .col-sm-12
+                button(class="btn btn-primary pull-right remove-video-btn" , data-target=index ,id=video.id) remove this one.
+           else
+            .form-group.crud-video-control
+              .col-sm-12
+                button(class="btn btn-primary pull-right remove-video-btn" , data-target=index ,id=video.id) remove this one.
+          hr
+    .form-group
+      .col-sm-offset-2.col-sm-10
+
+        button.btn.btn-primary(type='submit') Update
+        | &nbsp;
+        a.btn(href='/articles', title="cancel") Cancel
+        button.btn.btn-primary.pull-right#add Add

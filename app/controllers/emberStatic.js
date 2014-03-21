@@ -1,6 +1,6 @@
 
 /*
- * GET users listing.
+ * GET Ember.
  */
 
 exports.index = function(req, res){

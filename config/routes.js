@@ -18,8 +18,8 @@ module.exports = function (app, passport){
 
 
     var articleAuth = [
-        auth.requiresLogin,
-        auth.article.hasAuthorization
+//        auth.requiresLogin,
+//        auth.article.hasAuthorization
     ];
     var commentAuth = [
         auth.requiresLogin,
@@ -43,6 +43,63 @@ module.exports = function (app, passport){
     );
 
     app.get('/users/:userId', users.show);
+
+
+    app.param('userId', users.user);
+
+
+    // article routes
+    app.param('artid', articles.load);
+
+    app.get('/articles', articles.index);
+    if( process.env.NODE_ENV !== 'test'){
+        app.get('/articles/new', articles.new);
+        app.post('/articles', articles.create);
+    }else{
+        console.log("test will display this.")
+        app.get('/articles/new', auth.requiresLogin, articles.new);
+        app.post('/articles', auth.requiresLogin, articles.create);
+
+    }
+
+    app.get('/articles/:artid',  articles.show);
+    app.get('/articles/:artid/edit', articleAuth, articles.edit);
+    app.put('/articles/:artid', articleAuth, articles.update);
+    app.del('/articles/:artid', articleAuth, articles.destroy);
+
+
+    // ember
+    //    app.get('/', ember.index);
+    app.get('/',articles.index);
+
+    var comments = require('../app/controllers/comments');
+    app.param('commentId', comments.load);
+    app.post('/articles/:artid/comments', auth.requiresLogin, comments.create);
+    app.get('/articles/:artid/comments', auth.requiresLogin, comments.create);
+    app.del('/articles/:artid/comments/:commentId', auth.requiresLogin, comments.destroy);
+
+
+    var videos = require('../app/controllers/videos');
+    app.param('videoId', videos.load);
+    app.post('/articles/:artid/videos',articleAuth, videos.create);
+    app.get('/articles/:artid/videos', articleAuth, videos.create);
+    app.del('/articles/:artid/videos/:videoId',(function(req,res,next){ console.log(req.params); next();})
+        , videos.destroy);
+
+
+    // tag routes
+    var tags = require('../app/controllers/tags');
+    app.get('/tags/:tag', tags.index);
+
+
+    // dashboard routes
+    app.get('/dashboard/index',role.can('access member page'), dashboard.index);
+    app.get('/dashboard/admin',role.is('admin'), dashboard.admin);
+
+    app.get('/dashboard/users/list', dashboard.listUser);
+
+
+
 
 //    app.get('/auth/facebook',
 //        passport.authenticate('facebook', {
@@ -92,39 +149,5 @@ module.exports = function (app, passport){
 //        passport.authenticate('linkedin', {
 //            failureRedirect: '/login'
 //        }), users.authCallback)
-
-    app.param('userId', users.user);
-
-
-    // article routes
-    app.param('artid', articles.load);
-
-    app.get('/articles', articles.index);
-    app.get('/articles/new', auth.requiresLogin, articles.new);
-    app.post('/articles', auth.requiresLogin, articles.create);
-    app.get('/articles/:artid',  articles.show);
-    app.get('/articles/:artid/edit', articleAuth, articles.edit);
-    app.put('/articles/:artid', articleAuth, articles.update);
-    app.del('/articles/:artid', articleAuth, articles.destroy);
-
-
-    // ember
-    app.get('/', ember.index);
-
-    var comments = require('../app/controllers/comments');
-    app.param('commentId', comments.load);
-    app.post('/articles/:artid/comments', auth.requiresLogin, comments.create);
-    app.get('/articles/:artid/comments', auth.requiresLogin, comments.create);
-    app.del('/articles/:artid/comments/:commentId', auth.requiresLogin, comments.destroy);
-
-    // tag routes
-    var tags = require('../app/controllers/tags');
-    app.get('/tags/:tag', tags.index);
-
-
-    // dashboard routes
-    app.get('/dashboard/index',role.can('access member page'), dashboard.index);
-    app.get('/dashboard/admin',role.is('admin'), dashboard.admin);
-
 
 }
