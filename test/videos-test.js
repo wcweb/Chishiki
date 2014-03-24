@@ -1,4 +1,3 @@
-process.env.NODE_ENV='test'
 var app = require('../app');
 var should = require('should')
     , request = require('supertest')
@@ -12,12 +11,13 @@ var article;
 describe('Video add', function(){
     //this.timeout(4000);
     before(function(done){
-
         require('./helpers/models-helper').fakeDb(done);
     })
     after(function (done) {
         require('./helpers/models-helper').clearDb(done)
     })
+
+
 
     describe('Edit a article ', function(){
         var v_c;
@@ -30,7 +30,8 @@ describe('Video add', function(){
                 .field('email', 'foobarTest2@example.com')
                 .field('password', 'foobar')
                 .end(done);
-            })
+
+            });
         })
         it('should editable', function(done){
 
@@ -41,19 +42,17 @@ describe('Video add', function(){
                     .expect(302)
                     .expect(/Moved Temporarily/)
                     .end(done);
-        })
+        });
 
         it('should add video ', function(done){
-
             Article.findOne({_id: article._id})
                 .exec(function (err, a) {
                     should.not.exist(err);
+                    a.title.should.equal('sss');
                     //a.videos.length.should.equal(1);
                     a.videos.length.should.equal(v_c+1)
                     done()
                 });
-
-
         })
     })
 

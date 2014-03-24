@@ -8,6 +8,7 @@ block main
 
 
 block content
+
   - var action = '/articles'
   - action += article.isNew? '' : '/' + article.id
   .row
@@ -43,3 +44,9 @@ block content
     - else
       .col-md-8
         include components/_basicForm
+
+block foot
+  script.
+    console.log(!{JSON.stringify(req.article)});
+    var article = !{JSON.stringify(req.article)};
+    MyApp.formBuild({data:article, wrapper:'#formBuilder'});

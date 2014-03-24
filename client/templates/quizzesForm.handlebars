@@ -1,0 +1,66 @@
+<div class="quiz-group">
+    <div class="form-group">
+        <label for="title" class="col-sm-2 control-label">Question:</label>
+        <div class="col-sm-1 col-sm-offset-9">
+            <button type="button" aria-hidden="true" class="close remove-quiz-btn">×</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-11 col-sm-offset-1">
+            <input type="text" name="quizzes[0]question" placeholder="Enter the Question title" class="form-control">
+        </div>
+    </div>
+    <div class="options-group col-sm-offset-1">
+        <div class="option-group">
+            <div class="form-group">
+                <label for="option" class="col-sm-2 control-label">Option :</label>
+                <div class="col-sm-9">
+                    <input type="text" name="quizees[0]answers[0]option" placeholder="Enter option title" class="form-control">
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" aria-hidden="true" class="close">×</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-2">
+                    <input type="checkbox" name="quizees[0]answers[0]correct" placeholder="Correct ? " checked="">
+                    <label for="correctBool" class="control-label">Correct ?</label>
+                </div>
+            </div>
+        </div>
+        <div class="option-group">
+            <div class="form-group">
+                <label for="option" class="col-sm-2 control-label">Option :</label>
+                <div class="col-sm-9">
+                    <input type="text" name="quizees[0]answers[0]option" placeholder="Enter option title" class="form-control">
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" aria-hidden="true" class="close">×</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-2">
+                    <input type="checkbox" name="quizees[0]answers[0]correct" placeholder="Correct ? " checked="">
+                    <label for="correctBool" class="control-label">Correct ?</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group crud-option-control">
+            <div class="col-sm-10 col-sm-offset-2">
+                <button data-target="" class="btn btn-default pull-right remove-quiz-btn">add an option</button>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="correct" class="col-sm-3 control-label">Correct</label>
+        <div class="col-sm-9">
+            <textarea rows="1" name="quizzes[0]correct" placeholder="If Correct : " class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="incorrect" class="col-sm-3 control-label">Incorrect</label>
+        <div class="col-sm-9">
+            <textarea rows="1" name="quizzes[0]correct" placeholder="If incorrect : " class="form-control"></textarea>
+        </div>
+    </div>
+</div>

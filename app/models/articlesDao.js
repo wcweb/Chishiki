@@ -36,15 +36,7 @@ var ArticleSchema = new Schema({
         title:{ type : String, default :''},
         link: { type : String, default :''}
     }],
-    quizzes:[{
-        question: { type : String, default : '', trim : true},
-        answers: [{
-           option : { type: String, default : '', trim : true},
-            correct: { type: Boolean, default : false }
-        }],
-        correct: { type: String, default : '', trim : true},
-        incorrect: { type: Boolean, default : false }
-    }],
+    quizzes:[{quiz:{type: Schema.ObjectId, ref : "Quiz"}}],
     comments: [{
         body: { type : String, default : '' },
         user: { type : Schema.ObjectId, ref : 'User' },
@@ -79,6 +71,8 @@ ArticleSchema.pre('remove', function (next) {
     imager.remove(files, function (err) {
         if (err) return next(err)
     }, 'article');
+
+    // remove video quiz discuss
 
     next();
 });
@@ -167,7 +161,7 @@ ArticleSchema.methods = {
      * @api private
      */
     addVideo: function(videos,cb){
-        console.log("body.videos",videos);
+
         var self = this;
         var video_orig = self.videos;
 
@@ -214,7 +208,7 @@ ArticleSchema.methods = {
      */
 
     addQuiz: function (question, cb) {
-
+        var self = this;
         this.quizs.push({
             question: question.question,
             answers: question.answer,

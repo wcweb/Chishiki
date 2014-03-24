@@ -3,45 +3,45 @@ module.exports = function(app) {
     // Create an API namespace, so that the root does not
     // have to be repeated for each end point.
     app.namespace('/api', function() {
-        var post = {
-            "post": {
-                "id": 1,
-                "title": "Rails is omakase",
-                "comments": ["1", "2"],
-                "user" : "dhh"
-            },
-
-            "comments": [{
-                "id": "1",
-                "body": "Rails is unagi"
-            }, {
-                "id": "2",
-                "body": "Omakase O_o"
-            }]
-        };
-        var posts = {
-
-            "posts": [{
-                "id": 1,
-                "title": "ship",
-                "comments": ["1", "2"],
-                "user" : "dhh",
-            },{
-                "id": 2,
-                "title": "Rr",
-                "comments": ["1", "2"],
-                "user" : "dhh",
-            }],
-
-            "comments": [{
-                "id": "1",
-                "body": "Rails is unagi"
-            }, {
-                "id": "2",
-                "body": "Omakase O_o"
-            }]
-
-        }
+//        var post = {
+//            "post": {
+//                "id": 1,
+//                "title": "Rails is omakase",
+//                "comments": ["1", "2"],
+//                "user" : "dhh"
+//            },
+//
+//            "comments": [{
+//                "id": "1",
+//                "body": "Rails is unagi"
+//            }, {
+//                "id": "2",
+//                "body": "Omakase O_o"
+//            }]
+//        };
+//        var posts = {
+//
+//            "posts": [{
+//                "id": 1,
+//                "title": "ship",
+//                "comments": ["1", "2"],
+//                "user" : "dhh",
+//            },{
+//                "id": 2,
+//                "title": "Rr",
+//                "comments": ["1", "2"],
+//                "user" : "dhh",
+//            }],
+//
+//            "comments": [{
+//                "id": "1",
+//                "body": "Rails is unagi"
+//            }, {
+//                "id": "2",
+//                "body": "Omakase O_o"
+//            }]
+//
+//        }
         app.get('/posts', function(req,res){
             res.send(posts);
         });

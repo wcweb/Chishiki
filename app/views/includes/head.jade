@@ -14,9 +14,19 @@ head
   link(rel="stylesheet", href="/stylesheets/jquery.tagsinput.css")
   link(href="/stylesheets/font-awesome-ie7.min.css", rel="stylesheet")
   link(rel="stylesheet", href="/stylesheets/style.css")
-
+  script(src='/javascripts/jquery.min.js')
   //
      HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
   //if lt IE 9
     script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
     script(src='https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')
+
+  script.
+    var domain = {
+      "host" : '!{req.headers.host}',
+      "path" : 'http://!{req.headers.host}/',
+      "scriptPath" : 'http://!{req.headers.host}/javascripts/',
+    };
+    //var article= !{JSON.stringify(req.article)};
+    //console.log(article);
+    console.log('!{req.originalUrl}','!{req.host}','!{req.port}', '!{JSON.stringify(req.headers.host)}');

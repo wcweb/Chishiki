@@ -3,25 +3,25 @@
   "namespace": "Chishiki",
   "version": "0.0.1",
   "keywords": [
-      "express",
-      "mongoose",
-      "mongodb",
-      "passport",
-      "demo"
+    "express",
+    "mongoose",
+    "mongodb",
+    "passport",
+    "demo"
   ],
   "private": true,
   "scripts": {
     "start": "node app.js",
     "test": "mocha ",
-    "initDb":"",
+    "initDb": "",
     "install-windows-service": "winser -i",
     "uninstall-windows-service": "winser -r"
   },
   "dependencies": {
     "express": "3.4.8",
-    "express-namespace":"visionmedia/express-namespace",
+    "express-namespace": "visionmedia/express-namespace",
     "jade": "*",
-    "mongoose":"latest",
+    "mongoose": "latest",
     "connect-mongo": "latest",
     "connect-flash": "latest",
     "passport": "latest",
@@ -32,19 +32,29 @@
     "async": "latest",
     "view-helpers": "latest",
     "connect-roles": "latest",
-    "less-middleware": "*"
+    "less-middleware": "*",
+    "underscore": "~1.5.2",
+    "socket.io": "~0.9.16"
   },
-  "devDependencies":{
-      "nodemon": "latest",
-      "bower": "~1.2.7",
-      "supertest": "latest",
-      "superagent": "latest",
-      "should": "latest",
-      "mocha": "latest",
-      "gulp": "~3.5.2",
-      "gulp-mocha": "~0.4.1",
-      "gulp-watch": "~0.5.0",
-      "gulp-nodemon": "latest",
-      "gulp-util": "~2.2.14"
+  "devDependencies": {
+    "nodemon": "latest",
+    "bower": "~1.2.7",
+    "supertest": "latest",
+    "superagent": "latest",
+    "should": "latest",
+    "mocha": "latest",
+    "gulp": "~3.5.2",
+    "gulp-mocha": "latest",
+    "gulp-watch": "~0.5.0",
+    "gulp-nodemon": "latest",
+    "gulp-util": "~2.2.14",
+    "gulp-plumber": "latest",
+    "gulp-grep-stream": "latest",
+    "gulp-define-module": "~0.1.0",
+    "gulp-handlebars": "~2.0.0",
+    "gulp-concat": "~2.2.0",
+    "handlebars": "~1.3.0",
+    "browserify-handlebars": "~0.2.0",
+    "gulp-browserify": "~0.5.0"
   }
 }

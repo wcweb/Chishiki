@@ -83,8 +83,13 @@ module.exports = function (app, passport){
     app.param('videoId', videos.load);
     app.post('/articles/:artid/videos',articleAuth, videos.create);
     app.get('/articles/:artid/videos', articleAuth, videos.create);
-    app.del('/articles/:artid/videos/:videoId',(function(req,res,next){ console.log(req.params); next();})
-        , videos.destroy);
+    app.del('/articles/:artid/videos/:videoId', videos.destroy);
+
+    var quizzes = require('../app/controllers/quizzes');
+    app.param('quizId', videos.load);
+    app.post('/articles/:artid/quizzes',articleAuth, quizzes.create);
+    app.get('/articles/:artid/quizzes', articleAuth, quizzes.create);
+    app.del('/articles/:artid/quizzes/:quizId', quizzes.destroy);
 
 
     // tag routes
