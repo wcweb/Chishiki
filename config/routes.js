@@ -69,7 +69,7 @@ module.exports = function (app, passport){
 
 
     // ember
-    //    app.get('/', ember.index);
+    app.get('/demo', ember.index);
     app.get('/',articles.index);
 
     var comments = require('../app/controllers/comments');

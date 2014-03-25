@@ -17,7 +17,7 @@ $(document).ready(function () {
 //$.getScript(domain.scriptPath+"_forms/_videosForm.js", function(){
 //    //require('./_forms/_videosForm');
 //});
-require('./_forms/_videosForm.js');
+require('./_forms/_videosForm.js').videoInit();
 
 require('./templates/quizzesForm.handlebars');
 //MyApp = window['MyApp'] ||{};
@@ -25,4 +25,3 @@ require('./templates/quizzesForm.handlebars');
 
 MyApp = window['MyApp'] ||{};
 MyApp.formBuild = require('./_forms/_quizzesForm.js').formBuild;
-console.log(require('./_forms/_quizzesForm.js'));

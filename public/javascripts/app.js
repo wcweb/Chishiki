@@ -75,8 +75,8 @@
 
 },{"./../templates/quizzesForm.handlebars":3}],2:[function(require,module,exports){
 //Module.exports= function(){
-define('_forms/_videosForm', ['exports'], function(__exports___){
-
+//define('_forms/_videosForm', ['exports'], function(__exports___){
+exports.videoInit= function(){
     $(document).ready(function () {
 
         // @TODO  refactor
@@ -206,7 +206,8 @@ define('_forms/_videosForm', ['exports'], function(__exports___){
         });
     }
 //}
-});
+//});
+}
 },{}],3:[function(require,module,exports){
 var templater = require("handlebars/runtime").default.template;module.exports = templater(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
@@ -711,7 +712,7 @@ $(document).ready(function () {
 //$.getScript(domain.scriptPath+"_forms/_videosForm.js", function(){
 //    //require('./_forms/_videosForm');
 //});
-require('./_forms/_videosForm.js');
+require('./_forms/_videosForm.js').videoInit();
 
 require('./templates/quizzesForm.handlebars');
 //MyApp = window['MyApp'] ||{};
@@ -719,5 +720,4 @@ require('./templates/quizzesForm.handlebars');
 
 MyApp = window['MyApp'] ||{};
 MyApp.formBuild = require('./_forms/_quizzesForm.js').formBuild;
-console.log(require('./_forms/_quizzesForm.js'));
 },{"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"./templates/quizzesForm.handlebars":3}]},{},[11])

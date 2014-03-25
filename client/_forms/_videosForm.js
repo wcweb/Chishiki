@@ -1,6 +1,6 @@
 //Module.exports= function(){
-define('_forms/_videosForm', ['exports'], function(__exports___){
-
+//define('_forms/_videosForm', ['exports'], function(__exports___){
+exports.videoInit= function(){
     $(document).ready(function () {
 
         // @TODO  refactor
@@ -130,4 +130,5 @@ define('_forms/_videosForm', ['exports'], function(__exports___){
         });
     }
 //}
-});
+//});
+}

@@ -4,7 +4,9 @@
  */
 
 exports.index = function(req, res){
-    res.sendfile("index.html", function(err){
-        if(err){next(); return; }
+    res.render("emberFront.html", function(err){
+        if(err){
+            console.dir(err,'stack');
+            return; }
     });
 };
