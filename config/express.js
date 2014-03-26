@@ -6,7 +6,7 @@
 var express = require('express');
 var mongoStore = require('connect-mongo')(express);
 var flash = require('connect-flash');
-var winston = require('winston');
+//var winston = require('winston');
 var helpers = require('view-helpers');
 var pkg = require('../package.json');
 
@@ -33,7 +33,7 @@ module.exports = function(app, config, passport){
         log = {
             stream: {
                 write: function (message, encoding){
-                    winston.info(message);
+                    //winston.info(message);
                 }
             }
         };
