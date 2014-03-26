@@ -27,16 +27,12 @@
     "passport": "latest",
     "passport-local": "latest",
     "imager": "latest",
-    "winston": "latest",
     "notifier": "latest",
     "async": "latest",
     "view-helpers": "latest",
     "connect-roles": "latest",
-    "less-middleware": "*",
     "underscore": "~1.5.2",
-    "socket.io": "~0.9.16",
-    "consolidate": "~0.10.0",
-    "swig": "~1.3.2"
+    "socket.io": "~0.9.16"
   },
   "devDependencies": {
     "nodemon": "latest",

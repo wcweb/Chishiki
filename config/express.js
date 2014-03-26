@@ -10,7 +10,7 @@ var winston = require('winston');
 var helpers = require('view-helpers');
 var pkg = require('../package.json');
 
-var cons = require('consolidate');
+//var cons = require('consolidate');
 
 
 var env = process.env.NODE_ENV || 'development';
@@ -44,7 +44,7 @@ module.exports = function(app, config, passport){
     if(env !== 'test') app.use(express.logger(log));
 
     //app.engine('html', cons.swig);
-    app.engine('jade',cons.jade);
+    //app.engine('jade',cons.jade);
     app.set('views', config.root + '/app/views');
     app.set('view engine', 'jade');
 
