@@ -17,11 +17,22 @@ $(document).ready(function () {
 //$.getScript(domain.scriptPath+"_forms/_videosForm.js", function(){
 //    //require('./_forms/_videosForm');
 //});
+
+//require handlebars
+
+require('./../lib/helpers/handlebars-helpers');
+
 require('./_forms/_videosForm.js').videoInit();
 
-require('./templates/quizzesForm.handlebars');
+//require('./templates/quizzesForm.handlebars');
 //MyApp = window['MyApp'] ||{};
 //MyApp.templates = window['MyApp'].templates || {};
 
 MyApp = window['MyApp'] ||{};
-MyApp.formBuild = require('./_forms/_quizzesForm.js').formBuild;
+MyApp = require('./_forms/_quizzesForm.js');
+
+
+
+function flash(msg){
+
+}

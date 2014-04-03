@@ -209,7 +209,8 @@ ArticleSchema.methods = {
 
     addQuiz: function (question, cb) {
         var self = this;
-        this.quizs.push({
+        console.log(question);
+        this.quizzes.push({
             question: question.question,
             answers: question.answer,
             correct: question.correct,
@@ -285,6 +286,7 @@ ArticleSchema.statics = {
     load: function (id, cb){
         this.findOne({ _id : id })
             .populate('user', 'name email username')
+            .populate('quizzes.quiz')
             .populate('comments.user')
             .exec(cb);
     },

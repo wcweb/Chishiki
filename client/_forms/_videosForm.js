@@ -68,9 +68,9 @@ exports.videoInit= function(){
                 }
             })
         });
-        $('#videoForm').on('submit', function(e){
-            e.preventDefault();
-        });
+//        $('#videoForm').on('submit', function(e){
+//            e.preventDefault();
+//        });
 
 
     });

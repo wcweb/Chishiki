@@ -36,7 +36,7 @@ describe('Video add', function(){
         it('should editable', function(done){
 
 
-                agent.post('/articles/#'+article._id+'/videos')
+                agent.post('/articles/'+article._id+'/videos')
                     .field('video_title','titititit')
                     .field('video_url','ssss')
                     .expect(302)
@@ -48,7 +48,7 @@ describe('Video add', function(){
             Article.findOne({_id: article._id})
                 .exec(function (err, a) {
                     should.not.exist(err);
-                    a.title.should.equal('sss');
+                    a.title.should.equal('foo4 bar');
                     //a.videos.length.should.equal(1);
                     a.videos.length.should.equal(v_c+1)
                     done()

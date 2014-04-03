@@ -12,3 +12,4 @@ var QuizSchema = new Schema(
         incorrect: { type: Boolean, default : false }
     }
 );
+mongoose.model('Quiz', QuizSchema);

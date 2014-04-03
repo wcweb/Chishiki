@@ -1,6 +1,6 @@
 {
   "restartable": "rs",
-  "ignore": ["public/**"],
+  "ignore": ["public/**","client/**"],
   "env":{
   }
 }

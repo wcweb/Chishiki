@@ -21,6 +21,7 @@ module.exports = {
         db: 'mongodb://localhost/brutus',
         root: rootPath,
         notifier: notifier,
+        socketEnable: true,
         app: {
             name: 'Nodejs Express Mongoose Demo'
         }
@@ -29,6 +30,7 @@ module.exports = {
         db: 'mongodb://localhost/brutus_test',
         root: rootPath,
         notifier: notifier,
+        socketEnable: true,
         app: {
             name: 'Nodejs Express Mongoose Demo'
         }
@@ -37,6 +39,7 @@ module.exports = {
         db: 'mongodb://localhost/Chishiki_pro',
         root: rootPath,
         notifier: notifier,
+        socketEnable: true,
         app: {
           name: 'Chishiki ',
           title: 'Chishiki App'

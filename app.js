@@ -11,7 +11,8 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 var mongoose = require('mongoose');
 
-//var sio = require('socket.io');
+
+
 
 var connect = function(){
     var options = { server: { socketOptions: { keepAlive: 1}}}
@@ -44,12 +45,14 @@ require('./config/routes')(app, passport);
 require('./config/api')(app);
 
 
+if(config.socketEnable){
+    var sio = require('socket.io');
 
-//var server = require('http').createServer(app),
-//    io = sio.listen(server);
+    var server = require('http').createServer(app),
+        io = sio.listen(server);
 
-//require('./config/socketio')(io);
-
+    require('./config/socketio')(io);
+}
 console.log("instant init: "+process.env.NODE_ENV);
 
 if( process.env.NODE_ENV !== 'test'){
@@ -57,8 +60,13 @@ if( process.env.NODE_ENV !== 'test'){
         .clearDb(require('./lib/dbUtils').initDb());
 
     var port = process.env.PORT || 3000;
-    //server.listen(port);
-    app.listen(port);
+    if(config.socketEnable){
+        server.listen(port);
+    }else{
+        app.listen(port);
+    }
+
+
     console.log('Express server listening on port ' + port);
 }
 

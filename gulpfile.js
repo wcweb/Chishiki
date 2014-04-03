@@ -11,7 +11,8 @@ var defineModule = require('gulp-define-module');
 var concat = require('gulp-concat');
 var browserify = require('gulp-browserify');
 var browserifyHandlebars = require('browserify-handlebars');
-
+var hbsfy = require('hbsfy');
+var hbsHelpers = require('./lib/helpers/handlebars-helpers');
 
 var paths ={
     app:['app/**','app'],
@@ -55,31 +56,7 @@ gulp.task('mocha',function(){
 });
 
 
-gulp.task('templates',function(){
-    gulp.src(['templates/*.handlebars'],{read:false})
-        .pipe(
-            watch({
-                emit: 'all' }, function(files) {
-                files
-                    .pipe(plumber())
-//                    .pipe(grep('templates/*.handlebars'))
-                    .pipe(handlebars())
-                    .pipe(defineModule('plain',{
-                        //wrapper:"define('<%= name %>', ['exports'], function(__exports__){ __exports__['default'] = <%= handlebars %>; });"
-                        wrapper: 'MyApp.templates["<%= name %>"] = <%= handlebars %>'
-                    }))
-                    .pipe(concat('templates.js'))
-                    .pipe(gulp.dest('public/javascripts/'))
 
-                    .on('error', function(err) {
-
-                        if (!/tests? failed/.test(err.stack)) {
-                            console.log(err.stack);
-                        }
-                        this.emit('end');
-                    })
-            }));
-});
 
 
 gulp.task('server:test', function(){
@@ -100,7 +77,7 @@ gulp.task('server',function(){
     nodemon({
         script: 'app.js',
         ext: 'html js',
-        ignore:['test/*','templates/*','public/*']
+        ignore:['test/*','templates/*','public/*','client/**']
         //,env:{ 'NODE_ENV' : 'test'}
     }).on('restart');
 
@@ -113,9 +90,15 @@ gulp.task('hbs', function(){
     gulp.src('./client/app.js')
         .pipe(browserify({
             basedir: './client/',
-            transform: [browserifyHandlebars]
-        }))
+            insertGlobals: true,
+            transform: [hbsfy]
+        })).on('error',function(err){
+
+                    console.dir(err);
+
+            })
         .pipe(gulp.dest('./public/javascripts/'))
+
 
 });
 

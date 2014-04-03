@@ -18,6 +18,14 @@ block content
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/videos/"+video.url)= video.title
               | &nbsp;&nbsp;
+        - if (article.quizzes.length)
+          p Quizzes &nbsp;
+            - each quiz in article.quizzes
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/videos/"+quiz)= quiz.question
+              | &nbsp;&nbsp;
+
+
 
         - if (article.tags)
           p Tags &nbsp;
@@ -44,3 +52,9 @@ block content
   - each comment in article.comments
     include ../comments/comment
   include ../comments/form
+
+
+block foot
+  script.
+    console.log(!{JSON.stringify(req.article)});
+    var article = !{JSON.stringify(req.article)};
