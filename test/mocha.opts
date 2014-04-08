@@ -1,2 +1,3 @@
 --require should
 --growl
+--grep @fast

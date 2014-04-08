@@ -122,24 +122,12 @@ var config={
         data['actionName'] = data.quizzes.length > 0 ? "Update":"Save";
 
         if(!data.quizzes.length){
-            var demoQuestions =example.quiz['questions'];
-            demoQuestions[0].isActive = true;
-
-            var demoQuiz =  {quiz:demoQuestions};
+            var demoQuiz =  {quiz:example.quiz};
             data.quizzes.push(demoQuiz);
         }
 
+        data.quizzes[0].quiz.questions[0].isActive = true;
 
-        // add index
-
-
-        for(var idx = 0; idx < data.quizzes[0].quiz.length; idx++){
-//            data.quizzes[idx].index = idx;  // handlebar have been added hindex an oindex.
-            var currentQuiz= data.quizzes[0].quiz[idx];
-            for(var j = 0; j<currentQuiz.answers.length; j++){
-                currentQuiz.answers[j].oindex = j;
-            }
-        }
 
         return {form:data};
     },
@@ -373,7 +361,7 @@ exports.formBuild =function (options){
     config.formBody = options.formBody;
     var data = config.data,
         questions = data['questions'];
-    console.log(data.quizzes);
+    console.log("data.quizzes",data.quizzes);
     data = reformerData(data);
 
     var wrapper =$( config.formBody);
@@ -401,17 +389,84 @@ exports.formBuild =function (options){
         wrapper.on('submit',function(e){
             e.preventDefault();
             var form = $(config.formBody);
-            var data =$(form).serialize();
+            var dataArray =$(form).serialize();
+
+            //console.log($(form).attr('action'));
+            //console.log("dataArray: ",dataArray);
+            var serializedArray = dataArray;
+
+//
+//            var tempObject ={index:-1};
+//            var temp2Object = {index: -1};
+//            $.each(dataArray, function(){
+//                var matches = this.name.match( /^(.+?)\[(\d+)\]\[(.+)\]+$/i)
+//                    , key
+//                    , subKey
+//                    , subId
+//                    , value = this.value
+//                    , subValue = {};
+//                console.log(matches);
+//
+//                if( matches){
+//                    // serializedArray[key][subId]{pos, answers[]}
+//                    subKey = matches[3];
+//                    subId = matches[2];
+//                    key = matches[1];
+//
+//
+//                    if( !( key in  serializedArray)){
+//                        serializedArray[key] =[];
+//                    }
+//                    if( !(subId === tempObject.index)){
+//                        if(tempObject.index!==-1) serializedArray[key].push(tempObject);
+//                        tempObject = {};
+//                        tempObject.index = subId;
+//                    }
+//                    var propertyMatches = subKey.match(/^(.+?)\[(\d+)\]\[(.+)\]+$/i);
+//
+//                    //@TODO if more deeper?
+//                    if(propertyMatches){
+//                        var subsKey = propertyMatches[1];
+//                        var subsId = propertyMatches[2];
+//                        var subsKeyName = propertyMatches[3];
+//
+//                        if( !( subsKey in  tempObject)){
+//                            tempObject[subsKey] =[];
+//                        }
+//
+//                        if( !(subsId === temp2Object.index)){
+//                            if(temp2Object.index!==-1) tempObject[subsKey].push(temp2Object);
+//                            temp2Object = {};
+//                            temp2Object.index = subsId;
+//                        }
+//                        temp2Object[subsKeyName] = value;
+//
+//                    }else{
+//                        tempObject[subKey] = value;
+//                    }
+//
+//
+//
+//
+//                }else{
+//                   serializedArray[this.name] = this.value || '';
+//                }
+//
+//            });
+//
+//            console.dir(serializedArray);
 
             $.ajax({
-                url: $(form).attr('action'),
-                data: data,
+                //type:'POST',
+                url: $(form).attr('action')+'?'+serializedArray,
+                //data: serializedArray,
+                //dataType: "json",
                 success: function(json){
-                    console.log(json);
+                    //console.log(json);
 
                 },
                 error:function(err){
-                    console.log(err);
+                    //console.log(err);
                 }
             })
 
@@ -578,10 +633,10 @@ function program1(depth0,data) {
   buffer += "\n\n    <div class=\"quiz-group\" data-target=\""
     + escapeExpression((helper = helpers.setIndex || (depth0 && depth0.setIndex),options={hash:{},data:data},helper ? helper.call(depth0, (data == null || data === false ? data : data.index), options) : helperMissing.call(depth0, "setIndex", (data == null || data === false ? data : data.index), options)))
     + "\">\n      <div class=\"\">\n          <ul class=\"nav nav-pills group-nav\" id=\"quizzes-groups-nav\">\n            ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.quiz), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
+  stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.quiz)),stack1 == null || stack1 === false ? stack1 : stack1.questions), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n              <li class=\" pull-right\">\n                  <button id=\"add\" data-target=\"#quizzes-groups-nav\" data-action=\"add\"\n                          class=\"btn btn-primary group-pane-add-btn\">Add Question</button>\n              </li>\n          </ul>\n      </div>\n      <div class=\"tab-content group-wrapper\" id=\"quizzes-group-wrapper\">\n\n\n\n        ";
-  stack1 = helpers.each.call(depth0, (depth0 && depth0.quiz), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
+  stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.quiz)),stack1 == null || stack1 === false ? stack1 : stack1.questions), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n      </div>\n\n    </div>\n  ";
   return buffer;
@@ -629,7 +684,7 @@ function program5(depth0,data,depth1) {
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\" data-action=\"remove\"\n                                    class=\"close group-pane-remove-btn\">×</button>\n                        </div>\n                    </div>\n\n                    <div class=\"form-group\">\n                        <div class=\"col-sm-11 col-sm-offset-1\">\n\n                            <textarea rows=\"3\" name=\"quizzes["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]question\"\n                                      placeholder=\"Enter the Question title\" class=\"form-control\">";
+    + "][question]\"\n                                      placeholder=\"Enter the Question title\" class=\"form-control\">";
   if (helper = helpers.question) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.question); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
@@ -646,13 +701,13 @@ function program5(depth0,data,depth1) {
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-0\"  data-action=\"add\"\n                                    class=\"btn btn-info pull-right group-pane-sub-add-btn\">\n                                add an option\n                            </button>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"correct\" class=\"col-sm-3 control-label\">Correct</label>\n\n                        <div class=\"col-sm-9\">\n                            <textarea rows=\"2\" name=\"quizzes["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]correct\"\n                                      placeholder=\"If Correct : \" class=\"form-control\">";
+    + "][correct]\"\n                                      placeholder=\"If Correct : \" class=\"form-control\">";
   if (helper = helpers.correct) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.correct); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
     + "\n                            </textarea>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"incorrect\" class=\"col-sm-3 control-label\">Incorrect</label>\n\n                        <div class=\"col-sm-9\">\n                            <textarea rows=\"2\" name=\"quizzes["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]incorrect\"\n                                      placeholder=\"If incorrect : \" class=\"form-control\">";
+    + "][incorrect]\"\n                                      placeholder=\"If incorrect : \" class=\"form-control\">";
   if (helper = helpers.incorrect) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.incorrect); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -666,11 +721,11 @@ function program6(depth0,data,depth1) {
     + escapeExpression(((stack1 = (depth1 && depth1.oindex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\">\n                              <div class=\"form-group\">\n                                  <label for=\"option\" class=\"col-sm-2 control-label\">Option :</label>\n\n                                  <div class=\"col-sm-9\">\n                                      <input type=\"text\" name=\"quizees["
+    + "\">\n                              <div class=\"form-group\">\n                                  <label for=\"option\" class=\"col-sm-2 control-label\">Option :</label>\n\n                                  <div class=\"col-sm-9\">\n                                      <input type=\"text\" name=\"quizzes["
     + escapeExpression(((stack1 = (depth1 && depth1.oindex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]answers["
+    + "][answers]["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]option\"\n                                             value=\"";
+    + "][option]\"\n                                             value=\"";
   if (helper = helpers.option) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.option); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
   buffer += escapeExpression(stack1)
@@ -678,11 +733,11 @@ function program6(depth0,data,depth1) {
     + escapeExpression(((stack1 = (depth1 && depth1.oindex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"\n                                              data-action=\"remove\" class=\"close group-pane-sub-remove-btn\">×</button>\n                                  </div>\n                              </div>\n                              <div class=\"form-group\">\n                                  <div class=\"col-sm-9 col-sm-offset-2\">\n                                      <input type=\"checkbox\" name=\"quizees["
+    + "\"\n                                              data-action=\"remove\" class=\"close group-pane-sub-remove-btn\">×</button>\n                                  </div>\n                              </div>\n                              <div class=\"form-group\">\n                                  <div class=\"col-sm-9 col-sm-offset-2\">\n                                      <input type=\"checkbox\" name=\"quizzes["
     + escapeExpression(((stack1 = (depth1 && depth1.oindex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]answers["
+    + "][answers]["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "]correct\"\n                                             placeholder=\"Correct ? \"\n                                        ";
+    + "][correct]\"\n                                             placeholder=\"Correct ? \"\n                                        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.correct), {hash:{},inverse:self.noop,fn:self.program(7, program7, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += " >\n                                      <label for=\"correctBool\" class=\"control-label\">Correct ?</label>\n                                  </div>\n                              </div>\n                          </div>\n                       ";
@@ -2709,5 +2764,5 @@ MyApp = require('./_forms/_quizzesForm.js');
 function flash(msg){
 
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_d40e699f.js","/")
+}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_91b96094.js","/")
 },{"./../lib/helpers/handlebars-helpers":5,"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}]},{},[18])

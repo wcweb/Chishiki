@@ -6,7 +6,8 @@ var config = require('../../config/config')[env];
 var imagerConfig = require(config.root + '/config/imager.js');
 var Schema = mongoose.Schema;
 var _= utils = require('../../lib/utils');
-
+var Quiz = mongoose.model('Quiz');
+var Answer = mongoose.model('Answer');
 /**
  * Getters
  */
@@ -36,7 +37,7 @@ var ArticleSchema = new Schema({
         title:{ type : String, default :''},
         link: { type : String, default :''}
     }],
-    quizzes:[{quiz:{type: Schema.ObjectId, ref : "Quiz"}}],
+    quizzes:[{quiz:{type: Schema.Types.ObjectId, ref : "Quiz"}}],
     comments: [{
         body: { type : String, default : '' },
         user: { type : Schema.ObjectId, ref : 'User' },
@@ -207,17 +208,83 @@ ArticleSchema.methods = {
      * @api private
      */
 
-    addQuiz: function (question, cb) {
-        var self = this;
-        console.log(question);
-        this.quizzes.push({
-            question: question.question,
-            answers: question.answer,
-            correct: question.correct,
-            incorrect: question.incorrect
-        });
+    addQuiz: function (questions, cb) {
+        var that = this;
+        console.log(questions.length);
+        var tempQuiz = {};
+        tempQuiz.questions =[];
 
-        this.save(cb);
+
+        var step3 = function(){
+            //console.dir(tempQuiz);
+            var quiz = new Quiz(tempQuiz);
+            quiz.save(function(err){
+                if (err) console.log(err);
+                Quiz.findOne(quiz)
+
+                    .exec( function(err, resultQuiz){
+                        if(err) return console.log(err);
+                        //console.log('reslutQuiz',resultQuiz);
+
+                        that.quizzes.push({quiz:resultQuiz});
+
+                        console.log("before save",that.quizzes);
+
+
+                        that.save(cb);
+                    })
+            })
+        }
+        var finishPushAnswers = function(answers,timer){
+            var quiz = {};
+            quiz.question =  questions[i].question;
+            quiz.answers = answers;
+            quiz.correct = questions[i].correct;
+            quiz.incorrect = questions[i].incorrect;
+
+            tempQuiz.questions.push(quiz);
+            //this.quizzes
+           // console.dir(tempQuiz.questions[0].answers,'stack');
+
+            if(timer == questions.length-1){
+                step3();
+            }
+
+        };
+
+
+
+        for(var i=0; i< questions.length;i++){
+            (function(done){
+                //console.dir(questions[i].answers);
+                var answers =[];
+                for(var j=0; j< questions[i].answers.length;j++){
+                    (function(){
+                        if (questions[i].answers[j].correct == 'on') {
+                            questions[i].answers[j].correct = true;
+                        }else{
+                            questions[i].answers[j].correct = false;
+                        }
+                        answers.push({
+                            option : questions[i].answers[j].option,
+                            correct :questions[i].answers[j].correct
+                        });
+                       // console.log(answers[j]);
+                    })();
+
+                }
+
+                done(answers,i);
+
+
+
+            })(finishPushAnswers)
+        }
+
+
+
+
+
     },
 
     /**

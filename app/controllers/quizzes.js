@@ -3,7 +3,7 @@ var utils = require('../../lib/utils');
 
 exports.load = function( req, res, next, id){
     var article = req.article;
-
+    console.log(article);
     utils.findByParam(article.quizzes, { id: id }, function(err, quiz){
         if(err) return next(err);
         req.quiz = quiz;
@@ -14,7 +14,14 @@ exports.load = function( req, res, next, id){
 exports.create = function( req, res){
     var article = req.article;
     var user = req.user;
+
+
+    console.dir("req.query.",req.query.quizzes);
+    console.dir("req.body.",req.body.quizzes);
     if(!req.query.quizzes) return res.redirect('/articles/' + article.id);
+
+
+
 
     article.addQuiz(req.query.quizzes, function(err){
         if(err) return res.jsonp('500',{message: err});

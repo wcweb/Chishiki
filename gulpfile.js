@@ -46,6 +46,7 @@ gulp.task('mocha',function(){
             {
                 ui:'bdd',
                 reporter: 'list',
+                grep: '@fast',
                 timeout: 10000,
                 globals: {
                     should: require('should')
@@ -66,7 +67,10 @@ gulp.task('server:test', function(){
         ext: 'html js',
         ignore:['ignored.js']
         ,env:{ 'NODE_ENV' : 'test'}
-    }).on('restart', ['mocha']);
+        //,nodeArgs: ['--debug']
+    }).on('restart', ['mocha']).on('error',function(err){
+            console.dir(err);
+        });
 
 });
 

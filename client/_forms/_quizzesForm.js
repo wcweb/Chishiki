@@ -120,24 +120,12 @@ var config={
         data['actionName'] = data.quizzes.length > 0 ? "Update":"Save";
 
         if(!data.quizzes.length){
-            var demoQuestions =example.quiz['questions'];
-            demoQuestions[0].isActive = true;
-
-            var demoQuiz =  {quiz:demoQuestions};
+            var demoQuiz =  {quiz:example.quiz};
             data.quizzes.push(demoQuiz);
         }
 
+        data.quizzes[0].quiz.questions[0].isActive = true;
 
-        // add index
-
-
-        for(var idx = 0; idx < data.quizzes[0].quiz.length; idx++){
-//            data.quizzes[idx].index = idx;  // handlebar have been added hindex an oindex.
-            var currentQuiz= data.quizzes[0].quiz[idx];
-            for(var j = 0; j<currentQuiz.answers.length; j++){
-                currentQuiz.answers[j].oindex = j;
-            }
-        }
 
         return {form:data};
     },
@@ -371,7 +359,7 @@ exports.formBuild =function (options){
     config.formBody = options.formBody;
     var data = config.data,
         questions = data['questions'];
-    console.log(data.quizzes);
+    console.log("data.quizzes",data.quizzes);
     data = reformerData(data);
 
     var wrapper =$( config.formBody);
@@ -399,17 +387,84 @@ exports.formBuild =function (options){
         wrapper.on('submit',function(e){
             e.preventDefault();
             var form = $(config.formBody);
-            var data =$(form).serialize();
+            var dataArray =$(form).serialize();
+
+            //console.log($(form).attr('action'));
+            //console.log("dataArray: ",dataArray);
+            var serializedArray = dataArray;
+
+//
+//            var tempObject ={index:-1};
+//            var temp2Object = {index: -1};
+//            $.each(dataArray, function(){
+//                var matches = this.name.match( /^(.+?)\[(\d+)\]\[(.+)\]+$/i)
+//                    , key
+//                    , subKey
+//                    , subId
+//                    , value = this.value
+//                    , subValue = {};
+//                console.log(matches);
+//
+//                if( matches){
+//                    // serializedArray[key][subId]{pos, answers[]}
+//                    subKey = matches[3];
+//                    subId = matches[2];
+//                    key = matches[1];
+//
+//
+//                    if( !( key in  serializedArray)){
+//                        serializedArray[key] =[];
+//                    }
+//                    if( !(subId === tempObject.index)){
+//                        if(tempObject.index!==-1) serializedArray[key].push(tempObject);
+//                        tempObject = {};
+//                        tempObject.index = subId;
+//                    }
+//                    var propertyMatches = subKey.match(/^(.+?)\[(\d+)\]\[(.+)\]+$/i);
+//
+//                    //@TODO if more deeper?
+//                    if(propertyMatches){
+//                        var subsKey = propertyMatches[1];
+//                        var subsId = propertyMatches[2];
+//                        var subsKeyName = propertyMatches[3];
+//
+//                        if( !( subsKey in  tempObject)){
+//                            tempObject[subsKey] =[];
+//                        }
+//
+//                        if( !(subsId === temp2Object.index)){
+//                            if(temp2Object.index!==-1) tempObject[subsKey].push(temp2Object);
+//                            temp2Object = {};
+//                            temp2Object.index = subsId;
+//                        }
+//                        temp2Object[subsKeyName] = value;
+//
+//                    }else{
+//                        tempObject[subKey] = value;
+//                    }
+//
+//
+//
+//
+//                }else{
+//                   serializedArray[this.name] = this.value || '';
+//                }
+//
+//            });
+//
+//            console.dir(serializedArray);
 
             $.ajax({
-                url: $(form).attr('action'),
-                data: data,
+                //type:'POST',
+                url: $(form).attr('action')+'?'+serializedArray,
+                //data: serializedArray,
+                //dataType: "json",
                 success: function(json){
-                    console.log(json);
+                    //console.log(json);
 
                 },
                 error:function(err){
-                    console.log(err);
+                    //console.log(err);
                 }
             })
 

@@ -5,7 +5,7 @@
     <div class="quiz-group" data-target="{{setIndex @index}}">
       <div class="">
           <ul class="nav nav-pills group-nav" id="quizzes-groups-nav">
-            {{#each quiz }}
+            {{#each quiz.questions }}
                 <li  class="{{#if isActive }}active{{/if}}" id="group-nav-{{@index}}">
                     <a data-toggle="tab" href="#group-pane-{{ ../oindex }}-{{@index}}" title="{{question}}">{{setIndex @index}}</a>
                 </li>
@@ -20,7 +20,7 @@
 
 
 
-        {{#each quiz }}
+        {{#each quiz.questions }}
             <div class="tab-pane {{#if isActive }}active{{/if}} group-pane" id="group-pane-{{ ../oindex }}-{{@index}}">
                 <div class="">
                     <div class="form-group">
@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <div class="col-sm-11 col-sm-offset-1">
 
-                            <textarea rows="3" name="quizzes[{{@index}}]question"
+                            <textarea rows="3" name="quizzes[{{@index}}][question]"
                                       placeholder="Enter the Question title" class="form-control">{{{ question }}}
                             </textarea>
                         </div>
@@ -48,7 +48,7 @@
                                   <label for="option" class="col-sm-2 control-label">Option :</label>
 
                                   <div class="col-sm-9">
-                                      <input type="text" name="quizees[{{../oindex}}]answers[{{@index}}]option"
+                                      <input type="text" name="quizzes[{{../oindex}}][answers][{{@index}}][option]"
                                              value="{{option}}"
                                              placeholder="Enter option title" class="form-control">
                                   </div>
@@ -59,7 +59,7 @@
                               </div>
                               <div class="form-group">
                                   <div class="col-sm-9 col-sm-offset-2">
-                                      <input type="checkbox" name="quizees[{{ ../oindex }}]answers[{{@index}}]correct"
+                                      <input type="checkbox" name="quizzes[{{ ../oindex }}][answers][{{@index}}][correct]"
                                              placeholder="Correct ? "
                                         {{#if correct }} checked {{/if}} >
                                       <label for="correctBool" class="control-label">Correct ?</label>
@@ -81,7 +81,7 @@
                         <label for="correct" class="col-sm-3 control-label">Correct</label>
 
                         <div class="col-sm-9">
-                            <textarea rows="2" name="quizzes[{{@index}}]correct"
+                            <textarea rows="2" name="quizzes[{{@index}}][correct]"
                                       placeholder="If Correct : " class="form-control">{{ correct }}
                             </textarea>
                         </div>
@@ -90,7 +90,7 @@
                         <label for="incorrect" class="col-sm-3 control-label">Incorrect</label>
 
                         <div class="col-sm-9">
-                            <textarea rows="2" name="quizzes[{{@index}}]incorrect"
+                            <textarea rows="2" name="quizzes[{{@index}}][incorrect]"
                                       placeholder="If incorrect : " class="form-control">{{ incorrect }}
                             </textarea>
                         </div>
