@@ -507,29 +507,29 @@ exports.formBuild = function (options) {
             if (config.methodType == 'PUT') {
                 ajaxURL = $(form).attr('action') + '/' + data.form.quizzes[0].quiz._id;
                 console.log(JSON.stringify($(form).serialize()));
-                serializedArray = serializeJSON($(form).serializeArray());
+                //serializedArray = serializeJSON($(form).serializeArray());
 
             } else {
                 ajaxURL = $(form).attr('action')
-                serializedArray = $(form).serialize();
+                //serializedArray = $(form).serialize();
             }
+            serializedArray = $(form).serialize();
+            $.ajax({
+                type:config.methodType,
+                url: ajaxURL,
+                data: serializedArray,
+                dataType: "json",
+                success: function(json){
+                    console.log(json);
 
-//            $.ajax({
-//                type:config.methodType,
-//                url: ajaxURL,
-//                data: serializedArray,
-//                dataType: "json",
-//                success: function(json){
-//                    console.log(json);
-//
-//                    $('#quizMsg ul').append($('<li> article '+json.art_id+' updated!</li>'))
-//                        .parent().show().fadeIn();
-//
-//                },
-//                error:function(err){
-//                    console.log(err);
-//                }
-//            })
+                    $('#quizMsg ul').append($('<li> article '+json.art_id+' updated!</li>'))
+                        .parent().show().fadeIn();
+
+                },
+                error:function(err){
+                    console.log(err);
+                }
+            })
 
 
         });

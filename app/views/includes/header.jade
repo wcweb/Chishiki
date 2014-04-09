@@ -26,6 +26,8 @@
 
             li(class=isActive('/dashboard/admin') ? 'active' : '')
               a(href="/dashboard/admin", title="dashboard/admin") Admin
+        li
+          a(href="/demo") Demo
       ul.nav.navbar-nav.pull-right
         - if (req.isAuthenticated())
           li

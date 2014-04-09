@@ -509,29 +509,29 @@ exports.formBuild = function (options) {
             if (config.methodType == 'PUT') {
                 ajaxURL = $(form).attr('action') + '/' + data.form.quizzes[0].quiz._id;
                 console.log(JSON.stringify($(form).serialize()));
-                serializedArray = serializeJSON($(form).serializeArray());
+                //serializedArray = serializeJSON($(form).serializeArray());
 
             } else {
                 ajaxURL = $(form).attr('action')
-                serializedArray = $(form).serialize();
+                //serializedArray = $(form).serialize();
             }
+            serializedArray = $(form).serialize();
+            $.ajax({
+                type:config.methodType,
+                url: ajaxURL,
+                data: serializedArray,
+                dataType: "json",
+                success: function(json){
+                    console.log(json);
 
-//            $.ajax({
-//                type:config.methodType,
-//                url: ajaxURL,
-//                data: serializedArray,
-//                dataType: "json",
-//                success: function(json){
-//                    console.log(json);
-//
-//                    $('#quizMsg ul').append($('<li> article '+json.art_id+' updated!</li>'))
-//                        .parent().show().fadeIn();
-//
-//                },
-//                error:function(err){
-//                    console.log(err);
-//                }
-//            })
+                    $('#quizMsg ul').append($('<li> article '+json.art_id+' updated!</li>'))
+                        .parent().show().fadeIn();
+
+                },
+                error:function(err){
+                    console.log(err);
+                }
+            })
 
 
         });
@@ -2933,5 +2933,5 @@ MyApp = require('./_forms/_quizzesForm.js');
 function flash(msg){
 
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_59a3f7b4.js","/")
+}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_24e8ae83.js","/")
 },{"./../lib/helpers/handlebars-helpers":5,"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}]},{},[18])
