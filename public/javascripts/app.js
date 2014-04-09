@@ -649,8 +649,8 @@ var serializeJSON = function (dataArray) {
     console.dir(serializedArray);
     return serializedArray;
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/_forms/_quizzesForm.js","/_forms")
-},{"./../../lib/helpers/data-example":4,"./../templates/quizzesForm.handlebars":3,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],2:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/_forms/_quizzesForm.js","/_forms")
+},{"./../../lib/helpers/data-example":4,"./../templates/quizzesForm.handlebars":3,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //Module.exports= function(){
 //define('_forms/_videosForm', ['exports'], function(__exports___){
@@ -786,8 +786,8 @@ exports.videoInit= function(){
 //}
 //});
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/_forms/_videosForm.js","/_forms")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],3:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/_forms/_videosForm.js","/_forms")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -927,8 +927,8 @@ function program7(depth0,data) {
   return buffer;
   });
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/templates/quizzesForm.handlebars","/templates")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"hbsfy/runtime":17}],4:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/templates/quizzesForm.handlebars","/templates")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"hbsfy/runtime":17}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.quiz = {
     "info": {
@@ -1000,8 +1000,8 @@ exports.quiz = {
         }
     ]
 };
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../lib/helpers/data-example.js","/../lib/helpers")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],5:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../lib/helpers/data-example.js","/../lib/helpers")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 
 var Handlebars = require('hbsfy/runtime');
@@ -1014,8 +1014,8 @@ Handlebars.registerHelper('setIndex', function(value){
 Handlebars.registerHelper('lookup', function(obj, field){
     return obj[field];
 })
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../lib/helpers/handlebars-helpers.js","/../lib/helpers")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"hbsfy/runtime":17}],6:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../lib/helpers/handlebars-helpers.js","/../lib/helpers")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"hbsfy/runtime":17}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /**
  * The buffer module from node.js, for the browser.
@@ -1093,14 +1093,14 @@ function Buffer (subject, encoding, noZero) {
   else if (type === 'string')
     length = Buffer.byteLength(subject, encoding)
   else if (type === 'object')
-    length = coerce(subject.length) // Assume object is an array
+    length = coerce(subject.length) // assume that object is array-like
   else
     throw new Error('First argument needs to be a number, array or string.')
 
   var buf
   if (Buffer._useTypedArrays) {
     // Preferred: Return an augmented `Uint8Array` instance for best performance
-    buf = augment(new Uint8Array(length))
+    buf = Buffer._augment(new Uint8Array(length))
   } else {
     // Fallback: Return THIS instance of Buffer (created by `new`)
     buf = this
@@ -1109,9 +1109,11 @@ function Buffer (subject, encoding, noZero) {
   }
 
   var i
-  if (Buffer._useTypedArrays && typeof Uint8Array === 'function' &&
-      subject instanceof Uint8Array) {
-    // Speed optimization -- use set if we're copying from a Uint8Array
+  if (Buffer._useTypedArrays && (subject instanceof Uint8Array
+      || subject instanceof Uint16Array || subject instanceof Int16Array
+      || subject instanceof Uint32Array || subject instanceof Int32Array
+      || subject instanceof Float32Array || subject instanceof Float64Array)) {
+    // Speed optimization -- use set if we're copying from a typed array
     buf._set(subject)
   } else if (isArrayish(subject)) {
     // Treat array-ish objects as a byte array
@@ -1408,9 +1410,14 @@ Buffer.prototype.copy = function (target, target_start, start, end) {
   if (target.length - target_start < end - start)
     end = target.length - target_start + start
 
-  // copy!
-  for (var i = 0; i < end - start; i++)
-    target[i + target_start] = this[i + start]
+  var len = end - start
+
+  if (len < 100 || !Buffer._useTypedArrays) {
+    for (var i = 0; i < len; i++)
+      target[i + target_start] = this[i + start]
+  } else {
+    target._set(this.subarray(start, start + len), target_start)
+  }
 }
 
 function _base64Slice (buf, start, end) {
@@ -1479,7 +1486,7 @@ Buffer.prototype.slice = function (start, end) {
   end = clamp(end, len, len)
 
   if (Buffer._useTypedArrays) {
-    return augment(this.subarray(start, end))
+    return Buffer._augment(this.subarray(start, end))
   } else {
     var sliceLen = end - start
     var newBuf = new Buffer(sliceLen, undefined, true)
@@ -1947,9 +1954,9 @@ function stringtrim (str) {
 var BP = Buffer.prototype
 
 /**
- * Augment the Uint8Array *instance* (not the class!) with Buffer methods
+ * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
  */
-function augment (arr) {
+Buffer._augment = function (arr) {
   arr._isBuffer = true
 
   // save reference to original Uint8Array get/set methods before overwriting
@@ -2128,8 +2135,8 @@ function assert (test, message) {
   if (!test) throw new Error(message || 'Failed assertion')
 }
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/index.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"base64-js":7,"buffer":6,"ieee754":8}],7:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/index.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"base64-js":7,"buffer":6,"ieee754":8}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
@@ -2253,8 +2260,8 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 	module.exports.fromByteArray = uint8ToBase64
 }())
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],8:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib/b64.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/base64-js/lib")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.read = function(buffer, offset, isLE, mLen, nBytes) {
   var e, m,
@@ -2341,8 +2348,8 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128;
 };
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/ieee754")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],9:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/ieee754/index.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/buffer/node_modules/ieee754")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // shim for using process in browser
 
@@ -2388,6 +2395,13 @@ process.browser = true;
 process.env = {};
 process.argv = [];
 
+function noop() {}
+
+process.on = noop;
+process.once = noop;
+process.off = noop;
+process.emit = noop;
+
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
 }
@@ -2398,8 +2412,8 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],10:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js","/../node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 /*globals Handlebars: true */
@@ -2433,8 +2447,8 @@ var Handlebars = create();
 Handlebars.create = create;
 
 exports["default"] = Handlebars;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars.runtime.js","/../node_modules/handlebars/dist/cjs")
-},{"./handlebars/base":11,"./handlebars/exception":12,"./handlebars/runtime":13,"./handlebars/safe-string":14,"./handlebars/utils":15,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],11:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars.runtime.js","/../node_modules/handlebars/dist/cjs")
+},{"./handlebars/base":11,"./handlebars/exception":12,"./handlebars/runtime":13,"./handlebars/safe-string":14,"./handlebars/utils":15,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],11:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var Utils = require("./utils");
@@ -2616,8 +2630,8 @@ exports.log = log;var createFrame = function(object) {
   return obj;
 };
 exports.createFrame = createFrame;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/base.js","/../node_modules/handlebars/dist/cjs/handlebars")
-},{"./exception":12,"./utils":15,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],12:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/base.js","/../node_modules/handlebars/dist/cjs/handlebars")
+},{"./exception":12,"./utils":15,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],12:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 
@@ -2647,8 +2661,8 @@ function Exception(message, node) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/exception.js","/../node_modules/handlebars/dist/cjs/handlebars")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],13:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/exception.js","/../node_modules/handlebars/dist/cjs/handlebars")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],13:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var Utils = require("./utils");
@@ -2787,8 +2801,8 @@ exports.program = program;function invokePartial(partial, name, context, helpers
 exports.invokePartial = invokePartial;function noop() { return ""; }
 
 exports.noop = noop;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/runtime.js","/../node_modules/handlebars/dist/cjs/handlebars")
-},{"./base":11,"./exception":12,"./utils":15,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],14:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/runtime.js","/../node_modules/handlebars/dist/cjs/handlebars")
+},{"./base":11,"./exception":12,"./utils":15,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 // Build out our basic SafeString type
@@ -2801,8 +2815,8 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/safe-string.js","/../node_modules/handlebars/dist/cjs/handlebars")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],15:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/safe-string.js","/../node_modules/handlebars/dist/cjs/handlebars")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],15:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 /*jshint -W004 */
@@ -2880,20 +2894,20 @@ exports.escapeExpression = escapeExpression;function isEmpty(value) {
 }
 
 exports.isEmpty = isEmpty;
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/utils.js","/../node_modules/handlebars/dist/cjs/handlebars")
-},{"./safe-string":14,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],16:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/dist/cjs/handlebars/utils.js","/../node_modules/handlebars/dist/cjs/handlebars")
+},{"./safe-string":14,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],16:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/runtime.js","/../node_modules/handlebars")
-},{"./dist/cjs/handlebars.runtime":10,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],17:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/handlebars/runtime.js","/../node_modules/handlebars")
+},{"./dist/cjs/handlebars.runtime":10,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}],17:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 module.exports = require("handlebars/runtime")["default"];
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/hbsfy/runtime.js","/../node_modules/hbsfy")
-},{"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"handlebars/runtime":16}],18:[function(require,module,exports){
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/../node_modules/hbsfy/runtime.js","/../node_modules/hbsfy")
+},{"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6,"handlebars/runtime":16}],18:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 //define('_forms/_videosForm', ['exports'], function(__exports___){
 //   console.log(__exports___);
@@ -2933,5 +2947,5 @@ MyApp = require('./_forms/_quizzesForm.js');
 function flash(msg){
 
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_59a3f7b4.js","/")
-},{"./../lib/helpers/handlebars-helpers":5,"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}]},{},[18])
+}).call(this,require("/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_136d2f95.js","/")
+},{"./../lib/helpers/handlebars-helpers":5,"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"/Users/macbookpro/Documents/appfog/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}]},{},[18])
