@@ -1,23 +1,32 @@
 var mongoose = require('mongoose');
 var utils = require('../../lib/utils');
+var extend = require('util')._extend;
 
 exports.load = function( req, res, next, id){
-    var article = req.article;
-    console.log(article);
-    utils.findByParam(article.quizzes, { id: id }, function(err, quiz){
-        if(err) return next(err);
-        req.quiz = quiz;
-        next();
-    });
+    next();
+//    var article = req.article;
+//
+//
+//    if(article.quizzes[0]._id == id){
+//
+//        req.quiz = article.quizzes;
+//        next();
+//    }else{
+//        next('not found');
+//    }
+
+
+//    utils.findByParam(article.quizzes, { quiz:{_id:id} }, function(err, quiz){
+//        console.log("findByParam",quiz);
+//        if(err) return next(err);
+//        req.quiz = quiz;
+//        next();
+//    });
 }
 
 exports.create = function( req, res){
     var article = req.article;
-    var user = req.user;
 
-
-    console.dir("req.query.",req.query.quizzes);
-    console.dir("req.body.",req.body.quizzes);
     if(!req.query.quizzes) return res.redirect('/articles/' + article.id);
 
 
@@ -30,6 +39,16 @@ exports.create = function( req, res){
     });
 }
 
+exports.update = function (req, res){
+    var article = req.article;
+    console.log("req.body.quizzes",req.body.quizzes);
+    article.updateQuiz(req.body.quizzes, function(err){
+
+        if(err) return res.jsonp('500',{message: err});
+        req.flash('info', 'Quiz Added!');
+        res.jsonp({art_id:article.id});
+    });
+}
 //exports.edit = function(req,res){
 //    var article = req.article;
 //    var user = req.user;

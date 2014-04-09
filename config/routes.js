@@ -86,9 +86,10 @@ module.exports = function (app, passport){
     app.del('/articles/:artid/videos/:videoId', videos.destroy);
 
     var quizzes = require('../app/controllers/quizzes');
-    app.param('quizId', videos.load);
+    app.param('quizId', quizzes.load);
     app.post('/articles/:artid/quizzes',articleAuth, quizzes.create);
     app.get('/articles/:artid/quizzes', articleAuth, quizzes.create);
+    app.put('/articles/:artid/quizzes/:quizId', quizzes.update);
     app.del('/articles/:artid/quizzes/:quizId', quizzes.destroy);
 
 

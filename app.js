@@ -60,9 +60,9 @@ if(config.socketEnable){
 console.log("instant init: "+process.env.NODE_ENV);
 
 if( process.env.NODE_ENV !== 'test'){
-    //require('./lib/dbUtils')
-//        .clearDb(require('./lib/dbUtils')
-//        .initDb());
+    require('./lib/dbUtils')
+        .clearDb(require('./lib/dbUtils')
+        .initDb());
 
     var port = process.env.PORT || 3000;
     if(config.socketEnable){

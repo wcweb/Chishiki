@@ -45,7 +45,7 @@ describe('Quizzes @fast', function () {
     })
 
     describe('GET /articles/new', function () {
-        context('When logged in', function () {
+
             before(function (done) {
                 // login the user
 
@@ -75,6 +75,8 @@ describe('Quizzes @fast', function () {
                     });
 
             })
+
+
             it('should save the article to the database ', function (done) {
 
                 //console.log(JSON.parse(ReqestString));
@@ -84,7 +86,7 @@ describe('Quizzes @fast', function () {
 
                     .exec(function (err, a){
                        should.not.exist(err);
-                        console.log("article is " + a);
+                      //  console.log("article is " + a);
                        if(a){
                            a.should.be.an.instanceOf(Article);
                            a.quizzes.length.should.equal(1);
@@ -97,6 +99,33 @@ describe('Quizzes @fast', function () {
 
                        done();
                    })
+
+            })
+        context('When have a quiz', function () {
+            before(function (done) {
+                // login the user
+
+                Article.findOne({})
+                    .populate('quizzes.quiz')
+                    .exec(function (err, a) {
+
+                    article = a;
+                    done();
+                });
+            })
+            it('should update  quizzes  ', function (done) {
+                //console.log(article);
+                var quiz = article.quizzes[0];
+
+                agent
+                    .put('/articles/'+article.id+'/quizzes/'+quiz.id+ReqestString)
+                    .expect(200)
+                    .end(function(err, res){
+                        if (err) {
+                            throw err;
+                        }
+                        done();
+                    });
 
             })
         })

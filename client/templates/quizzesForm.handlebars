@@ -1,5 +1,10 @@
 <div id="quizzes-groups">
-
+    <div class=" alert alert-info" id="quizMsg" style="display:none;">
+        <button type="button" data-dismiss="alert" class="close">×</button>
+        <ul>
+            <li>Quiz Added!</li>
+        </ul>
+    </div>
   {{#each form.quizzes }}
 
     <div class="quiz-group" data-target="{{setIndex @index}}">
@@ -16,7 +21,7 @@
               </li>
           </ul>
       </div>
-      <div class="tab-content group-wrapper" id="quizzes-group-wrapper">
+      <div class="tab-content group-wrapper" id="quizzes-group-0">
 
 
 

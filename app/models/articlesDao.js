@@ -8,6 +8,8 @@ var Schema = mongoose.Schema;
 var _= utils = require('../../lib/utils');
 var Quiz = mongoose.model('Quiz');
 var Answer = mongoose.model('Answer');
+
+var extend = require('util')._extend;
 /**
  * Getters
  */
@@ -210,31 +212,66 @@ ArticleSchema.methods = {
 
     addQuiz: function (questions, cb) {
         var that = this;
-        console.log(questions.length);
+        //console.log(questions.length);
         var tempQuiz = {};
         tempQuiz.questions =[];
 
 
         var step3 = function(){
-            //console.dir(tempQuiz);
-            var quiz = new Quiz(tempQuiz);
-            quiz.save(function(err){
-                if (err) console.log(err);
-                Quiz.findOne(quiz)
-
-                    .exec( function(err, resultQuiz){
-                        if(err) return console.log(err);
-                        //console.log('reslutQuiz',resultQuiz);
-
-                        that.quizzes.push({quiz:resultQuiz});
-
-                        console.log("before save",that.quizzes);
 
 
-                        that.save(cb);
-                    })
-            })
+            if(!that.quizzes.length){
+                var quiz = new Quiz(tempQuiz);
+                quiz.save(function(err){
+                    if (err) console.log(err);
+                    Quiz.findOne(quiz)
+
+                        .exec( function(err, resultQuiz){
+                            if(err) return console.log(err);
+                            //console.log('reslutQuiz',resultQuiz);
+
+                            that.quizzes.push({quiz:resultQuiz});
+
+                            //console.log("before save",that.quizzes);
+
+
+                            that.save(cb);
+                        })
+                })
+
+
+            }else{
+                //console.log(that.quizzes[0]);
+                Quiz.findOne({ _id:that.quizzes[0].quiz._id })
+                    .exec(function(err, resultQuiz){
+                        //console.log("resultQuiz",resultQuiz);
+                        if(!resultQuiz)return cb('error');
+
+                        var quiz = resultQuiz;
+
+                        tempQuiz = extend(quiz,tempQuiz);
+                        //console.log(tempQuiz);
+                        tempQuiz.save(function(err){
+                            //console.log(err);
+//                            Quiz.findOne(tempQuiz)
+//
+//                                .exec( function(err, resultQuiz){
+//                                    if(err) return console.log(err);
+//
+//                                    that.quizzes = {quiz:resultQuiz};
+                                   // console.log(that.quizzes);
+                                    that.save(cb);
+//                                })
+                        })
+
+                    });
+
+            }
+
+
         }
+
+        /// @TODO handle req data format by front end.
         var finishPushAnswers = function(answers,timer){
             var quiz = {};
             quiz.question =  questions[i].question;
@@ -243,8 +280,6 @@ ArticleSchema.methods = {
             quiz.incorrect = questions[i].incorrect;
 
             tempQuiz.questions.push(quiz);
-            //this.quizzes
-           // console.dir(tempQuiz.questions[0].answers,'stack');
 
             if(timer == questions.length-1){
                 step3();
@@ -281,29 +316,19 @@ ArticleSchema.methods = {
             })(finishPushAnswers)
         }
 
-
-
-
-
     },
 
     /**
-     * Add Answer
+     * update
      *
      * @param {Object} quiz
      * @param {Function} cb
      * @api private
      */
-
-    addAnswer: function (quiz, answer, cb) {
-
-        quiz.answers.push({
-            option: answer.opiton,
-            correct:answer.correct
-        });
-
-        this.save(cb);
+    updateQuiz: function (quiz, cb) {
+        this.addQuiz(quiz,cb);
     },
+
     /**
      * Remove quiz
      *

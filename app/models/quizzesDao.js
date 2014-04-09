@@ -35,4 +35,21 @@ var QuizSchema = new Schema(
     }
 );
 
+
+/**
+ * Methods
+ */
+
+QuizSchema.methods = {
+
+    updateQuiz: function (quiz, cb) {
+
+
+
+        this.save(cb);
+
+
+    }
+}
+
 mongoose.model('Quiz', QuizSchema);
