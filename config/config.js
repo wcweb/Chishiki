@@ -15,35 +15,32 @@ var path = require('path')
         parseAppId: 'PARSE_APP_ID',
         parseApiKey: 'PARSE_MASTER_KEY'
     }
+    , app_static = {
+        name: 'Chishiki ',
+        title: 'Chishiki App'
+    }
 
 module.exports = {
     development: {
-        db: 'mongodb://localhost/brutus',
+        db: 'mongodb://localhost/Chishiki_dev',
         root: rootPath,
         notifier: notifier,
         socketEnable: true,
-        app: {
-            name: 'Nodejs Express Mongoose Demo'
-        }
+        app: app_static
     },
     test: {
-        db: 'mongodb://localhost/brutus_test',
+        db: 'mongodb://localhost/Chishiki_test',
         root: rootPath,
         notifier: notifier,
         socketEnable: true,
-        app: {
-            name: 'Nodejs Express Mongoose Demo'
-        }
+        app: app_static
     },
     production:{
         db: 'mongodb://localhost/Chishiki_pro',
         root: rootPath,
         notifier: notifier,
         socketEnable: true,
-        app: {
-          name: 'Chishiki ',
-          title: 'Chishiki App'
-        }
+        app: app_static
 
     }
 }

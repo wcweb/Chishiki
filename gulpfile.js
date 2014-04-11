@@ -82,7 +82,7 @@ gulp.task('server',function(){
         script: 'app.js',
         ext: 'html js',
         ignore:['test/*','templates/*','public/*','client/**']
-        //,env:{ 'NODE_ENV' : 'test'}
+        ,env:{ 'NODE_ENV' : 'development'}
     }).on('restart');
 
 })

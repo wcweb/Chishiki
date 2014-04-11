@@ -44,7 +44,7 @@ describe('Quizzes @fast', function () {
 
     })
 
-    describe('GET /articles/new', function () {
+    describe('GET a article id ', function () {
 
             before(function (done) {
                 // login the user
@@ -60,9 +60,9 @@ describe('Quizzes @fast', function () {
 
                 //console.log(JSON.parse(ReqestString));
                 agent
-                    .get('/articles/'+article.id+'/quizzes'+ReqestString)
-                    //.type('json')
-                    //.send(ReqestString)
+                    .get('/articles/'+article.id+'/quizzes/?'+ReqestString)
+//                    .type('json')
+//                    .send(ReqestString)
                     //.field('quizzes',ReqestString)
                     .expect(200)
                     .end(function(err, res){
@@ -118,7 +118,8 @@ describe('Quizzes @fast', function () {
                 var quiz = article.quizzes[0];
 
                 agent
-                    .put('/articles/'+article.id+'/quizzes/'+quiz.id+ReqestString)
+                    .put('/articles/'+article.id+'/quizzes/'+quiz.id)
+                    .send(ReqestString)
                     .expect(200)
                     .end(function(err, res){
                         if (err) {
@@ -139,7 +140,7 @@ describe('Quizzes @fast', function () {
 
 
 
-var ReqestString ='?_csrf=Fwe9txML2UyHEJl93sDknj04%2FI4SOY5%2B2MmvQ%3D&qu' +
+var ReqestString ='_csrf=Fwe9txML2UyHEJl93sDknj04%2FI4SOY5%2B2MmvQ%3D&qu' +
 'izzes%5B0%5D%5Bquestion%5D=%E7%94%B7%E6%80%A7330303030%2C50%E5%B2%81%2C%E5%86%9C%E6%B0%9' +
     '1%2C%E4%BB%A5%E8%A1%B0%E5%BC%B1%E3%80%81%E6%B0%94%E4%BF%83%E3%80%81%E8%BD%BB%E5%BA%A6%E5' +
     '%B9%B2%E5%92%B38%E4%B8%AA%E6%9C%88%E5%85%A5%E9%99%A2%E3%80%82%E4%BD%93%E6%A3%80%3A%E5%91' +
