@@ -23,7 +23,7 @@ block content
             - each quiz in article.quizzes
               i.muted.fa.fa-tag &nbsp;
               ul.tag(href="/videos/"+quiz.id)
-                - if (quiz.quiz.questions)
+                - if (quiz.quiz && quiz.quiz.questions)
                   - each question in quiz.quiz.questions
                     li
                       p= question.question

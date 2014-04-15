@@ -38,33 +38,34 @@ var example = require('./../../lib/helpers/data-example');
 var NodeTree = function NodeTree(parent) {
         this.elements = [];
         this.children = [];
-        this.parent = parent;
-        if (parent) parent.add(this);
+        this.parent = {};
         this.template = "";
-        this.index = 0;
+        this.index = -1;
         this.templateId = "";
+
+        if (parent){
+            this.parent = parent;
+            parent.add(this);
+        }
     }
     , NodeElement = function NodeElement(template) {
         this.template = template;
         this.templateId = "";
-        this.index = 0;
+        this.index = -1;
         this.parent = {};
     };
 
 
-NodeTree.prototype.setIndex = function (idx) {
-    this.index = idx;
-}
 NodeTree.prototype.add = function (child) {
     if (child.constructor.name == 'NodeElement') {
-        child.setIndex(this.elements.length);
+        child.index =this.elements.length;
         this.elements.push(child);
         child.parent = this;
 
     }
     if (child.constructor.name == 'NodeTree') {
 
-        child.setIndex(this.children.length);
+        child.index = this.children.length;
         this.children.push(child);
         child.parent = this;
 
@@ -196,11 +197,12 @@ var config = {
         console.log(targetString);
         if (targetString.indexOf('nav') >= 0) {
             // handle tree node now.
+
             var cloneNode = nodeTree.children[0];
             console.log(nodeTree.children);
             var parent = cloneNode.parent;
             var templateClone = getEmptyNodeTemplate($(parent.children[0].templateId).clone());
-            console.log(templateClone);
+            console.log("templateClone",templateClone);
             var templateNavClone = ($('#quizzes-groups-nav li').first().clone());
             var newIndex = parent.children[0].templateId;// #sub-0-0-0-...  when nodeTree.templateId ='';
             var childrenIndex = parent.children.length;
@@ -236,9 +238,13 @@ var config = {
                 $(ele).find('input[type="text"]').attr('name', tempName);
 
             });
-
+            console.log('childrenIndex',childrenIndex);
             $(templateClone).find('.group-pane-sub-add-btn')
                 .attr('data-target', '#group-pane-0-' + childrenIndex + '-0');
+            $(templateClone).find('.group-pane-remove-btn')
+                .attr('data-target','#group-pane-0-'+childrenIndex);
+
+
 
 
             var newTree = new NodeTree();
@@ -276,20 +282,23 @@ var config = {
                 if ($(ele).hasClass('active')) $(ele).removeClass('active');
             });
             $(templateNavClone).find('a').html(childrenIndex + 1).attr('href', newTree.templateId);
-            $('#quizzes-groups-nav').append(templateNavClone);
-            $(templateNavClone).addClass('active');
+            $(templateNavClone).attr('id','group-nav-'+childrenIndex);
 
+
+            $('#quizzes-groups-nav').append(templateNavClone);
+//            $(templateNavClone).addClass('active');
+//
 
             // append content
-            $('#quizzes-group-0 .tab-pane').each(function (idx, ele) {
-                if ($(ele).hasClass('active')) $(ele).removeClass('active');
-            });
-            console.log(parent.templateId);
+//            $('#quizzes-group-0 .tab-pane').each(function (idx, ele) {
+//                if ($(ele).hasClass('active')) $(ele).removeClass('active');
+//            });
+//            console.log(parent.templateId);
 
 
             $(parent.templateId).append(newTree.template);
-            $(newTree.template).addClass('active');
-
+            //$(newTree.template).addClass('active');
+            $('#quizzes-groups-nav li:eq('+(childrenIndex)+') a').tab('show');
             parent.add(newTree);
 
         } else {
@@ -384,59 +393,134 @@ var config = {
         console.log(targets);
         var i = 0;
         for (var i = 0; i < targets.length; i++) {
+            var finalFn = function (treeArray, whichIndex,type) {
+                console.log(whichIndex != 0);
 
-            (function (done) {
-                var targetString = $(targets[i]).attr('id');
+                if(whichIndex != 0){
+                    if(type == 'NodeTree'){
+                        if(whichIndex < treeArray.length-1){
 
-                var whichNode = getChildNode(targetString);
+                            $('#quizzes-groups-nav li:eq('+whichIndex+') a').tab('show')
 
-                var whichIndex = whichNode.index;
-                if (whichIndex == 0) return;
-                console.log("remove templateId", whichNode.templateId);
-
-
-                var parentTree = whichNode.parent;
-
-                $('div').remove(whichNode.templateId);
-
-                for (var idx = whichIndex; idx < parentTree.elements.length; idx++) {
-                    (function () {
-                        //if(idx == whichIndex) continue;
-
-                        parentTree.elements[idx].index = idx;
-                        var newId = idx - 1;
-                        var newTemplateId = 'group-pane-sub-' + parentTree.index + '-' + newId;
-                        var tempOldIdObject = $(parentTree.elements[idx].templateId);
-                        tempOldIdObject.attr('id', newTemplateId);
-
-                        newTemplateId = "#" + newTemplateId;
-
-                        tempOldIdObject.find('button').attr('data-target', newTemplateId);
-
-                        var tempName = tempOldIdObject.find('input[type="checkbox"]').attr('name');
-                        tempName = "quizzes[" + parentTree.index + "][answers][" + newId + "][correct]";
-                        tempOldIdObject.find('input[type="checkbox"]').attr('name', tempName);
-
-                        var tempName = tempOldIdObject.find('input[type="text"]').attr('name');
-                        tempName = "quizzes[" + parentTree.index + "][answers][" + newId + "][option]";
-                        tempOldIdObject.find('input[type="text"]').attr('name', tempName);
-
-
-                        parentTree.elements[idx].templateId = newTemplateId;
-
-                        if (idx == parentTree.elements.length - 1) {
-                            done(parentTree, whichIndex);
+                        }else if(whichIndex-1 > 0){
+                            $('#quizzes-groups-nav li:eq('+(whichIndex-1)+') a').tab('show')
+                        }else{
+                            $('#quizzes-groups-nav li:eq(0) a').tab('show')
                         }
-                    })();
+                    }
+
+                    treeArray.splice(whichIndex, 1);
                 }
 
 
-            })(function (parentTree, whichIndex) {
-                parentTree.elements.splice(whichIndex, 1);
-            });
+
+            };
+            (function (done) {
+                var targetString = $(targets[i]).attr('id');
+                console.log(targetString);
+                var whichNode = getChildNode(targetString);
+                var whichIndex = whichNode.index;
+                var parentTree = whichNode.parent;
+
+                if (whichIndex !== 0) $('div').remove(whichNode.templateId);
+
+                if(whichNode.constructor.name == 'NodeElement') {
+
+                    for (var idx = whichIndex+1; idx < parentTree.elements.length; idx++) {
+                        (function () {
+                            //if(idx == whichIndex) continue;
+
+                            parentTree.elements[idx].index = idx;
+                            var newId = idx - 1;
+                            var newTemplateId = 'group-pane-sub-' + parentTree.index + '-' + newId;
+                            var tempOldIdObject = $(parentTree.elements[idx].templateId);
+                            tempOldIdObject.attr('id', newTemplateId);
+
+                            newTemplateId = "#" + newTemplateId;
+
+                            tempOldIdObject.find('button').attr('data-target', newTemplateId);
+
+                            var tempName = tempOldIdObject.find('input[type="checkbox"]').attr('name');
+                            tempName = "quizzes[" + parentTree.index + "][answers][" + newId + "][correct]";
+                            tempOldIdObject.find('input[type="checkbox"]').attr('name', tempName);
+
+                            var tempName = tempOldIdObject.find('input[type="text"]').attr('name');
+                            tempName = "quizzes[" + parentTree.index + "][answers][" + newId + "][option]";
+                            tempOldIdObject.find('input[type="text"]').attr('name', tempName);
 
 
-            console.log(nodeTree);
+                            parentTree.elements[idx].templateId = newTemplateId;
+
+                            if (idx == parentTree.elements.length - 1) {
+                                done(parentTree.elements, whichIndex,'NodeElement');
+                            }
+                        })();
+                    }
+                }else if(whichNode.constructor.name == 'NodeTree'){
+                    console.log('whichIndex:',whichIndex);
+                    if(whichIndex != 0) $('#group-nav-'+whichIndex).remove();
+
+                    for (var idx = whichIndex; idx < parentTree.children.length; idx++) {
+                        if(idx == whichIndex){
+
+                            if (idx == parentTree.children.length - 1 || idx == 0) {
+
+                                return done(parentTree.children, whichIndex,'NodeTree');
+                            }
+                            continue;
+                        };
+                        (function () {
+
+                            //if(idx == whichIndex) continue;
+                            $('#group-nav-'+idx).children('a').html(idx).attr('href','#group-pane-0-'+(idx-1));
+                            $('#group-nav-'+idx).attr('id','group-nav-'+(idx-1));
+                            $('#group-pane-0-'+idx).attr('id','group-pane-0-'+(idx-1));
+                            $('#group-pane-0-'+idx).find('.group-pane-remove-btn')
+                                .attr('data-target','#group-pane-0-'+(idx-1));
+                            parentTree.children[idx].index = idx-1;
+                            parentTree.children[idx].templateId  = '#group-pane-0-'+(idx-1);
+                            var childTree = parentTree.children[idx];
+                            for (var cidx = 0 ; cidx < childTree.elements.length; cidx++) {
+                                (function () {
+                                    //if(idx == whichIndex) continue;
+
+
+                                    var newId = childTree.elements[cidx].index;
+                                    var newTemplateId = 'group-pane-sub-' + childTree.index + '-' + newId;
+                                    var tempOldIdObject = $(childTree.elements[cidx].templateId);
+                                    tempOldIdObject.attr('id', newTemplateId);
+
+                                    newTemplateId = "#" + newTemplateId;
+
+                                    tempOldIdObject.find('button').attr('data-target', newTemplateId);
+
+                                    var tempName = tempOldIdObject.find('input[type="checkbox"]').attr('name');
+                                    tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][correct]";
+                                    tempOldIdObject.find('input[type="checkbox"]').attr('name', tempName);
+
+                                    var tempName = tempOldIdObject.find('input[type="text"]').attr('name');
+                                    tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][option]";
+                                    tempOldIdObject.find('input[type="text"]').attr('name', tempName);
+
+
+                                    childTree.elements[cidx].templateId = newTemplateId;
+
+
+                                })();
+                            }
+                            if (idx == parentTree.children.length - 1) {
+                                done(parentTree.children, whichIndex,'NodeTree');
+                            }
+                        })();
+                    }
+
+                }
+
+
+            })(finalFn);
+
+
+            //console.log(nodeTree);
         }
 
 
@@ -804,7 +888,7 @@ function program1(depth0,data) {
     + "\">\n      <div class=\"\">\n          <ul class=\"nav nav-pills group-nav\" id=\"quizzes-groups-nav\">\n            ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.quiz)),stack1 == null || stack1 === false ? stack1 : stack1.questions), {hash:{},inverse:self.noop,fn:self.programWithDepth(2, program2, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n              <li class=\" pull-right\">\n                  <button id=\"add\" data-target=\"#quizzes-groups-nav\" data-action=\"add\"\n                          class=\"btn btn-primary group-pane-add-btn\">Add Question</button>\n              </li>\n          </ul>\n      </div>\n      <div class=\"tab-content group-wrapper\" id=\"quizzes-group-0\">\n\n\n\n        ";
+  buffer += "\n              <span class=\" pull-right\">\n                  <button id=\"add\" data-target=\"#quizzes-groups-nav\" data-action=\"add\"\n                          class=\"btn btn-primary group-pane-add-btn\">Add Question</button>\n              </span>\n          </ul>\n      </div>\n      <div class=\"tab-content group-wrapper\" id=\"quizzes-group-0\">\n\n\n\n        ";
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 && depth0.quiz)),stack1 == null || stack1 === false ? stack1 : stack1.questions), {hash:{},inverse:self.noop,fn:self.programWithDepth(5, program5, data, depth0),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n\n      </div>\n\n    </div>\n  ";
@@ -851,7 +935,7 @@ function program5(depth0,data,depth1) {
     + escapeExpression(((stack1 = (depth1 && depth1.oindex)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "-"
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" data-action=\"remove\"\n                                    class=\"close group-pane-remove-btn\">×</button>\n                        </div>\n                    </div>\n\n                    <div class=\"form-group\">\n                        <div class=\"col-sm-11 col-sm-offset-1\">\n\n                            <textarea rows=\"3\" name=\"quizzes["
+    + "\" data-action=\"remove\"\n                                    class=\"close group-pane-remove-btn\" title=\" 1st would not be deleted!\">×</button>\n                        </div>\n                    </div>\n\n                    <div class=\"form-group\">\n                        <div class=\"col-sm-11 col-sm-offset-1\">\n\n                            <textarea rows=\"3\" name=\"quizzes["
     + escapeExpression(((stack1 = (data == null || data === false ? data : data.index)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "][question]\"\n                                      placeholder=\"Enter the Question title\" class=\"form-control\">";
   if (helper = helpers.question) { stack1 = helper.call(depth0, {hash:{},data:data}); }
@@ -2933,5 +3017,5 @@ MyApp = require('./_forms/_quizzesForm.js');
 function flash(msg){
 
 }
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4e573a2b.js","/")
+}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b11e8bd6.js","/")
 },{"./../lib/helpers/handlebars-helpers":5,"./_forms/_quizzesForm.js":1,"./_forms/_videosForm.js":2,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":9,"buffer":6}]},{},[18])
