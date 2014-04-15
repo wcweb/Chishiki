@@ -19,28 +19,35 @@ var path = require('path')
         name: 'Chishiki ',
         title: 'Chishiki App'
     }
+    , uploadImagesDirectory = '/images/uploads'
+    , tempDirectory = rootPath+'/tmp'
 
 module.exports = {
     development: {
-        db: 'mongodb://localhost/Chishiki_dev',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: app_static
+        db: 'mongodb://localhost/Chishiki_dev'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
     },
     test: {
-        db: 'mongodb://localhost/Chishiki_test',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: app_static
+        db: 'mongodb://localhost/Chishiki_test'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
     },
-    production:{
-        db: 'mongodb://localhost/Chishiki_pro',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: app_static
-
+    production: {
+        db: 'mongodb://localhost/Chishiki_pro'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
     }
 }

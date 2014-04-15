@@ -2,8 +2,35 @@ doctype html
 html
   include ../includes/head
   body
+    - if (articles && articles.length)
+      .banner
+        ul
+          - each article in articles
+            - if ( article.image && article.image.files && article.image.files.length)
+              //li(style='background:url('+article.image.cdnUri + '/detail_' + article.image.files[0]+');background-size: 100%; width: 25%;\
+              //background-position: center center')
+              li
+                img(src=article.image.cdnUri + '/detail_' + article.image.files[0])
+                .banner-inner
+                  h2= article.title
+                  p= article.body
+                  a.btn(href='/articles/'+article._id, title=article.title) enter
+
+      script(src='/bower_components/unslider/src/unslider.min.js')
+      script.
+        $('.banner').unslider({
+            fluid: true,
+            dots: true
+          });
     #wrap
       include ../includes/header
+
+
+
+
+
+
+
       .container
         .main-content
           include ../includes/messages

@@ -99,12 +99,14 @@ ArticleSchema.methods = {
         if (!images || !images.length) return this.save(cb);
 
         var imager = new Imager(imagerConfig, 'Local');
+        console.log(imager);
         var self = this;
 
         this.validate(function (err) {
             if (err) return cb(err);
             imager.upload(images, function (err, cdnUri, files) {
                 if (err) return cb(err);
+                if (!cdnUri) cdnUri = '/tmp'+config.uploadImagesDirectory;
                 if (files.length) {
                     self.image = { cdnUri : cdnUri, files : files };
                 }

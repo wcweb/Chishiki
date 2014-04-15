@@ -77,8 +77,8 @@ exports.edit = function (req, res){
 exports.update = function (req, res){
     var article = req.article;
     article = extend(article, req.body);
-
-    article.uplaodAndSave(req.files.image, function(err){
+    //console.dir(article.constructor);
+    article.uploadAndSave(req.files.image, function(err){
         if(!err){
             return res.redirect('/articles/' + article._id);
         }

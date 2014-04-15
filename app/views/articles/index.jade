@@ -1,6 +1,7 @@
 extends ../layouts/default
 
 block main
+
   h1= title
   - if (req.isAuthenticated())
       p role:
@@ -9,6 +10,10 @@ block main
       p not authenticated.
 
 block content
+
+
+
+
   - if (articles.length)
     - each article in articles
       .article

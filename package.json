@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "express": "3.4.8",
-    "express-namespace": "latest",
+    "express-namespace": "0.1.1",
     "jade": "*",
     "mongoose": "latest",
     "connect-mongo": "latest",
@@ -28,11 +28,12 @@
     "passport-local": "latest",
     "imager": "latest",
     "notifier": "latest",
-    "async": "latest",
+    "async": "~0.2.6",
     "view-helpers": "latest",
     "connect-roles": "latest",
     "underscore": "~1.5.2",
-    "socket.io": "~0.9.16"
+    "socket.io": "~0.9.16",
+    "xmlbuilder":"~2.2.1"
   },
   "devDependencies": {
     "nodemon": "latest",

@@ -41,7 +41,7 @@ exports.create = function( req, res){
 
 exports.update = function (req, res){
     var article = req.article;
-    console.log("req.body.quizzes",req.body.quizzes);
+    //console.log("req.body.quizzes",req.body.quizzes);
     article.updateQuiz(req.body.quizzes, function(err){
 
         if(err) return res.jsonp('500',{message: err});
@@ -63,7 +63,7 @@ exports.update = function (req, res){
 
 exports.destroy = function( req, res){
     var article = req.article;
-    console.log(req.param('quizId'));
+    //console.log(req.param('quizId'));
     article.removeQuiz(req.param('quizId'), function(err){
         if(err){
             req.flash('error', 'Oops! The Quiz was not found');

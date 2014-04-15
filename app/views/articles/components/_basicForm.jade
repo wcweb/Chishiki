@@ -12,14 +12,28 @@ form.form-horizontal(method="post", action=action, enctype="multipart/form-data"
 
   .form-group
     label.col-sm-2.control-label(for='file') Image
-    .col-sm-10
-      input.form-control#file(type='file', name="image[]")
+    - if (!article.isNew && article.image && article.image.files && article.image.files.length)
+      .col-sm-2
+        a(href=article.image.cdnUri + '/detail_' + article.image.files[0])
+          img(src=article.image.cdnUri + '/mini_' + article.image.files[0])
+      .col-sm-8
+        input.form-control#file(type='file', name="image[]")
+    - else
+      .col-sm-10
+        input.form-control#file(type='file', name="image[]")
+
+
 
   .form-group
     label.col-sm-2.control-label(for='desc') Body
     .col-sm-10
       textarea.form-control#desc(rows="5", name="body", placeholder='Enter the article description')=article.body
-
+      script(src='/bower_components/tinymce/js/tinymce/tinymce.min.js')
+      script.
+        tinymce.init({
+          selector: "#desc",
+          language : 'zh_CN',
+        });
   .form-group
     label.col-sm-2.control-label(for='tags') Tags
     .col-sm-10

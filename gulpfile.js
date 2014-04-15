@@ -46,7 +46,7 @@ gulp.task('mocha',function(){
             {
                 ui:'bdd',
                 reporter: 'list',
-                grep: '@fast',
+                //grep: '@fast',
                 timeout: 10000,
                 globals: {
                     should: require('should')

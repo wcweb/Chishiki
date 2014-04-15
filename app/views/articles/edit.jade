@@ -15,11 +15,11 @@ block content
     - if(!article.isNew)
       .col-md-12
         ul.nav.nav-tabs
-          li
+          li.active
             a(href="#basic",data-toggle="tab") Basic
           li
             a(href="#video",data-toggle="tab") Video
-          li.active
+          li
             a(href="#quiz",data-toggle="tab") Quiz
           li
             a(href="#reading",data-toggle="tab") Reading
@@ -27,12 +27,12 @@ block content
             a(href="#discuss",data-toggle="tab") Discuss
         hr
         .tab-content
-          .tab-pane#basic
+          .tab-pane.active#basic
             include components/_basicForm
 
           .tab-pane#video
             include  components/_videoForm
-          .tab-pane.active#quiz
+          .tab-pane#quiz
             form.form-horizontal(method="post",
                 action="/articles/#{article._id}/quizzes", enctype="multipart/form-data",
                 role="form", id="quizForm2")
@@ -49,6 +49,7 @@ block content
         include components/_basicForm
 
 block foot
+
   script.
     console.log(!{JSON.stringify(req.article)});
     var article = !{JSON.stringify(req.article)};
