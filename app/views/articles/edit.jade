@@ -21,10 +21,13 @@ block content
             a(href="#video",data-toggle="tab") Video
           li
             a(href="#quiz",data-toggle="tab") Quiz
-          li
-            a(href="#reading",data-toggle="tab") Reading
+          //li
+          //  a(href="#reading",data-toggle="tab") Reading
+
           li
             a(href="#discuss",data-toggle="tab") Discuss
+          li
+            a(href="#scorm",data-toggle="tab") Scorm
         hr
         .tab-content
           .tab-pane.active#basic
@@ -38,11 +41,13 @@ block content
                 role="form", id="quizForm2")
               input(type="hidden", name="_csrf", value="#{csrf_token}")
 
-          .tab-pane#reading
+          //.tab-pane#reading
             //include components/_readingForm
 
           .tab-pane#discuss
             //include components/_discussForm
+          .tab-pane#scorm
+            include components/_scormForm
 
     - else
       .col-md-12

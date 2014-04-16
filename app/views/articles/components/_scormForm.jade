@@ -1,0 +1,16 @@
+
+form.form-horizontal(method="post", action="", enctype="multipart/form-data", role="form", id="scormForm")
+  input(type="hidden", name="_csrf", value="#{csrf_token}")
+  #scorm-group
+    .video-group
+      .form-group
+        label.col-sm-2.control-label(for='title') Scorm
+        .col-sm-5
+          button.btn.btn-primary#buildScorm(type='button', data-target!=article.id) Build
+        .col-sm-5
+          button.btn.btn-primary(type='button') Download
+
+
+  //.form-group
+  //  .col-sm-offset-2.col-sm-10
+  //    button.btn.btn-primary(type='submit') Save

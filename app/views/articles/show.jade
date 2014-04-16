@@ -3,57 +3,71 @@ extends ../layouts/default
 block main
   h1= article.title
 
+    .pull-right
+      form(action="/articles/"+article.id, method="post", onsubmit="return confirm('Are you sure?')")
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        a.btn.btn-default(href='/articles/'+article._id+'/edit', title="edit") Edit
+        | &nbsp;
+        input(type="hidden", name="_method", value="DELETE")
+        button.btn.btn-danger(type="submit") Delete
+  hr
+
 block content
   .row
     .col-md-8
-      p=article.body
+      - if (article.user)
+        - var name = article.user.name ? article.user.name : article.user.username
+        p.muted= formatDate(article.createdAt, "%b %d, %Y at %I:%M %p")
+        p Author :&nbsp;
+          a(href="/users/"+article.user._id)= name
+
+      p!=article.body
       .meta
-        - if (article.user)
-          - var name = article.user.name ? article.user.name : article.user.username
-          p Author :&nbsp;
-            a(href="/users/"+article.user._id)= name
+
         - if (article.videos.length)
-          div Videos &nbsp;
-            - each video in article.videos
-              i.muted.fa.fa-tag &nbsp;
-              //a.tag(href="/videos/"+video.url)= video.title
-              .player
-                div!= video.link
-                script.
-                  console.log();
+          h2 Videos &nbsp;
+
+          - var video = article.videos[0]
+            i.muted.fa.fa-tag &nbsp;
+            //a.tag(href="/videos/"+video.url)= video.title
+            div(id ='youkuplayer', style="width:750px;height:500px")
+
+
+
               | &nbsp;&nbsp;
         - if (article.quizzes.length)
-          p Quizzes &nbsp;
-            - each quiz in article.quizzes
-              i.muted.fa.fa-tag &nbsp;
-              ul.tag(href="/videos/"+quiz.id)
-                - if (quiz.quiz && quiz.quiz.questions)
-                  - each question in quiz.quiz.questions
-                    li
-                      p= question.question
-              | &nbsp;&nbsp;
+          h2 Quizzes &nbsp;
+
+          - each quiz in article.quizzes
+            i.muted.fa.fa-tag &nbsp;
+            ul.tag(href="/videos/"+quiz.id)
+              - if (quiz.quiz && quiz.quiz.questions)
+                - each question in quiz.quiz.questions
+                  li
+                    p= question.question
+            | &nbsp;&nbsp;
 
 
 
         - if (article.tags)
-          p Tags &nbsp;
+          h3 Tags &nbsp;
+          p
             - each tag in article.tags.split(',')
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/tags/"+tag)= tag
               | &nbsp;&nbsp;
 
-        p.muted= formatDate(article.createdAt, "%b %d, %Y at %I:%M %p")
+
 
     .col-md-4
       - if (!article.isNew && article.image && article.image.files && article.image.files.length)
-        img(src=article.image.cdnUri + '/mini_' + article.image.files[0])
+        img(src=article.image.cdnUri + '/thumb_' + article.image.files[0])
+      - if (article.reading)
+        h3 Reading &nbsp;
+        p!= article.reading
 
-  form(action="/articles/"+article.id, method="post", onsubmit="return confirm('Are you sure?')")
-    input(type='hidden', name='_csrf', value="#{csrf_token}")
-    a.btn.btn-default(href='/articles/'+article._id+'/edit', title="edit") Edit
-    | &nbsp;
-    input(type="hidden", name="_method", value="DELETE")
-    button.btn.btn-danger(type="submit") Delete
+
+
 
   br
   h3 Comments
@@ -63,6 +77,13 @@ block content
 
 
 block foot
+  script(type="text/javascript" src="http://player.youku.com/jsapi")
+  script.
+      var player = new YKU.Player('youkuplayer',{
+        styleid: '0',
+        client_id: 'fbc9d4ade768536b',
+        vid: '!{video.link}'
+      });
   script.
     console.log(!{JSON.stringify(req.article)});
     var article = !{JSON.stringify(req.article)};

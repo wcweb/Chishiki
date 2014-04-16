@@ -92,6 +92,11 @@ module.exports = function (app, passport){
     app.put('/articles/:artid/quizzes/:quizId', quizzes.update);
     app.del('/articles/:artid/quizzes/:quizId', quizzes.destroy);
 
+    var scorm = require('../app/controllers/scorm');
+    app.param('scormId', scorm.load);
+    app.get('/scorm/:scormId/build', scorm.build);
+
+
 
     // tag routes
     var tags = require('../app/controllers/tags');

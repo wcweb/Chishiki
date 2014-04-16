@@ -36,3 +36,7 @@ MyApp = require('./_forms/_quizzesForm.js');
 function flash(msg){
 
 }
+
+if($('#buildScorm').length){
+    require('./_forms/_scromForm.js').init();
+}

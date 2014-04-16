@@ -34,6 +34,20 @@ form.form-horizontal(method="post", action=action, enctype="multipart/form-data"
           selector: "#desc",
           language : 'zh_CN',
         });
+
+  hr
+
+  .form-group
+    label.col-sm-2.control-label(for='reading') Reading
+    .col-sm-10
+      textarea.form-control#reading(rows="5", name="reading", placeholder='Enter the article relatived reading')=article.reading
+      script.
+        tinymce.init({
+          selector: "#reading",
+          plugins: ["emoticons visualblocks advlist autolink link image hr anchor pagebreak"],
+          language : 'zh_CN',
+        });
+  hr
   .form-group
     label.col-sm-2.control-label(for='tags') Tags
     .col-sm-10

@@ -35,6 +35,7 @@ var ArticleSchema = new Schema({
     title: {type : String, default : '', trim : true},
     body: {type : String, default : '', trim : true},
     user: {type : Schema.ObjectId, ref : 'User'},
+    reading: {type : String, default : '', trim : true},
     videos:[{
         title:{ type : String, default :''},
         link: { type : String, default :''}

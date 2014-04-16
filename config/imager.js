@@ -7,6 +7,7 @@ module.exports = {
     variants: {
         article: {
             resize: {
+                original: "100%",
                 detail: "800x600"
             },
             crop: {
