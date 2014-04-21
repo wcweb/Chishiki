@@ -1,5 +1,6 @@
 exports.init= function(){
     $('#buildScorm').on('click',function(e){
+        e.preventDefault();
         var aid = $(e.currentTarget).attr('data-target');
         var ajaxURL = '/scorm/'+aid+'/build';
 

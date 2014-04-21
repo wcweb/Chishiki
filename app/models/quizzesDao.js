@@ -11,6 +11,16 @@ var AnswerSchema = new Schema(
 mongoose.model('Answer', AnswerSchema);
 var QuizSchema = new Schema(
     {
+        info: {
+            "name": { type: String, default : '"小测试!!"', trim : true},
+            "main": { type: String, default : '"小测试!!"', trim : true},
+            "results": { type: String, default : '"小测试!!"', trim : true},
+            "level1": { type: String, default : '完全掌握理解运用。', trim : true},
+            "level2": { type: String, default : '掌握得不错。', trim : true},
+            "level3": { type: String, default : '恭喜您，合格了。', trim : true},
+            "level4": { type: String, default : '麻麻啦，基本拉车尾。', trim : true},
+            "level5": { type: String, default : '仍然需要努力哦...', trim : true},// no comma here
+        },
        questions:[
            {
                question: { type : String, default : '', trim : true},
@@ -18,8 +28,9 @@ var QuizSchema = new Schema(
                    option : { type: String, default : '', trim : true},
                    correct: { type: Boolean, default : false }
                }],
-               correct: { type: String, default : '', trim : true},
-               incorrect: { type: Boolean, default : false }
+               //select_any: { type: Boolean, default : true },
+               correct: { type: String, default : 'you are right.', trim : true},
+               incorrect: { type: String, default : 'you are wrong.', trim : true},
 
            }
        ],
@@ -52,4 +63,4 @@ QuizSchema.methods = {
     }
 }
 
-mongoose.model('Quiz', QuizSchema);
+module.exports = mongoose.model('Quiz', QuizSchema);

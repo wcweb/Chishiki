@@ -1,6 +1,7 @@
 var async = require('async');
 
 var users = require('../app/controllers/users');
+var home = require('../app/controllers/home');
 var articles = require('../app/controllers/articles');
 var dashboard = require('../app/controllers/dashboard');
 var auth = require('./middlewares/authorization');
@@ -70,7 +71,7 @@ module.exports = function (app, passport){
 
     // ember
     app.get('/demo', ember.index);
-    app.get('/',articles.index);
+    app.get('/',home.index);
 
     var comments = require('../app/controllers/comments');
     app.param('commentId', comments.load);

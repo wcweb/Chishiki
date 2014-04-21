@@ -56,7 +56,22 @@ gulp.task('mocha',function(){
         .on('error',gutil.log);
 });
 
+gulp.task('mocha:fast',function(){
 
+    gulp.src(paths.test)
+        .pipe(mocha(
+            {
+                ui:'bdd',
+                reporter: 'list',
+                grep: '@fast',
+                timeout: 10000,
+                globals: {
+                    should: require('should')
+                }
+            }
+        ))
+        .on('error',gutil.log);
+});
 
 
 
@@ -73,7 +88,19 @@ gulp.task('server:test', function(){
         });
 
 });
+gulp.task('fast:test', function(){
 
+    nodemon({
+        script: 'app.js',
+        ext: 'html js',
+        ignore:['ignored.js']
+        ,env:{ 'NODE_ENV' : 'test'}
+        //,nodeArgs: ['--debug']
+    }).on('restart', ['mocha:fast']).on('error',function(err){
+            console.dir(err);
+        });
+
+});
 
 
 gulp.task('server',function(){

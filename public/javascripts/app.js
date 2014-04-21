@@ -738,6 +738,7 @@ var serializeJSON = function (dataArray) {
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 exports.init= function(){
     $('#buildScorm').on('click',function(e){
+        e.preventDefault();
         var aid = $(e.currentTarget).attr('data-target');
         var ajaxURL = '/scorm/'+aid+'/build';
 
@@ -1073,12 +1074,12 @@ exports.quiz = {
                         题干出现哮喘发作5天，提示是重症哮喘。（哮喘持续状态可持续1-2天，又称为重症哮喘；每分钟呼吸28次/分，P大于110次/分。可出现呼吸机疲劳，出现奇脉，血压下降、大汗淋漓、严重脱水、神志模糊。出现呼吸性酸中毒，若缺氧明显可合并代谢性酸中毒）\
                         题干提示：出现PaCO潴留，说明是重症哮喘。\
                         综上所述是D</p>",
-            "incorrect": "<p>答案：D <span>抱歉，答错了。.</span> <br /> \
+            "incorrect": "<p>答案：B D <span>抱歉，答错了。.</span> <br /> \
                         <span>分析：</span><br /> \
                         支气管哮喘发作时是呼气性呼吸困难，血气分析常常是：呼吸性碱中毒。 \
                         题干出现哮喘发作5天，提示是重症哮喘。（哮喘持续状态可持续1-2天，又称为重症哮喘；每分钟呼吸28次/分，P大于110次/分。可出现呼吸机疲劳，出现奇脉，血压下降、大汗淋漓、严重脱水、神志模糊。出现呼吸性酸中毒，若缺氧明显可合并代谢性酸中毒）\
                         题干提示：出现PaCO潴留，说明是重症哮喘。\
-                        综上所述是D</p>" // no comma here
+                        综上所述是B D </p>" // no comma here
         },
         { // Question 3 - Multiple Choice, Multiple True Answers, Select All
             "question": "支气管哮喘发病的最主要病理基础是.",
@@ -3042,5 +3043,5 @@ if($('#buildScorm').length){
     require('./_forms/_scromForm.js').init();
 }
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_35d200e3.js","/")
+}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b2e23548.js","/")
 },{"./../lib/helpers/handlebars-helpers":6,"./_forms/_quizzesForm.js":1,"./_forms/_scromForm.js":2,"./_forms/_videosForm.js":3,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":10,"buffer":7}]},{},[19])

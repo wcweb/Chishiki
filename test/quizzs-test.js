@@ -19,7 +19,7 @@ var count,article,user
  * Quizzes tests
  */
 
-describe('Quizzes @fast', function () {
+describe('Quizzes ', function () {
     before(function (done) {
         // create a user
         user = new User({

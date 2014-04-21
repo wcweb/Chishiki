@@ -8,7 +8,7 @@ var should = require('should')
 
 var article;
 
-describe('Video add @fast', function(){
+describe('Video add ', function(){
     //this.timeout(4000);
     before(function(done){
         require('./helpers/models-helper').fakeDb(done);
@@ -33,7 +33,7 @@ describe('Video add @fast', function(){
 
             });
         })
-        it('should editable @fast', function(done){
+        it('should editable ', function(done){
 
 
                 agent.post('/articles/'+article._id+'/videos')
@@ -48,7 +48,7 @@ describe('Video add @fast', function(){
             Article.findOne({_id: article._id})
                 .exec(function (err, a) {
                     should.not.exist(err);
-                    a.title.should.equal('foo4 bar');
+                    a.title.should.equal('foo bar');
                     //@TODO tempe equal 0 .
                     a.videos.length.should.equal(0)
                     done()

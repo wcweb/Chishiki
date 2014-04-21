@@ -6,7 +6,7 @@ var config = require('../../config/config')[env];
 var imagerConfig = require(config.root + '/config/imager.js');
 var Schema = mongoose.Schema;
 var _= utils = require('../../lib/utils');
-var Quiz = mongoose.model('Quiz');
+var Quiz = require('./quizzesDao');
 var Answer = mongoose.model('Answer');
 
 var extend = require('util')._extend;
@@ -76,7 +76,7 @@ ArticleSchema.pre('remove', function (next) {
         if (err) return next(err)
     }, 'article');
 
-    // remove video quiz discuss
+    // @TODO remove video quiz discuss
 
     next();
 });
@@ -399,4 +399,4 @@ ArticleSchema.statics = {
 
  }
 
-mongoose.model('Article', ArticleSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

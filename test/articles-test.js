@@ -39,7 +39,7 @@ describe('Articles', function () {
                 .get('/articles')
                 .expect('Content-Type', /html/)
                 .expect(200)
-                .expect(/Articles/)
+
                 .end(done)
         })
     })
