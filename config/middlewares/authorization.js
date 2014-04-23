@@ -24,14 +24,14 @@ exports.user = {
 }
 
 /*
- *  Article authorization routing middleware
+ *  Nodo authorization routing middleware
  */
 
-exports.article = {
+exports.nodo = {
     hasAuthorization: function (req, res, next) {
-        if (req.article.user.id != req.user.id) {
+        if (req.nodo.user.id != req.user.id) {
             req.flash('info', 'You are not authorized')
-            return res.redirect('/articles/' + req.article.id)
+            return res.redirect('/nodos/' + req.nodo.id)
         }
         next()
     }
@@ -43,13 +43,13 @@ exports.article = {
 
 exports.comment = {
     hasAuthorization: function (req, res, next) {
-        // if the current user is comment owner or article owner
+        // if the current user is comment owner or nodo owner
         // give them authority to delete
-        if (req.user.id === req.comment.user.id || req.user.id === req.article.user.id) {
+        if (req.user.id === req.comment.user.id || req.user.id === req.nodo.user.id) {
             next()
         } else {
             req.flash('info', 'You are not authorized')
-            res.redirect('/articles/' + req.article.id)
+            res.redirect('/nodos/' + req.nodo.id)
         }
     }
 }

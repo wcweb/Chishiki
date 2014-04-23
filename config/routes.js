@@ -2,7 +2,7 @@ var async = require('async');
 
 var users = require('../app/controllers/users');
 var home = require('../app/controllers/home');
-var articles = require('../app/controllers/articles');
+var nodos = require('../app/controllers/nodos');
 var dashboard = require('../app/controllers/dashboard');
 var auth = require('./middlewares/authorization');
 var ember = require('../app/controllers/emberStatic')
@@ -18,10 +18,16 @@ var ember = require('../app/controllers/emberStatic')
 module.exports = function (app, passport){
 
 
-    var articleAuth = [
-//        auth.requiresLogin,
-//        auth.article.hasAuthorization
-    ];
+    if( process.env.NODE_ENV !== 'test'){
+      var nodoAuth = [
+          auth.requiresLogin,
+          auth.nodo.hasAuthorization
+      ];
+    }else{
+      var nodoAuth = [
+      ];
+    }
+
     var commentAuth = [
         auth.requiresLogin,
         auth.comment.hasAuthorization
@@ -49,24 +55,24 @@ module.exports = function (app, passport){
     app.param('userId', users.user);
 
 
-    // article routes
-    app.param('artid', articles.load);
+    // nodo routes
+    app.param('artid', nodos.load);
 
-    app.get('/articles', articles.index);
+    // @TODO env role test.
+    app.get('/nodos', nodos.index);
     if( process.env.NODE_ENV !== 'test'){
-        app.get('/articles/new', articles.new);
-        app.post('/articles', articles.create);
+        app.get('/nodos/new', nodos.new);
+        app.post('/nodos', nodos.create);
     }else{
-        console.log("test will display this.")
-        app.get('/articles/new', auth.requiresLogin, articles.new);
-        app.post('/articles', auth.requiresLogin, articles.create);
+        app.get('/nodos/new', auth.requiresLogin, nodos.new);
+        app.post('/nodos', auth.requiresLogin, nodos.create);
 
     }
 
-    app.get('/articles/:artid',  articles.show);
-    app.get('/articles/:artid/edit', articleAuth, articles.edit);
-    app.put('/articles/:artid', articleAuth, articles.update);
-    app.del('/articles/:artid', articleAuth, articles.destroy);
+    app.get('/nodos/:artid',  nodos.show);
+    app.get('/nodos/:artid/edit', nodoAuth, nodos.edit);
+    app.put('/nodos/:artid', nodoAuth, nodos.update);
+    app.del('/nodos/:artid', nodoAuth, nodos.destroy);
 
 
     // ember
@@ -75,28 +81,28 @@ module.exports = function (app, passport){
 
     var comments = require('../app/controllers/comments');
     app.param('commentId', comments.load);
-    app.post('/articles/:artid/comments', auth.requiresLogin, comments.create);
-    app.get('/articles/:artid/comments', auth.requiresLogin, comments.create);
-    app.del('/articles/:artid/comments/:commentId', auth.requiresLogin, comments.destroy);
+    app.post('/nodos/:artid/comments', auth.requiresLogin, comments.create);
+    app.get('/nodos/:artid/comments', auth.requiresLogin, comments.create);
+    app.del('/nodos/:artid/comments/:commentId', auth.requiresLogin, comments.destroy);
 
 
     var videos = require('../app/controllers/videos');
     app.param('videoId', videos.load);
-    app.post('/articles/:artid/videos',articleAuth, videos.create);
-    app.get('/articles/:artid/videos', articleAuth, videos.create);
-    app.del('/articles/:artid/videos/:videoId', videos.destroy);
+    app.post('/nodos/:artid/videos',nodoAuth, videos.create);
+    app.get('/nodos/:artid/videos', nodoAuth, videos.create);
+    app.del('/nodos/:artid/videos/:videoId', videos.destroy);
 
     var quizzes = require('../app/controllers/quizzes');
     app.param('quizId', quizzes.load);
-    app.post('/articles/:artid/quizzes',articleAuth, quizzes.create);
-    app.get('/articles/:artid/quizzes', articleAuth, quizzes.create);
-    app.put('/articles/:artid/quizzes/:quizId', quizzes.update);
-    app.del('/articles/:artid/quizzes/:quizId', quizzes.destroy);
+    app.post('/nodos/:artid/quizzes',nodoAuth, quizzes.create);
+    app.get('/nodos/:artid/quizzes', nodoAuth, quizzes.create);
+    app.put('/nodos/:artid/quizzes/:quizId', quizzes.update);
+    app.del('/nodos/:artid/quizzes/:quizId', quizzes.destroy);
 
     var scorm = require('../app/controllers/scorm');
     app.param('scormId', scorm.load);
     app.get('/scorm/:scormId/build', scorm.build);
-
+    app.get('/scorm/:scormId/exportSCORM', scorm.exportSCORM);
 
 
     // tag routes

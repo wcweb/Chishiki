@@ -1,12 +1,12 @@
 extends ../layouts/default
 
 block main
-  h1= article.title
+  h1= nodo.title
 
     .pull-right
-      form(action="/articles/"+article.id, method="post", onsubmit="return confirm('Are you sure?')")
+      form(action="/nodos/"+nodo.id, method="post", onsubmit="return confirm('Are you sure?')")
         input(type='hidden', name='_csrf', value="#{csrf_token}")
-        a.btn.btn-default(href='/articles/'+article._id+'/edit', title="edit") Edit
+        a.btn.btn-default(href='/nodos/'+nodo._id+'/edit', title="edit") Edit
         | &nbsp;
         input(type="hidden", name="_method", value="DELETE")
         button.btn.btn-danger(type="submit") Delete
@@ -15,19 +15,19 @@ block main
 block content
   .row
     .col-md-8
-      - if (article.user)
-        - var name = article.user.name ? article.user.name : article.user.username
-        p.muted= formatDate(article.createdAt, "%b %d, %Y at %I:%M %p")
+      - if (nodo.user)
+        - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+        p.muted= formatDate(nodo.createdAt, "%b %d, %Y at %I:%M %p")
         p Author :&nbsp;
-          a(href="/users/"+article.user._id)= name
+          a(href="/users/"+nodo.user._id)= name
 
-      p!=article.body
+      p!=nodo.body
       .meta
 
-        - if (article.videos.length)
+        - if (nodo.videos.length)
           h2 Videos &nbsp;
 
-          - var video = article.videos[0]
+          - var video = nodo.videos[0]
             i.muted.fa.fa-tag &nbsp;
             //a.tag(href="/videos/"+video.url)= video.title
             div(id ='youkuplayer', style="width:750px;height:500px")
@@ -35,10 +35,10 @@ block content
 
 
               | &nbsp;&nbsp;
-        - if (article.quizzes.length)
+        - if (nodo.quizzes.length)
           h2 Quizzes &nbsp;
 
-          - each quiz in article.quizzes
+          - each quiz in nodo.quizzes
             i.muted.fa.fa-tag &nbsp;
             ul.tag(href="/videos/"+quiz.id)
               - if (quiz.quiz && quiz.quiz.questions)
@@ -49,10 +49,10 @@ block content
 
 
 
-        - if (article.tags)
+        - if (nodo.tags)
           h3 Tags &nbsp;
           p
-            - each tag in article.tags.split(',')
+            - each tag in nodo.tags.split(',')
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/tags/"+tag)= tag
               | &nbsp;&nbsp;
@@ -60,18 +60,18 @@ block content
 
 
     .col-md-4
-      - if (!article.isNew && article.image && article.image.files && article.image.files.length)
-        img(src=article.image.cdnUri + '/thumb_' + article.image.files[0])
-      - if (article.reading)
+      - if (!nodo.isNew && nodo.image && nodo.image.files && nodo.image.files.length)
+        img(src=nodo.image.cdnUri + '/thumb_' + nodo.image.files[0])
+      - if (nodo.reading)
         h3 Reading &nbsp;
-        p!= article.reading
+        p!= nodo.reading
 
 
 
 
   br
   h3 Comments
-  - each comment in article.comments
+  - each comment in nodo.comments
     include ../comments/comment
   include ../comments/form
 
@@ -85,5 +85,5 @@ block foot
         vid: '!{video.link}'
       });
   script.
-    console.log(!{JSON.stringify(req.article)});
-    var article = !{JSON.stringify(req.article)};
+    console.log(!{JSON.stringify(req.nodo)});
+    var nodo = !{JSON.stringify(req.nodo)};

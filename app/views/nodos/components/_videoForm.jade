@@ -1,5 +1,5 @@
-- if(!article.videos.length)
-  form.form-horizontal(method="post", action="/articles/#{article._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
+- if(!nodo.videos.length)
+  form.form-horizontal(method="post", action="/nodos/#{nodo._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
     input(type="hidden", name="_csrf", value="#{csrf_token}")
     #videos-group
       .video-group
@@ -21,13 +21,13 @@
       .col-sm-offset-2.col-sm-10
         button.btn.btn-primary(type='submit') Save
         | &nbsp;
-        a.btn(href='/articles', title="cancel") Cancel
+        a.btn(href='/nodos', title="cancel") Cancel
         button.btn.btn-primary.pull-right#add Add
 - else
-  form.form-horizontal(method="post", action="/articles/#{article._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
+  form.form-horizontal(method="post", action="/nodos/#{nodo._id}/videos", enctype="multipart/form-data", role="form", id="videoForm")
     input(type="hidden", name="_csrf", value="#{csrf_token}")
     #videos-group
-      - each video, index in article.videos
+      - each video, index in nodo.videos
         .video-group
           .form-group
             label.col-sm-2.control-label(for='title') Title
@@ -51,5 +51,5 @@
 
         button.btn.btn-primary(type='submit') Update
         | &nbsp;
-        a.btn(href='/articles', title="cancel") Cancel
+        a.btn(href='/nodos', title="cancel") Cancel
         button.btn.btn-primary.pull-right#add Add

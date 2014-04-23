@@ -6,9 +6,9 @@ form.form-horizontal(method="post", action="", enctype="multipart/form-data", ro
       .form-group
         label.col-sm-2.control-label(for='title') Scorm
         .col-sm-5
-          button.btn.btn-primary#buildScorm(type='button', data-target!=article.id) Build
+          button.btn.btn-primary#buildScorm(type='button', data-target!=nodo.id) Build
         .col-sm-5
-          button.btn.btn-primary(type='button') Download
+          button.btn.btn-primary#downloadSCORM(type='button', data-target!=nodo.id) Download
 
 
   //.form-group

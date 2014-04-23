@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Article = mongoose.model('Article');
+var Nodo = mongoose.model('Nodo');
 
 
 exports.index = function(req, res){
@@ -10,12 +10,12 @@ exports.index = function(req, res){
         page: page
     };
 
-    Article.list(options, function(err, articles){
+    Nodo.list(options, function(err, nodos){
         if(err) return res.render('500');
-        Article.count().exec(function (err, count){
+        Nodo.count().exec(function (err, count){
             res.render('home/index', {
                 title: 'Knowledges',
-                articles: articles,
+                nodos: nodos,
                 page: page+1,
                 pages: Math.ceil(count / perPage)
             });

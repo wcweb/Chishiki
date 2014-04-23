@@ -1,9 +1,9 @@
-form.form-horizontal(method="post", action="/articles/#{article._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
+form.form-horizontal(method="post", action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
   input(type="hidden", name="_csrf", value="#{csrf_token}")
   #formBuilder
 //
-//- if(!article.quizzes.length)
-//  form.form-horizontal(method="post", action="/articles/#{article._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
+//- if(!nodo.quizzes.length)
+//  form.form-horizontal(method="post", action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
 //    input(type="hidden", name="_csrf", value="#{csrf_token}")
 //    #quizzes-group
 //      .quiz-group
@@ -59,15 +59,15 @@ form.form-horizontal(method="post", action="/articles/#{article._id}/quizzes", e
 //      .col-sm-offset-2.col-sm-10
 //        button.btn.btn-primary(type='submit') Save
 //        | &nbsp;
-//        a.btn(href='/articles', title="cancel") Cancel
+//        a.btn(href='/nodos', title="cancel") Cancel
 //        button.btn.btn-primary.pull-right#add Add Question
 //
 //
 //- else
-//  form.form-horizontal(method="post", action="/articles/#{article._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
+//  form.form-horizontal(method="post", action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data", role="form", id="quizForm")
 //    input(type="hidden", name="_csrf", value="#{csrf_token}")
 //    #quizzes-group
-//      - each quiz, index in article.quizzes
+//      - each quiz, index in nodo.quizzes
 //        .quiz-group
 //          .form-group
 //            label.col-sm-2.control-label(for='title') Question:
@@ -93,7 +93,7 @@ form.form-horizontal(method="post", action="/articles/#{article._id}/quizzes", e
 //      .col-sm-offset-2.col-sm-10
 //        button.btn.btn-primary(type='submit') Update
 //        | &nbsp;
-//        a.btn(href='/articles', title="cancel") Cancel
+//        a.btn(href='/nodos', title="cancel") Cancel
 //        button.btn.btn-primary.pull-right#add Add Question
 
 

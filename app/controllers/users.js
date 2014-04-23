@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var async = require('async');
 var User = mongoose.model('User');
-var Article = mongoose.model('Article');
+var Nodo = mongoose.model('Nodo');
 var utils = require('../../lib/utils');
 
 

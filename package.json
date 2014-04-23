@@ -33,6 +33,7 @@
     "connect-roles": "latest",
     "underscore": "~1.5.2",
     "socket.io": "~0.9.16",
+      "node-zip": "~1.1.0",
     "xmlbuilder":"~2.2.1"
   },
   "devDependencies": {

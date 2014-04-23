@@ -31,6 +31,7 @@ module.exports = {
         , app: app_static
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     },
     test: {
         db: 'mongodb://localhost/Chishiki_test'
@@ -40,6 +41,7 @@ module.exports = {
         , app: app_static
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     },
     production: {
         db: 'mongodb://localhost/Chishiki_pro'
@@ -49,5 +51,6 @@ module.exports = {
         , app: app_static
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     }
 }

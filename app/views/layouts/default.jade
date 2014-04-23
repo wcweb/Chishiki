@@ -2,19 +2,19 @@ doctype html
 html
   include ../includes/head
   body
-    - if (articles && articles.length)
+    - if (nodos && nodos.length)
       .banner
         ul
-          - each article in articles
-            - if ( article.image && article.image.files && article.image.files.length)
-              //li(style='background:url('+article.image.cdnUri + '/detail_' + article.image.files[0]+');background-size: 100%; width: 25%;\
+          - each nodo in nodos
+            - if ( nodo.image && nodo.image.files && nodo.image.files.length)
+              //li(style='background:url('+nodo.image.cdnUri + '/detail_' + nodo.image.files[0]+');background-size: 100%; width: 25%;\
               //background-position: center center')
               li
-                img(src=article.image.cdnUri + '/detail_' + article.image.files[0])
+                img(src=nodo.image.cdnUri + '/detail_' + nodo.image.files[0])
                 .banner-inner
-                  h2= article.title
-                  p= article.body
-                  a.btn(href='/articles/'+article._id, title=article.title) enter
+                  h2= nodo.title
+                  p= nodo.body
+                  a.btn(href='/nodos/'+nodo._id, title=nodo.title) enter
 
       script(src='/bower_components/unslider/src/unslider.min.js')
       script.

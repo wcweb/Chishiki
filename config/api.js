@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
     , async = require('async')
     , User = mongoose.model('User')
     , Quiz = mongoose.model('Quiz')
-    , Article = mongoose.model('Article');
+    , Nodo = mongoose.model('Nodo');
 
 module.exports = function (app) {
 
@@ -71,18 +71,18 @@ module.exports = function (app) {
                 })
         })
 
-        app.get('/articles', function (req, res) {
-            Article.find({}, '_id title comments body')
-                .exec(function (err, articles) {
-                    res.send(JSON.stringify({"post": articles}));
+        app.get('/nodos', function (req, res) {
+            Nodo.find({}, '_id title comments body')
+                .exec(function (err, nodos) {
+                    res.send(JSON.stringify({"post": nodos}));
                 })
 
         });
         // Return fixture data for '/api/posts/:id'
-        app.get('/articles/:id', function (req, res) {
-            Article.findOne({})
-                .exec(function (err, article) {
-                    res.send({"post": article});
+        app.get('/nodos/:id', function (req, res) {
+            Nodo.findOne({})
+                .exec(function (err, nodo) {
+                    res.send({"post": nodo});
                 })
         });
 

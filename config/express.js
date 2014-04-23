@@ -105,7 +105,6 @@ module.exports = function(app, config, passport){
 
         app.use(function(err, req, res, next) {
             if(!err) return next(); // you also need this line
-            console.log("error!!!");
             console.error(err.stack);
             res.send("error!!!");
             next(err);

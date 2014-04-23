@@ -31,7 +31,6 @@ mongoose.connection.on('disconnected', function(){
 var models_path = __dirname + '/app/models';
 fs.readdirSync(models_path).forEach(function (file){
     if (~file.indexOf('.js')){
-        console.log(file);
         require(models_path+'/'+file);
     }
 });

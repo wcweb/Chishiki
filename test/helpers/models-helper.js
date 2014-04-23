@@ -4,7 +4,7 @@
  */
 var mongoose = require('mongoose')
     , async = require('async')
-    , Article = mongoose.model('Article')
+    , Nodo = mongoose.model('Nodo')
     , User = mongoose.model('User');
 
 /**
@@ -20,7 +20,7 @@ exports.clearDb = function (done) {
             User.collection.remove(cb);
         },
         function (cb) {
-            Article.collection.remove(cb);
+            Nodo.collection.remove(cb);
         }
     ], done);
 }
@@ -41,7 +41,7 @@ exports.fakeDb = function(done) {
             });
             user.save();
 
-            article = new Article({
+            nodo = new Nodo({
                 title: 'foo'+count+' bar',
                 body: 'this '+count+
                     'is body Cras sit amet nibh libero, ' +
@@ -53,7 +53,7 @@ exports.fakeDb = function(done) {
                     ' congue felis in faucibus.',
                 user: user
             });
-            article.save(function(err){
+            nodo.save(function(err){
 
                 if(err) return err;
                 count--;

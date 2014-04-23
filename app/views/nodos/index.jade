@@ -18,28 +18,28 @@ block content
 
 
 
-  - if (articles.length)
-    - each article in articles
-      .article
+  - if (nodos.length)
+    - each nodo in nodos
+      .nodo
         h3
-          a(href='/articles/'+article._id, title=article.title) #{article.title}
-        p= article.body
+          a(href='/nodos/'+nodo._id, title=nodo.title) #{nodo.title}
+        p= nodo.body
 
         .meta
-          span.muted= formatDate(article.createdAt)
+          span.muted= formatDate(nodo.createdAt)
 
-          - if (article.user)
+          - if (nodo.user)
             | &nbsp; - &nbsp;
             span Author &nbsp;
 
-            - var name = article.user.name ? article.user.name : article.user.username
+            - var name = nodo.user.name ? nodo.user.name : nodo.user.username
 
-            a(href="/users/"+article.user._id)= name
+            a(href="/users/"+nodo.user._id)= name
 
-          - if (article.tags)
+          - if (nodo.tags)
             | &nbsp; - &nbsp;
             span Tags &nbsp;
-            - each tag in article.tags.split(',')
+            - each tag in nodo.tags.split(',')
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/tags/"+tag)= tag
               | &nbsp;&nbsp;
@@ -48,5 +48,5 @@ block content
       ul.pagination
         != createPagination(pages, page)
   - else
-    h4.muted No articles.&nbsp;
-      a(href="/articles/new") create one
+    h4.muted No nodos.&nbsp;
+      a(href="/nodos/new") create one

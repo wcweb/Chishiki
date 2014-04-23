@@ -1,18 +1,18 @@
 extends ../layouts/default
 block main
-  - if(!article.isNew)
+  - if(!nodo.isNew)
     | &nbsp;
-    a(href="/articles/"+article._id, class="")
+    a(href="/nodos/"+nodo._id, class="")
       span [back]
   h1= title
 
 
 block content
 
-  - var action = '/articles'
-  - action += article.isNew? '' : '/' + article.id
+  - var action = '/nodos'
+  - action += nodo.isNew? '' : '/' + nodo.id
   .row
-    - if(!article.isNew)
+    - if(!nodo.isNew)
       .col-md-12
         ul.nav.nav-tabs
           li.active
@@ -37,7 +37,7 @@ block content
             include  components/_videoForm
           .tab-pane#quiz
             form.form-horizontal(method="post",
-                action="/articles/#{article._id}/quizzes", enctype="multipart/form-data",
+                action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data",
                 role="form", id="quizForm2")
               input(type="hidden", name="_csrf", value="#{csrf_token}")
 
@@ -56,8 +56,8 @@ block content
 block foot
 
   script.
-    console.log(!{JSON.stringify(req.article)});
-    var article = !{JSON.stringify(req.article)};
+    console.log(!{JSON.stringify(req.nodo)});
+    var nodo = !{JSON.stringify(req.nodo)};
     $(document).ready(function(){
-      MyApp.formBuild({data:article,formBody:'#quizForm2'});
+      MyApp.formBuild({data:nodo,formBody:'#quizForm2'});
     });

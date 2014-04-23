@@ -28,10 +28,10 @@ var setTags = function (tags) {
 
 
 /**
- * Article Schema
+ * Nodo Schema
  */
 
-var ArticleSchema = new Schema({
+var NodoSchema = new Schema({
     title: {type : String, default : '', trim : true},
     body: {type : String, default : '', trim : true},
     user: {type : Schema.ObjectId, ref : 'User'},
@@ -50,8 +50,9 @@ var ArticleSchema = new Schema({
     image: {
         cdnUri: String,
         files: []
-    },
-    createdAt  : {type : Date, default : Date.now}
+    }
+    ,createdAt  : {type : Date, default : Date.now}
+    ,scorm: {type: Schema.Types.ObjectId, ref : "Scorm"}
 });
 
 
@@ -59,22 +60,22 @@ var ArticleSchema = new Schema({
  * Validations
  */
 
-ArticleSchema.path('title').required(true, 'Article title cannot be blank');
-ArticleSchema.path('body').required(true, 'Article body cannot be blank');
+NodoSchema.path('title').required(true, 'Nodo title cannot be blank');
+NodoSchema.path('body').required(true, 'Nodo body cannot be blank');
 
 
 /**
  * Pre-remove hook
  */
 
-ArticleSchema.pre('remove', function (next) {
+NodoSchema.pre('remove', function (next) {
     var imager = new Imager(imagerConfig, 'Local');
     var files = this.image.files;
 
     // if there are files associated with the item, remove from the cloud too
     imager.remove(files, function (err) {
         if (err) return next(err)
-    }, 'article');
+    }, 'nodo');
 
     // @TODO remove video quiz discuss
 
@@ -86,10 +87,10 @@ ArticleSchema.pre('remove', function (next) {
  * Methods
  */
 
-ArticleSchema.methods = {
+NodoSchema.methods = {
 
     /**
-     * Save article and upload image
+     * Save nodo and upload image
      *
      * @param {Object} images
      * @param {Function} cb
@@ -112,7 +113,7 @@ ArticleSchema.methods = {
                     self.image = { cdnUri : cdnUri, files : files };
                 }
                 self.save(cb);
-            }, 'article');
+            }, 'nodo');
         })
     },
 
@@ -135,7 +136,7 @@ ArticleSchema.methods = {
 
 //        if (!this.user.email) this.user.email = 'email@product.com'
 //        notify.comment({
-//            article: this,
+//            nodo: this,
 //            currentUser: user,
 //            comment: comment.body
 //        });
@@ -368,10 +369,10 @@ ArticleSchema.methods = {
  * Statics
  * */
 
-ArticleSchema.statics = {
+NodoSchema.statics = {
 
     /**
-     * Find article by id
+     * Find nodo by id
      *
      * @param {ObjectId} id
      * @param {Function} cb
@@ -383,6 +384,7 @@ ArticleSchema.statics = {
             .populate('user', 'name email username')
             .populate('quizzes.quiz')
             .populate('comments.user')
+            .populate('scorm')
             .exec(cb);
     },
 
@@ -399,4 +401,4 @@ ArticleSchema.statics = {
 
  }
 
-module.exports = mongoose.model('Article', ArticleSchema);
+module.exports = mongoose.model('Nodo', NodoSchema);

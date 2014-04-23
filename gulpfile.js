@@ -16,7 +16,7 @@ var hbsHelpers = require('./lib/helpers/handlebars-helpers');
 
 var paths ={
     app:['app/**','app'],
-    test:'test/*-test.js'
+    test:'test/**/*-test.js'
 }
 
 gulp.task('watch:test', function() {

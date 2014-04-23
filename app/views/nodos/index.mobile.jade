@@ -1,0 +1,31 @@
+extends ../layouts/mobile
+
+block main
+  h1= title
+
+block content
+  - each nodo in nodos
+    .nodo
+      h3
+        a(href='/nodos/'+nodo._id, title=nodo.title) #{nodo.title}
+      p= nodo.body
+
+      .meta.muted
+        span= formatDate(nodo.createdAt)
+        | &nbsp; - &nbsp;
+        span Author &nbsp;
+
+        - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+
+        a(href="/users/"+nodo.user._id)= name
+        &nbsp; - &nbsp;
+        - if (nodo.tags)
+          - each tag in nodo.tags.split(',')
+            | &nbsp;
+            a.tag(href="/tags/"+tag)
+              i.icon-tags
+              |  #{tag}
+
+  - if (pages > 1)
+    ul.pagination
+      != createPagination(pages, page)

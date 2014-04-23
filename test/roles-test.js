@@ -9,13 +9,13 @@ var mongoose = require('mongoose')
     , app = require('../app')
     , context = describe
     , User = mongoose.model('User')
-    , Article = mongoose.model('Article')
+    , Nodo = mongoose.model('Nodo')
     , agent = request.agent(app)
 
 var count
 
 /**
- * Articles tests
+ * Nodos tests
  */
 
 describe('Roles test:', function () {
@@ -73,10 +73,10 @@ describe('Roles test:', function () {
 
                 it('should respond with Authenticated', function(done){
                     agent
-                        .get('/articles/new')
+                        .get('/nodos/new')
                         .expect('Content-Type', /html/)
                         .expect(200)
-                        .expect(/New Article/)
+                        .expect(/New Nodo/)
                         .end(done)
                 })
                 it('should access member page', function (done) {

@@ -10,7 +10,7 @@ var mongoose = require('mongoose')
     , app = require('../app')
     , context = describe
     , User = mongoose.model('User')
-    , Article = mongoose.model('Article')
+    , Nodo = mongoose.model('Nodo')
     , agent = request.agent(app)
 
 
@@ -27,29 +27,31 @@ describe('Models test : ', function(){
         user.save(function(err){
             User.findOne({ username : user.username}, function(err,_user){
                 if(err) console.log(err.message);
+                user = _user;
             })
             done();
         });
 
     })
 
-    context('create a article', function(){
-        var article;
+    context('create a nodo', function(){
+        var nodo;
         before(function(){
-            article = new Article({
-                title: 'foo bar',
+            nodo = new Nodo({
+                title: 'foo foo bar',
                 body: 'this is body',
                 user: user
             })
-            article.save(function(err){
+            nodo.save(function(err){
                 if(err) console.log(err.message);
             })
         })
 
         it('insert comments', function(){
-            article.comments.push({body:'fuck', user: user})
-            article.save(function(err){
-                if(err) console.log(err.message);
+            nodo.comments.push({body:'fuck', user: user})
+            nodo.save(function(err){
+                if(err) throw err;
+                nodo.comments[0].body.should.equal('fuck');
             })
         })
 
@@ -64,56 +66,59 @@ describe('Models test : ', function(){
                 correct:" correct  ",
                 incorrect:" incorrect keep going on."
             }
-            article.quizzes.push(question);
-            article.save(function(err){
+            nodo.quizzes.push(question);
+            nodo.save(function(err){
                 if(err) console.log(err.message);
+                nodo.quizzes.length.should.equal(1);
             })
+
 
         })
 
         describe('user', function(){
-            it('should get his article', function(done){
-                Article
+            it('should get his nodo', function(done){
+                Nodo
                     .findOne({ user: user})
                     .populate('user')
-                    .exec(function (err, article) {
+                    .exec(function (err, nodo) {
                         should.not.exist(err)
-                        article.should.be.an.instanceOf(Article)
-                        article.title.should.equal('foo bar')
-                        article.body.should.equal('this is body')
-                        article.user.email.should.equal('foobarTest@example.com')
-                        article.user.name.should.equal('Foo bar')
+                        nodo.should.be.an.instanceOf(Nodo)
+                        nodo.title.should.equal('foo foo bar')
+                        nodo.body.should.equal('this is body')
+                        nodo.user.should.be.an.instanceOf(User)
+                        nodo.user.email.should.equal('foobarTest@example.com')
+                        nodo.user.name.should.equal('Foo bar')
                         done()
                     })
             })
 
-            it('should get list article group by user', function(done){
+            it('should get list nodo group by user', function(done){
                 User
                     .find({})
                     .exec(function(err,users){
-                        Article.find()
+                        Nodo.find()
                             .populate('user', 'name email username')
-                            .exec(function(err,articles){
-                                var article, usr, results=[];
-                                for(var i=0; i< articles.length; i++){
-                                    article = articles[i];
+                            .exec(function(err,nodos){
+                                var nodo, usr, results=[];
+                                for(var i=0; i< nodos.length; i++){
+                                    nodo = nodos[i];
 
                                     (function(){
                                         for(var j=0; j< users.length; j++){
                                             usr= users[j];
-                                            if( article.user.name == usr.name ){
-                                                var userArticle = {}
-                                                userArticle = usr;
-                                                userArticle['articles']=[];
-                                                userArticle['articles'].push(article);
-                                                results.push(userArticle);
+                                            if( nodo.user.name == usr.name ){
+                                                var userNodo = {}
+                                                userNodo = usr;
+                                                userNodo['nodos']=[];
+                                                userNodo['nodos'].push(nodo);
+                                                results.push(userNodo);
                                             }
                                         }
                                     })();
                                 }
                                 should.not.exist(err);
                                 for(var j=0; j< users.length; j++){
-                                    results[j].articles[0].should.be.an.instanceOf(Article);
+                                    results[j].nodos[0].should.be.an.instanceOf(Nodo);
                                 }
                                 done();
                             });

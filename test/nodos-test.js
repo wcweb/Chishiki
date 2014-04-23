@@ -9,16 +9,16 @@ var mongoose = require('mongoose')
     , app = require('../app')
     , context = describe
     , User = mongoose.model('User')
-    , Article = mongoose.model('Article')
+    , Nodo = mongoose.model('Nodo')
     , agent = request.agent(app)
 
 var count
 
 /**
- * Articles tests
+ * Nodos tests
  */
 
-describe('Articles', function () {
+describe('Nodos', function () {
     before(function (done) {
 
             // create a user
@@ -33,10 +33,10 @@ describe('Articles', function () {
 
     })
 
-    describe('GET /articles', function () {
+    describe('GET /nodos', function () {
         it('should respond with Content-Type text/html', function (done) {
             agent
-                .get('/articles')
+                .get('/nodos')
                 .expect('Content-Type', /html/)
                 .expect(200)
 
@@ -44,11 +44,11 @@ describe('Articles', function () {
         })
     })
 
-    describe('GET /articles/new', function () {
+    describe('GET /nodos/new', function () {
         context('When not logged in', function () {
             it('should redirect to /login', function (done) {
                 agent
-                    .get('/articles/new')
+                    .get('/nodos/new')
                     .expect('Content-Type', /plain/)
                     .expect(302)
                     .expect('Location', '/login')
@@ -69,20 +69,20 @@ describe('Articles', function () {
 
             it('should respond with Content-Type text/html', function (done) {
                 agent
-                    .get('/articles/new')
+                    .get('/nodos/new')
                     .expect('Content-Type', /html/)
                     .expect(200)
-                    .expect(/New Article/)
+                    .expect(/New Nodo/)
                     .end(done)
             })
         })
     })
 
-    describe('POST /articles', function () {
+    describe('POST /nodos', function () {
         context('When not logged in', function () {
             it('should redirect to /login', function (done) {
                 request(app)
-                    .get('/articles/new')
+                    .get('/nodos/new')
                     .expect('Content-Type', /plain/)
                     .expect(302)
                     .expect('Location', '/login')
@@ -103,7 +103,7 @@ describe('Articles', function () {
 
             describe('Invalid parameters', function () {
                 before(function (done) {
-                    Article.count(function (err, cnt) {
+                    Nodo.count(function (err, cnt) {
                         count = cnt
                         done()
                     })
@@ -111,17 +111,17 @@ describe('Articles', function () {
 
                 it('should respond with error', function (done) {
                     agent
-                        .post('/articles')
+                        .post('/nodos')
                         .field('title', '')
                         .field('body', 'foo')
                         .expect('Content-Type', /html/)
                         .expect(200)
-                        .expect(/Article title cannot be blank/)
+                        .expect(/Nodo title cannot be blank/)
                         .end(done)
                 })
 
                 it('should not save to the database', function (done) {
-                    Article.count(function (err, cnt) {
+                    Nodo.count(function (err, cnt) {
                         count.should.equal(cnt)
                         done()
                     })
@@ -130,46 +130,46 @@ describe('Articles', function () {
 
             describe('Valid parameters', function () {
                 before(function (done) {
-                    Article.count(function (err, cnt) {
+                    Nodo.count(function (err, cnt) {
                         count = cnt
                         done()
                     })
                 })
 
-                it('should redirect to the new article page', function (done) {
+                it('should redirect to the new nodo page', function (done) {
                     agent
-                        .post('/articles')
+                        .post('/nodos')
                         .field('title', 'foo')
                         .field('body', 'bar')
                         .expect('Content-Type', /plain/)
-                        .expect('Location', /\/articles\//)
+                        .expect('Location', /\/nodos\//)
                         .expect(302)
                         .expect(/Moved Temporarily/)
                         .end(done)
                 })
 
                 it('should insert a record to the database', function (done) {
-                    Article.count(function (err, cnt) {
+                    Nodo.count(function (err, cnt) {
                         cnt.should.equal(count + 1)
                         done()
                     })
                 })
 
-                it('should save the article to the database', function (done) {
-                    Article
+                it('should save the nodo to the database', function (done) {
+                    Nodo
                         .findOne({ title: 'foo'})
                         .populate('user')
-                        .exec(function (err, article) {
+                        .exec(function (err, nodo) {
                             should.not.exist(err)
-                            article.should.be.an.instanceOf(Article)
-                            article.title.should.equal('foo')
-                            article.body.should.equal('bar')
-                            article.user.email.should.equal('foobar2@example.com')
-                            article.user.name.should.equal('Foo bar')
+                            nodo.should.be.an.instanceOf(Nodo)
+                            nodo.title.should.equal('foo')
+                            nodo.body.should.equal('bar')
+                            nodo.user.email.should.equal('foobar2@example.com')
+                            nodo.user.name.should.equal('Foo bar')
                             done()
                         })
                 })
-                describe('should update the article to the database', function () {
+                describe('should update the nodo to the database', function () {
 
                 })
             })

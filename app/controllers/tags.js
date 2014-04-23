@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Article = mongoose.model('Article');
+var Nodo = mongoose.model('Nodo');
 
 exports.index = function (req, res){
     var criteria = { tags: req.param('tag') };
@@ -11,12 +11,12 @@ exports.index = function (req, res){
         criteria: criteria
     };
 
-    Article.list(options, function(err, articles){
+    Nodo.list(options, function(err, nodos){
         if(err) return res.render('500');
-        Article.count(criteria).exec(function (err, count){
-            res.render('articles/index', {
-                title: 'Articles tagged ' + req.param('tag'),
-                articles: articles,
+        Nodo.count(criteria).exec(function (err, count){
+            res.render('nodos/index', {
+                title: 'Nodos tagged ' + req.param('tag'),
+                nodos: nodos,
                 page: page +1,
                 pages: Math.ceil(count / perPage)
             });

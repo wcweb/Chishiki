@@ -9,11 +9,11 @@ var mongoose = require('mongoose')
     , app = require('../app')
     , context = describe
     , User = mongoose.model('User')
-    , Article = mongoose.model('Article')
+    , Nodo = mongoose.model('Nodo')
     , Quiz = mongoose.model('Quiz')
     , agent = request.agent(app)
 
-var count,article,user
+var count,nodo,user
 
 /**
  * Quizzes tests
@@ -29,12 +29,12 @@ describe('Quizzes ', function () {
             password: 'foobar'
         })
         user.save(function(err){
-            article = new Article({
+            nodo = new Nodo({
                 title: 'foo bar',
                 body: 'this is body',
                 user: user
             })
-            article.save(function(err){
+            nodo.save(function(err){
                 should.not.exist(err);
                 if(err) console.log(err.message);
                 done();
@@ -44,23 +44,25 @@ describe('Quizzes ', function () {
 
     })
 
-    describe('GET a article id ', function () {
+    describe('GET a nodo id ', function () {
 
             before(function (done) {
                 // login the user
 
-                Article.findOne({}).exec(function (err, a) {
+                Nodo.findOne({}).exec(function (err, a) {
 
-                        article = a;
+                        nodo = a;
                         done();
                 });
             })
 
-            it('should post the article with quizzes  ', function (done) {
+            it('should post the nodo with quizzes  ', function (done) {
 
                 //console.log(JSON.parse(ReqestString));
+
+                nodo.should.be.an.instanceOf(Nodo);
                 agent
-                    .get('/articles/'+article.id+'/quizzes/?'+ReqestString)
+                    .get('/nodos/'+nodo.id+'/quizzes/?'+ReqestString)
 //                    .type('json')
 //                    .send(ReqestString)
                     //.field('quizzes',ReqestString)
@@ -77,18 +79,18 @@ describe('Quizzes ', function () {
             })
 
 
-            it('should save the article to the database ', function (done) {
+            it('should save the nodo to the database ', function (done) {
 
                 //console.log(JSON.parse(ReqestString));
-                Article.findOne({ _id : article.id })
+                Nodo.findOne({ _id : nodo.id })
                     .populate('user')
                     .populate('quizzes.quiz')
 
                     .exec(function (err, a){
                        should.not.exist(err);
-                      //  console.log("article is " + a);
+                      //  console.log("nodo is " + a);
                        if(a){
-                           a.should.be.an.instanceOf(Article);
+                           a.should.be.an.instanceOf(Nodo);
                            a.quizzes.length.should.equal(1);
                            //console.log(a.quizzes[0].quiz.questions);
                            a.quizzes[0].quiz.should.be.an.instanceOf(Quiz);
@@ -101,35 +103,33 @@ describe('Quizzes ', function () {
                    })
 
             })
-        context('When have a quiz', function () {
-            before(function (done) {
-                // login the user
-
-                Article.findOne({})
+            context(' get exist nodo with quizz', function(){
+              before(function(done){
+                Nodo.findOne({_id :nodo.id})
                     .populate('quizzes.quiz')
-                    .exec(function (err, a) {
+                    .exec(function(err, n){
+                      if(err) throw err;
+                      nodo = n;
+                      done();
+                    })
+              })
+              it('should update  quizzes  ', function (done) {
+                  //console.log(nodo);
+                  var quiz = nodo.quizzes[0];
+                  quiz.quiz.should.be.an.instanceOf(Quiz);
+                  agent
+                      .put('/nodos/'+nodo.id+'/quizzes/'+quiz.quiz.id)
+                      .send(ReqestString)
+                      .expect(200)
+                      .end(function(err, res){
+                          if (err) {
+                              throw err;
+                          }
+                          done();
+                      });
 
-                    article = a;
-                    done();
-                });
+              })
             })
-            it('should update  quizzes  ', function (done) {
-                //console.log(article);
-                var quiz = article.quizzes[0];
-
-                agent
-                    .put('/articles/'+article.id+'/quizzes/'+quiz.id)
-                    .send(ReqestString)
-                    .expect(200)
-                    .end(function(err, res){
-                        if (err) {
-                            throw err;
-                        }
-                        done();
-                    });
-
-            })
-        })
     })
 
     after(function (done) {

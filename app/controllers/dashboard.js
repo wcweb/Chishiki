@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var async = require('async');
 var User = mongoose.model('User');
-var Article = mongoose.model('Article');
+var Nodo = mongoose.model('Nodo');
 var utils = require('../../lib/utils');
 
 
@@ -26,25 +26,25 @@ exports.listUser = function(req, res){
 
             if(err) return err;
 
-            Article.find()
+            Nodo.find()
                 .populate('user', 'name email username')
-                .exec(function(err,articles){
+                .exec(function(err,nodos){
 
                     if(err) return err;
 
-                    var article, usr, results=[];
-                    for(var i=0; i< articles.length; i++){
-                        article = articles[i];
+                    var nodo, usr, results=[];
+                    for(var i=0; i< nodos.length; i++){
+                        nodo = nodos[i];
 
                         (function(){
                             for(var j=0; j< users.length; j++){
                                 usr= users[j];
-                                if( article.user.name == usr.name ){
-                                    var userArticle = {};
-                                    userArticle = usr;
-                                    userArticle['articles']=[];
-                                    userArticle['articles'].push(article);
-                                    results.push(userArticle);
+                                if( nodo.user.name == usr.name ){
+                                    var userNodo = {};
+                                    userNodo = usr;
+                                    userNodo['nodos']=[];
+                                    userNodo['nodos'].push(nodo);
+                                    results.push(userNodo);
                                 }
                             }
                         })();
