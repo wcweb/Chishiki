@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Nodo = mongoose.model('Nodo');
 
+var async = require('async');
 
 exports.index = function(req, res){
     var page = (req.param('page') > 0 ? req.param('page') : 1) -1;
@@ -9,6 +10,7 @@ exports.index = function(req, res){
         perPage: perPage,
         page: page
     };
+
 
     Nodo.list(options, function(err, nodos){
         if(err) return res.render('500');

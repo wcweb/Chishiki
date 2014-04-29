@@ -65,11 +65,8 @@ CategorySchema.methods = {
   removeChild:function (child, cb){
     var self = this;
     _.extend(child,{parent:self.id});
-    console.log(child);
     Category.findOne(child, function(err, cat){
-      console.log(err);
       if(err) throw err;
-      console.dir(cat);
       if(cat) cat.remove(cb);
     });
   }

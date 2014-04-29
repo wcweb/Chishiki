@@ -28,6 +28,7 @@ var QuizSchema = new Schema(
                    option : { type: String, default : '', trim : true},
                    correct: { type: Boolean, default : false }
                }],
+               //answers:[{type: Schema.ObjectId, ref: 'Answer'}],
                //select_any: { type: Boolean, default : true },
                correct: { type: String, default : 'you are right.', trim : true},
                incorrect: { type: String, default : 'you are wrong.', trim : true},

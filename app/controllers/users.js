@@ -93,11 +93,3 @@ exports.user = function (req, res, next, id){
         });
 }
 
-//Error: Cast to ObjectId failed for value "abc" at path "_id"
-//exports.abc = function(req, res){
-//    var user = req.profile;
-//    res.render('users/show', {
-//        title: user.name,
-//        user: user
-//    });
-//}

@@ -64,17 +64,34 @@ module.exports = function (app) {
             res.send(JSON.stringify(post));
         })
 
+        var users = {
+           user:{
+             _id:123,
+             name:'abc',
+             username: 'username',
+             email: 'aaa@sss.com',
+             role: 'role'
+           }
+        };
+
         app.get('/users', function (req, res) {
             User.find({})
                 .exec(function (err, users) {
                     res.send({users: users});
                 })
         })
+        app.get('/users/:id', function (req, res) {
+          res.send(JSON.stringify(users));
+            //User.findOne({})
+                //.exec(function (err, users) {
+                    //res.send({users: users});
+                //})
+        })
 
         app.get('/nodos', function (req, res) {
             Nodo.find({}, '_id title comments body')
                 .exec(function (err, nodos) {
-                    res.send(JSON.stringify({"post": nodos}));
+                    res.send(JSON.stringify({"nodos": nodos}));
                 })
 
         });
@@ -82,7 +99,7 @@ module.exports = function (app) {
         app.get('/nodos/:id', function (req, res) {
             Nodo.findOne({})
                 .exec(function (err, nodo) {
-                    res.send({"post": nodo});
+                    res.send({"nodo": nodo});
                 })
         });
 

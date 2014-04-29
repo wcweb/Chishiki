@@ -53,7 +53,6 @@ describe('Model Category test : @fast', function(){
         catCLen -=1;
         category.children.length.should.equal(
           catCLen);
-        console.log(category);
       })
     })
   })

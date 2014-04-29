@@ -40,12 +40,11 @@ block content
 
           - each quiz in nodo.quizzes
             i.muted.fa.fa-tag &nbsp;
-            ul.tag(href="/videos/"+quiz.id)
+            ul
               - if (quiz.quiz && quiz.quiz.questions)
                 - each question in quiz.quiz.questions
                   li
                     p= question.question
-            | &nbsp;&nbsp;
 
 
 

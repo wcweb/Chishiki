@@ -3,18 +3,18 @@ process.env.NODE_ENV = 'test'
  * Module dependencies.
  */
 var env = process.env.NODE_ENV || 'development';
-var config = require('../config/config')[env];
+var config = require('../../config/config')[env];
 var mongoose = require('mongoose')
     , should = require('should')
     , request = require('supertest')
-    , app = require('../app')
+    , app = require('../../app')
     , context = describe
     , User = mongoose.model('User')
     , Nodo = mongoose.model('Nodo')
 //    , Scorm = mongoose.model('Scorm')
     , Quiz = mongoose.model('Quiz')
     , agent = request.agent(app)
-    , fsHelper = require('../lib/helpers/fs-helper');
+    , fsHelper = require('../../lib/helpers/fs-helper');
 
 var count,nodo,user;
 

@@ -2,7 +2,6 @@
 /**
  * Module dependencies.
  */
-require('express-namespace');
 var express = require('express');
 var fs = require('fs');
 var passport = require('passport');
@@ -11,6 +10,7 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('./config/config')[env];
 var mongoose = require('mongoose');
 
+//require('express-namespace');
 
 
 
@@ -34,11 +34,6 @@ fs.readdirSync(models_path).forEach(function (file){
         require(models_path+'/'+file);
     }
 });
-//require('./app/models/usersDao');
-//require('./app/models/quizzesDao');
-//require('./app/models/articlesDao');
-//require('./app/models/scormsDao');
-
 
 require('./config/passport')(passport, config);
 
@@ -46,9 +41,6 @@ var app = express();
 
 require('./config/express')(app, config, passport);
 
-require('./config/routes')(app, passport);
-
-require('./config/api')(app);
 
 
 if(config.socketEnable){
@@ -61,10 +53,21 @@ if(config.socketEnable){
 }
 console.log("instant init: "+process.env.NODE_ENV);
 
+require('./config/routes')(app, passport);
+//require('./config/api')(app);
+
+
+if( process.env.NODE_ENV !== 'production'){
+  app.use(express.errorHandler({
+    dumpExceptions: true, showStack: true }))
+}
+
 if( process.env.NODE_ENV !== 'test'){
     require('./lib/dbUtils')
         .clearDb(require('./lib/dbUtils')
-        .initDb());
+        .initDb(function(){
+          console.log('inited database');
+        }));
 
     var port = process.env.PORT || 3000;
     if(config.socketEnable){

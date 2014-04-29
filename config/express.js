@@ -53,6 +53,7 @@ module.exports = function(app, config, passport){
     app.configure(function(){
         // expose package.json to views
         app.use(function (req, res, next){
+          // @TODO 3.0 use app.locals
             res.locals.pkg = pkg;
             next();
         })

@@ -3058,5 +3058,5 @@ if($('#buildScorm').length){
     require('./_forms/_scromForm.js').init();
 }
 
-}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_58e6051b.js","/")
+}).call(this,require("/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b4d8427f.js","/")
 },{"./../lib/helpers/handlebars-helpers":6,"./_forms/_quizzesForm.js":1,"./_forms/_scromForm.js":2,"./_forms/_videosForm.js":3,"/Users/wcweb/Documents/developer/nodejs/Chishiki/node_modules/gulp-browserify/node_modules/browserify/node_modules/insert-module-globals/node_modules/process/browser.js":10,"buffer":7}]},{},[19])

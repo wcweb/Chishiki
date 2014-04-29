@@ -6,7 +6,7 @@ process.env.NODE_ENV='test'
 var mongoose = require('mongoose')
     , should = require('should')
     , request = require('supertest')
-    , app = require('../app')
+    , app = require('../../app')
     , context = describe
     , User = mongoose.model('User')
     , Nodo = mongoose.model('Nodo')
@@ -130,6 +130,6 @@ describe('Roles test:', function () {
     })
 
     after(function (done) {
-        require('./helpers/models-helper').clearDb(done)
+        require('../helpers/models-helper').clearDb(done)
     })
 })

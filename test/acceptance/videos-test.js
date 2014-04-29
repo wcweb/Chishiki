@@ -1,4 +1,4 @@
-var app = require('../app');
+var app = require('../../app');
 var should = require('should')
     , request = require('supertest')
     , agent = request(app)
@@ -11,10 +11,10 @@ var nodo;
 describe('Video add ', function(){
     //this.timeout(4000);
     before(function(done){
-        require('./helpers/models-helper').fakeDb(done);
+        require('../helpers/models-helper').fakeDb(done);
     })
     after(function (done) {
-        require('./helpers/models-helper').clearDb(done)
+        require('../helpers/models-helper').clearDb(done)
     })
 
 
