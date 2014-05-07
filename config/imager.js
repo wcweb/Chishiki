@@ -1,10 +1,13 @@
-/**
- * Created by wcweb on 7/3/14.
- */
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config')[env];
+
+
+
 module.exports = {
     variants: {
-        article: {
+        nodo: {
             resize: {
+                original: "100%",
                 detail: "800x600"
             },
             crop: {
@@ -24,9 +27,9 @@ module.exports = {
 
     storage: {
         Local: {
-            path: '/tmp',
+            path: config.tempDirectory,
             mode: 0777
-        }
+        },
 //        ,
 //        Rackspace: {
 //            auth: {
@@ -42,6 +45,7 @@ module.exports = {
 //            bucket: 'BUCKET_NAME',
 //            region: 'REGION'
 //        }
+        uploadDirectory: config.tempDirectory+config.uploadImagesDirectory
     },
 
     debug: true

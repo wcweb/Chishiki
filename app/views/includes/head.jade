@@ -15,6 +15,8 @@ head
   link(href="/stylesheets/font-awesome-ie7.min.css", rel="stylesheet")
   link(rel="stylesheet", href="/stylesheets/style.css")
   script(src='/javascripts/jquery.min.js')
+  
+  block styles
   //
      HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
   //if lt IE 9
@@ -27,6 +29,6 @@ head
       "path" : 'http://!{req.headers.host}/',
       "scriptPath" : 'http://!{req.headers.host}/javascripts/',
     };
-    //var article= !{JSON.stringify(req.article)};
-    //console.log(article);
+    //var nodo= !{JSON.stringify(req.nodo)};
+    //console.log(nodo);
     console.log('!{req.originalUrl}','!{req.host}','!{req.port}', '!{JSON.stringify(req.headers.host)}');

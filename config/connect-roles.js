@@ -1,3 +1,5 @@
+var express = require('express');
+var app = module.exports = express();
 var ConnectRoles = require('connect-roles');
 
 var user = new ConnectRoles({
@@ -31,8 +33,5 @@ user.use(function(req){
     }
 })
 
-module.exports = function( app){
-    app.use(user.middleware());
-}
-
+app.use(user.middleware());
 module.exports.roles = user;

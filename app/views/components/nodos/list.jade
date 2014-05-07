@@ -1,0 +1,32 @@
+mixin nodoslist(nodos)
+  - if (nodos.length)
+    - each nodo in nodos
+      .nodo
+        h3
+          a(href='/nodos/'+nodo._id, title=nodo.title) #{nodo.title}
+        p= nodo.body
+        .meta
+          span.muted= formatDate(nodo.createdAt)
+          - if (nodo.user)
+            | &nbsp; - &nbsp;
+            span Author &nbsp;
+            - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+            a(href="/users/"+nodo.user._id)= name
+          - if (nodo.tags)
+            | &nbsp; - &nbsp;
+            span Tags &nbsp;
+            - each tag in nodo.tags.split(',')
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/tags/"+tag)= tag
+              | &nbsp;&nbsp;
+          - if(nodo.categories)
+            | &nbsp; - &nbsp;
+            span Categories &nbsp;
+            - each category in nodo.categories
+              a(href="/categories/"+category.id)= category.label
+    - if (pages > 1)
+      ul.pagination
+        != createPagination(pages, page)
+  - else
+    h4.muted No nodos.&nbsp;
+      a(href="/nodos/new") create one

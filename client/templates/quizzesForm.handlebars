@@ -15,16 +15,16 @@
                     <a data-toggle="tab" href="#group-pane-{{ ../oindex }}-{{@index}}" title="{{question}}">{{setIndex @index}}</a>
                 </li>
             {{/each}}
-              <li class=" pull-right">
+              <span class=" pull-right">
                   <button id="add" data-target="#quizzes-groups-nav" data-action="add"
                           class="btn btn-primary group-pane-add-btn">Add Question</button>
-              </li>
+              </span>
           </ul>
+          
+          
+          
       </div>
       <div class="tab-content group-wrapper" id="quizzes-group-0">
-
-
-
         {{#each quiz.questions }}
             <div class="tab-pane {{#if isActive }}active{{/if}} group-pane" id="group-pane-{{ ../oindex }}-{{@index}}">
                 <div class="">
@@ -33,7 +33,7 @@
 
                         <div class="col-sm-1 col-sm-offset-9">
                             <button type="button" data-target="#group-pane-{{ ../oindex }}-{{@index}}" data-action="remove"
-                                    class="close group-pane-remove-btn">×</button>
+                                    class="close group-pane-remove-btn" title=" 1st would not be deleted!">×</button>
                         </div>
                     </div>
 

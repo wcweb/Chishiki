@@ -1,0 +1,14 @@
+extends ../layouts/default
+
+block main
+
+  h1= title
+
+
+block content
+  - if (categories && categories.length)
+    - each category in categories
+      .categories
+        h3
+          a(href='/categories/'+category.id, title=category.label)= category.label
+        p= category.description

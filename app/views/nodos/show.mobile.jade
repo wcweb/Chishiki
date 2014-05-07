@@ -1,0 +1,41 @@
+extends ../layouts/mobile
+
+
+block main
+  h1= nodo.title
+
+block content
+  .row
+    .span9
+      p=nodo.body
+      .meta.muted
+        - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+        p Author -&nbsp;
+          a(href="/users/"+nodo.user._id)= name
+        p.muted= formatDate(nodo.createdAt, "%b %d, %Y at %I:%M %p")
+        - if (nodo.tags)
+          .tags
+            - each tag in nodo.tags.split(',')
+              a.tag(href="/tags/"+tag)
+                i.icon-tags
+                |  #{tag}
+              | &nbsp;&nbsp;
+    .span3
+      - if (!nodo.isNew && nodo.image && nodo.image.files && nodo.image.files.length)
+        img(src=nodo.image.cdnUri + '/mini_' + nodo.image.files[0])
+
+  p
+    br
+    form.center.form-inline.confirm(action="/nodos/"+nodo.id, method="post")
+      input(type='hidden', name='_csrf', value="#{csrf_token}")
+      a.btn(href='/nodos/'+nodo._id+'/edit', title="edit") Edit
+      | &nbsp;&nbsp;
+      input(type="hidden", name="_method", value="DELETE")
+      button.btn.btn-danger(type="submit") delete
+
+  p
+    br
+    h3 Comments
+    - each comment in nodo.comments
+      include ../comments/comment
+    include ../comments/form

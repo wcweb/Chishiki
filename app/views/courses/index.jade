@@ -1,0 +1,37 @@
+extends ../layouts/default
+
+
+block content
+
+  - if (courses.length)
+    - each course in courses
+      .nodo
+        h3
+          a(href='/courses/'+course._id, title=nodo.title) #{course.title}
+        p= course.description
+
+        .meta
+          span.muted= formatDate(course.createdAt)
+
+          - if (course.user)
+            | &nbsp; - &nbsp;
+            span Author &nbsp;
+
+            - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+
+            a(href="/users/"+nodo.user._id)= name
+
+          - if (course.tags)
+            | &nbsp; - &nbsp;
+            span Tags &nbsp;
+            - each tag in course.tags.split(',')
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/tags/"+tag)= tag
+              | &nbsp;&nbsp;
+
+    - if (pages > 1)
+      ul.pagination
+        != createPagination(pages, page)
+  - else
+    h4.muted No courses.&nbsp;
+      a(href="/courses/new") create one

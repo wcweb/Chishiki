@@ -1,0 +1,35 @@
+extends ../layouts/default
+
+
+block banner
+  include ../includes/banner
+  +banner
+block banner-scripts
+  +banner-scripts
+
+block main
+  h1= title
+  - if (req.isAuthenticated())
+    p role:
+    p=req.user.role
+  - else
+    p You have not authenticated.
+      | You can
+      a(href="/login", title="Login") Login
+      | &nbsp; or &nbsp;
+      a(href="/signup", title="Signup") Signup
+block content
+  .row
+    .col-md-8
+      h1 Courses
+      include ../components/courses/list
+      +courseslist(courses)
+      
+      
+      h1 Nodos
+      include ../components/nodos/list
+      +nodoslist(nodos)
+    .col-md-4
+      include ../components/categories/list
+      - each categoryType in categories
+        +categorieslist(categoryType)

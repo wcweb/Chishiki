@@ -2,8 +2,16 @@ doctype html
 html
   include ../includes/head
   body
+    block banner
+
+
+
+        
     #wrap
       include ../includes/header
+
+      block dashboard
+        
       .container
         .main-content
           include ../includes/messages
@@ -12,3 +20,6 @@ html
           block content
     include ../includes/footer
     include ../includes/foot
+    
+    block banner-scripts
+

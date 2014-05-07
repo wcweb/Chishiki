@@ -1,0 +1,68 @@
+extends ../layouts/default
+block main
+  - if(!nodo.isNew)
+    | &nbsp;
+    a(href="/nodos/"+nodo._id, class="")
+      span [back]
+  h1= title
+
+
+block content
+
+  - var action = '/nodos'
+  - action += nodo.isNew? '' : '/' + nodo.id
+  .row
+    - if(!nodo.isNew)
+      .col-md-12
+        ul.nav.nav-tabs
+          li.active
+            a(href="#basic",data-toggle="tab") Basic
+          li
+            a(href="#video",data-toggle="tab") Video
+          li
+            a(href="#quiz",data-toggle="tab") Quiz
+          li
+            a(href="#discuss",data-toggle="tab") Discuss
+          li
+            a(href="#scorm",data-toggle="tab") Scorm
+        hr
+        .tab-content
+          .tab-pane.active#basic
+            include partials/_basicForm
+
+          .tab-pane#video
+            include  partials/_videoForm
+          .tab-pane#quiz
+            form.form-horizontal(method="post",
+                action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data",
+                role="form", id="quizForm2")
+              input(type="hidden", name="_csrf", value="#{csrf_token}")
+          .tab-pane#discuss
+            //include components/_discussForm
+          .tab-pane#scorm
+            include partials/_scormForm
+
+    - else
+      .col-md-12
+        include partials/_basicForm
+
+block scripts
+  script(src='/tinymce/js/tinymce/tinymce.min.js')
+  script.
+    var nodo = !{JSON.stringify(req.nodo)};
+    $(document).ready(function(){
+      MyApp.formBuild({data:nodo,formBody:'#quizForm2'});
+    });
+    
+  script.
+    tinymce.init({
+      selector: "#desc",
+      language : 'zh_CN',
+    });
+    
+  script.
+    tinymce.init({
+      selector: "#reading",
+      plugins: ["emoticons visualblocks advlist autolink link image hr anchor pagebreak"],
+      language : 'zh_CN',
+    });

@@ -28,7 +28,8 @@ module.exports = function(app, config, passport){
     app.use(express.favicon());
     app.use(express.static(config.root + '/public'));
     app.use(express.static(config.root + '/public/dist'));
-
+    app.use(express.static(config.root + '/bower_components'));
+    app.use('/tmp',  express.static(config.root + '/tmp'));
     var log;
     if(env !== 'development'){
         log = {
@@ -52,6 +53,7 @@ module.exports = function(app, config, passport){
     app.configure(function(){
         // expose package.json to views
         app.use(function (req, res, next){
+          // @TODO 3.0 use app.locals
             res.locals.pkg = pkg;
             next();
         })
@@ -104,7 +106,6 @@ module.exports = function(app, config, passport){
 
         app.use(function(err, req, res, next) {
             if(!err) return next(); // you also need this line
-            console.log("error!!!");
             console.error(err.stack);
             res.send("error!!!");
             next(err);
@@ -130,6 +131,7 @@ module.exports = function(app, config, passport){
 
     });
 
+    app.locals._= require('underscore');
 
     app.configure('development', function(){
         app.locals.pretty = true;

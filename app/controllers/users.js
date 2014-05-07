@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 var async = require('async');
 var User = mongoose.model('User');
-var Article = mongoose.model('Article');
+var Nodo = mongoose.model('Nodo');
 var utils = require('../../lib/utils');
 
 
@@ -93,11 +93,3 @@ exports.user = function (req, res, next, id){
         });
 }
 
-//Error: Cast to ObjectId failed for value "abc" at path "_id"
-//exports.abc = function(req, res){
-//    var user = req.profile;
-//    res.render('users/show', {
-//        title: user.name,
-//        user: user
-//    });
-//}

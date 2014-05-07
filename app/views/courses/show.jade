@@ -1,0 +1,60 @@
+extends ../layouts/default
+
+block main
+  h1= course.title
+
+    .pull-right
+      form(action="/courses/"+course.id, method="post", onsubmit="return confirm('Are you sure?')")
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        a.btn.btn-default(href='/courses/'+course._id+'/edit', title="edit") Edit
+        | &nbsp;
+        input(type="hidden", name="_method", value="DELETE")
+        button.btn.btn-danger(type="submit") Delete
+  hr
+
+block content
+  .row
+    .col-md-8
+      - if (course.user)
+        - var name = course.user.name ? course.user.name : course.user.username
+        p.muted= formatDate(course.createdAt, "%b %d, %Y at %I:%M %p")
+        p Author :&nbsp;
+          a(href="/users/"+course.user._id)= name
+
+      p!=course.description
+      .meta
+
+        - if (course.nodos.length)
+          h2 Nodos &nbsp;
+          
+          ul
+          - each nodo in course.nodos
+            li
+              a(href="/nodos/"+nodo.id)= nodo.title
+
+
+
+        - if (course.tags)
+          h3 Tags &nbsp;
+          p
+            - each tag in course.tags.split(',')
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/tags/"+tag)= tag
+              | &nbsp;&nbsp;
+
+
+        - if (course.categories)
+          h3 Category &nbsp;
+          p
+            - each category in course.categories
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/categories/"+category.id)= category.label
+              | &nbsp;&nbsp;
+
+    .col-md-4
+      - if (!course.isNew && course.image && course.image.files && course.image.files.length)
+        img(src=course.image.cdnUri + '/thumb_' + course.image.files[0])
+
+
+
+block foot

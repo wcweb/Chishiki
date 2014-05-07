@@ -1,0 +1,95 @@
+extends ../layouts/default
+
+block main
+  h1= nodo.title
+
+    .pull-right
+      form(action="/nodos/"+nodo.id, method="post", onsubmit="return confirm('Are you sure?')")
+        input(type='hidden', name='_csrf', value="#{csrf_token}")
+        a.btn.btn-default(href='/nodos/'+nodo._id+'/edit', title="edit") Edit
+        | &nbsp;
+        input(type="hidden", name="_method", value="DELETE")
+        button.btn.btn-danger(type="submit") Delete
+  hr
+
+block content
+  .row
+    .col-md-8
+      - if (nodo.user)
+        - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+        p.muted= formatDate(nodo.createdAt, "%b %d, %Y at %I:%M %p")
+        p Author :&nbsp;
+          a(href="/users/"+nodo.user._id)= name
+
+      p!=nodo.body
+      .meta
+
+        - if (nodo.videos.length)
+          h2 Videos &nbsp;
+
+          - var video = nodo.videos[0]
+            i.muted.fa.fa-tag &nbsp;
+            //a.tag(href="/videos/"+video.url)= video.title
+            div(id ='youkuplayer', style="width:750px;height:500px")
+
+
+
+              | &nbsp;&nbsp;
+        - if (nodo.quizzes.length)
+          h2 Quizzes &nbsp;
+
+          - each quiz in nodo.quizzes
+            i.muted.fa.fa-tag &nbsp;
+            ul
+              - if (quiz.quiz && quiz.quiz.questions)
+                - each question in quiz.quiz.questions
+                  li
+                    p= question.question
+
+
+
+        - if (nodo.tags)
+          h3 Tags &nbsp;
+          p
+            - each tag in nodo.tags.split(',')
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/tags/"+tag)= tag
+              | &nbsp;&nbsp;
+
+
+        - if (nodo.categories)
+          h3 Category &nbsp;
+          p
+            - each category in nodo.categories
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/categories/"+category.id)= category.label
+              | &nbsp;&nbsp;
+
+    .col-md-4
+      - if (!nodo.isNew && nodo.image && nodo.image.files && nodo.image.files.length)
+        img(src=nodo.image.cdnUri + '/thumb_' + nodo.image.files[0])
+      - if (nodo.reading)
+        h3 Reading &nbsp;
+        p!= nodo.reading
+
+
+
+
+  br
+  h3 Comments
+  - each comment in nodo.comments
+    include ../comments/comment
+  include ../comments/form
+
+
+block foot
+  script(type="text/javascript" src="http://player.youku.com/jsapi")
+  script.
+      var player = new YKU.Player('youkuplayer',{
+        styleid: '0',
+        client_id: 'fbc9d4ade768536b',
+        vid: '!{video.link}'
+      });
+  script.
+    console.log(!{JSON.stringify(req.nodo)});
+    var nodo = !{JSON.stringify(req.nodo)};

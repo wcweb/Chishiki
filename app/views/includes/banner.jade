@@ -1,0 +1,23 @@
+mixin banner
+  - if (nodos && nodos.length)
+    .banner
+      ul
+        - each nodo in nodos
+          - if ( nodo.image && nodo.image.files && nodo.image.files.length)
+            //li(style='background:url('+nodo.image.cdnUri + '/detail_' + nodo.image.files[0]+');background-size: 100%; width: 25%;\
+            //background-position: center center')
+            li
+              img(src=nodo.image.cdnUri + '/detail_' + nodo.image.files[0])
+              .banner-inner
+                h2= nodo.title
+                p= nodo.body
+                a.btn(href='/nodos/'+nodo._id, title=nodo.title) enter
+
+mixin banner-scripts
+  script(src='/unslider/src/unslider.min.js')
+  script.
+    $('.banner').unslider({
+        fluid: true,
+        dots: true
+      });
+

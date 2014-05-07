@@ -1,41 +1,66 @@
 extends ../layouts/default
-block main
-  h1= title
-  p this should be in admin or member.
 
+block styles
+  link(rel="stylesheet", href="/bowers/datatables-bootstrap3/css/datatables.css")
 
-block content
-  - if (users.length)
-    - each user in users
-      .user
-        h3
-          - var name = user.name ? user.name : user.username
+block scripts
+  script(src="/bowers/jquery.dataTables/jquery.dataTables.js")
+  script(src='/bowers/datatables-bootstrap3/js/datatables.js')
+  script.
+    $('.userlistTable').dataTable();
+  
+block dashboard
+    .row
+      .col-md-2
+        include ../includes/sidebar
+      .col-md-8
+        
+        - if (users.length)
+          table.userlistTable(class="datatable table table-striped table-bordered")
+            thead
+              tr
+                td name
+                td email
+                td details
+                td operator
+            tbody
+              - each user in users
+                tr
+                  td
+                    - var name = user.name ? user.name : user.username
 
-            a(href="/users/"+user._id, title=user.name)= name
-        p= user.email
+                      a(href="/users/"+user._id, title=user.name)= name
+                  td
+                    p= user.email
+                 
+        
+                  td
+                    - if (user.nodos.length)
+                      ul
+                        - each nodo in user.nodos
+                          li
+                            a(href="/nodos/"+nodo._id, title=nodo.name) #{nodo.title}
+                            .meta
+                              span.muted= formatDate(nodo.createdAt)
 
+                            - if (nodo.user.tags)
+                              | &nbsp; - &nbsp;
+                              span Tags &nbsp;
+                              - each tag in nodo.user.tags.split(',')
+                                i.muted.fa.fa-tag &nbsp;
+                                a.tag(href="/tags/"+tag)= tag
+                                | &nbsp;&nbsp;
 
-
-        - if (user.articles.length)
-          ul
-            - each article in user.articles
-              li
-                a(href="/articles/"+article._id, title=article.name) #{article.title}
-                p= article.body
-                .meta
-                  span.muted= formatDate(article.createdAt)
-
-                - if (article.user.tags)
-                  | &nbsp; - &nbsp;
-                  span Tags &nbsp;
-                  - each tag in article.user.tags.split(',')
-                    i.muted.fa.fa-tag &nbsp;
-                    a.tag(href="/tags/"+tag)= tag
-                    | &nbsp;&nbsp;
-
-    - if (pages > 1)
-      ul.pagination
-        != createPagination(pages, page)
-  - else
-    h4.muted No users.&nbsp;
-      a(href="/users/new") create one
+                  td
+                    a.btn(href="/users/"+user._id+"/edit", title='edit user') edit
+                    | &nbsp;
+                    a.btn(href="/users/"+user._id+"/delete", title='delete user') delete
+                    
+          - if (pages > 1)
+            ul.pagination
+              != createPagination(pages, page)
+        - else
+          h4.muted No users.&nbsp;
+            a(href="/users/new") create one
+      
+      

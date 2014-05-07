@@ -1,9 +1,15 @@
 {
-    "name": "brust",
-    "dependencies": {
-        "jquery": "~1.9.1",
-        "qunit": "~1.12.0",
-        "ic-ajax": "~0.3.0",
-        "bootstrap":"v3.0.3"
-    }
+  "name": "brust",
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "qunit": "~1.12.0",
+    "ic-ajax": "~0.3.0",
+    "tinymce": "~4.0.21",
+    "unslider": "latest",
+    "chartjs": "latest",
+    "bootstrap": "v3.0.3",
+    "jqtree": "~0.20.0",
+    "datatables-bootstrap3": "*",
+    "datatables": "~1.10.0"
+  }
 }

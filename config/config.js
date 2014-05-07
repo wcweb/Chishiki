@@ -15,35 +15,42 @@ var path = require('path')
         parseAppId: 'PARSE_APP_ID',
         parseApiKey: 'PARSE_MASTER_KEY'
     }
+    , app_static = {
+        name: 'Chishiki ',
+        title: 'Chishiki App'
+    }
+    , uploadImagesDirectory = '/images/uploads'
+    , tempDirectory = rootPath+'/tmp'
 
 module.exports = {
     development: {
-        db: 'mongodb://localhost/brutus',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: {
-            name: 'Nodejs Express Mongoose Demo'
-        }
+        db: 'mongodb://localhost/Chishiki_dev'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     },
     test: {
-        db: 'mongodb://localhost/brutus_test',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: {
-            name: 'Nodejs Express Mongoose Demo'
-        }
+        db: 'mongodb://localhost/Chishiki_test'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     },
-    production:{
-        db: 'mongodb://localhost/Chishiki_pro',
-        root: rootPath,
-        notifier: notifier,
-        socketEnable: true,
-        app: {
-          name: 'Chishiki ',
-          title: 'Chishiki App'
-        }
-
+    production: {
+        db: 'mongodb://localhost/Chishiki_pro'
+        , root: rootPath
+        , notifier: notifier
+        , socketEnable: true
+        , app: app_static
+        , uploadImagesDirectory: uploadImagesDirectory
+        , tempDirectory:tempDirectory
+        , SCORM_Directory:tempDirectory+'/scorms'
     }
 }

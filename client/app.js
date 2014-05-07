@@ -1,9 +1,4 @@
-//define('_forms/_videosForm', ['exports'], function(__exports___){
-//   console.log(__exports___);
-//    __exports___();
-//});
-//
-//
+
 $(document).ready(function () {
 
   $('#tags').tagsInput({
@@ -20,6 +15,7 @@ $(document).ready(function () {
 
 //require handlebars
 
+
 require('./../lib/helpers/handlebars-helpers');
 
 require('./_forms/_videosForm.js').videoInit();
@@ -28,11 +24,13 @@ require('./_forms/_videosForm.js').videoInit();
 //MyApp = window['MyApp'] ||{};
 //MyApp.templates = window['MyApp'].templates || {};
 
-MyApp = window['MyApp'] ||{};
+var MyApp = window['MyApp'] ||{};
 MyApp = require('./_forms/_quizzesForm.js');
-
-
 
 function flash(msg){
 
+}
+
+if($('#buildScorm').length){
+    require('./_forms/_scromForm.js').init();
 }
