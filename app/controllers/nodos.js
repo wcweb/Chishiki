@@ -17,8 +17,15 @@ exports.load = function(req, res, next, id){
           req.flash('error', 'no that nodo you requested! ');
           return res.redirect('/');
         }
-        req.nodo = nodo;
+        if(nodo){
+          req.nodo = nodo;
+        }else{
+
+          req.flash('error', 'no that nodo you requested! ');
+          return res.redirect('/');
+        }
         next();
+
     });
 }
 
@@ -80,7 +87,6 @@ exports.edit = function (req, res){
 exports.update = function (req, res){
     var  nodo = req.nodo;
     nodo = extend(nodo, req.body);
-    //console.dir(nodo.constructor);
     nodo.uploadAndSave(req.files.image, function(err){
         if(!err){
             return res.redirect('/nodos/' + nodo._id);

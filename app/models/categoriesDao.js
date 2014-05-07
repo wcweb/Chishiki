@@ -8,8 +8,9 @@ var _ = require('underscore');
 
 
 var CategorySchema = new Schema({
-    title: {type : String, default : '', trim : true},
-    body: {type : String, default : '', trim : true},
+    label: {type : String, default : '', trim : true},
+    description: {type : String, default : '', trim : true},
+    categoryType:{type : String, default : '', trim : true},
     index: { type : Number, min:-1, default: -1 },
     children:[
       { type: Schema.Types.ObjectId, ref : 'Category'}
@@ -52,6 +53,7 @@ CategorySchema.methods = {
       that.save(cb);
     });
   },
+
 
 
   /**
@@ -97,5 +99,6 @@ CategorySchema.statics = {
             .exec(cb);
     }
 }
+
 module.exports = mongoose.model('Category', CategorySchema);
-var Category = mongoose.model('Category')
+var Category = mongoose.model('Category');

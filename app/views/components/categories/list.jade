@@ -1,0 +1,8 @@
+mixin categorieslist(categoriesByType)
+  h1= categoriesByType._id
+  ul
+    - each category in categoriesByType.categories
+      li
+        a(href="/categories/"+category._id)= category.label
+
+

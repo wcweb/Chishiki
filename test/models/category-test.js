@@ -19,8 +19,8 @@ describe('Model Category test : @fast', function(){
   var category, catCLen=0;
   before(function(done){
     category = new Category({
-      title: ' Category 1 ',
-      body: 'descriptons ...',
+      label: ' Category 1 ',
+      description: 'descriptons ...',
       children:[],
       parent:null
     })
@@ -35,20 +35,23 @@ describe('Model Category test : @fast', function(){
     category.should.be.an.instanceOf(Category)
   })
 
-  context('CRUD node', function(){
+  context('CRUD Child', function(){
     it('should be add node', function(){
       category.addChild({
-        title: ' Category Child 1',
+        label: ' Category Child 1',
       }, function(err){
         catCLen += 1;
         category.children.length.should.equal(
           catCLen);
+          category.getChildren(function(err, subcats){
+            subcats.length.should.equal(catCLen);
+          })
       })
     })
 
     it('should be able to remove exist node', function(){
       category.removeChild({
-        title: ' Category Child 1',
+        label: ' Category Child 1',
       }, function(err){
         catCLen -=1;
         category.children.length.should.equal(
@@ -56,6 +59,7 @@ describe('Model Category test : @fast', function(){
       })
     })
   })
+
 
 
 

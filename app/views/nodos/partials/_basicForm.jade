@@ -1,0 +1,62 @@
+form.form-horizontal(method="post", action=action, enctype="multipart/form-data", role="form")
+
+  input(type="hidden", name="_csrf", value="#{csrf_token}")
+
+  - if (!nodo.isNew)
+    input(type="hidden", name="_method", value="PUT")
+
+  .form-group
+    label.col-sm-2.control-label(for='title') Title
+    .col-sm-10
+      input.form-control#category(type='text', name="title", value=nodo.title, placeholder='Enter the category')
+
+  .form-group
+    label.col-sm-2.control-label(for='category') category
+    .col-sm-10
+      select.form-control#category(name='categories[]')
+        - if (categories)
+          - for category in categories
+            - if (_.find(nodo.categories, function(cat){ return cat.id == category.id; }))
+                option(selected, value=category.id) #{category.label}
+            - else
+                option(value=category.id)= category.label
+
+
+  .form-group
+    label.col-sm-2.control-label(for='file') Image
+    - if (!nodo.isNew && nodo.image && nodo.image.files && nodo.image.files.length)
+      .col-sm-2
+        a(href=nodo.image.cdnUri + '/detail_' + nodo.image.files[0])
+          img(src=nodo.image.cdnUri + '/mini_' + nodo.image.files[0])
+      .col-sm-8
+        input.form-control#file(type='file', name="image[]")
+    - else
+      .col-sm-10
+        input.form-control#file(type='file', name="image[]")
+
+
+
+  .form-group
+    label.col-sm-2.control-label(for='desc') Body
+    .col-sm-10
+      textarea.form-control#desc(rows="5", name="body", placeholder='Enter the nodo description')=nodo.body
+
+
+  hr
+
+  .form-group
+    label.col-sm-2.control-label(for='reading') Reading
+    .col-sm-10
+      textarea.form-control#reading(rows="5", name="reading", placeholder='Enter the nodo relatived reading')=nodo.reading
+
+  hr
+  .form-group
+    label.col-sm-2.control-label(for='tags') Tags
+    .col-sm-10
+      input.form-control#tags(type='text', name="tags", value=nodo.tags, placeholder='Enter the tags')
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      button.btn.btn-primary(type='submit') Save
+      | &nbsp;
+      a.btn(href='/nodos', category="cancel") Cancel

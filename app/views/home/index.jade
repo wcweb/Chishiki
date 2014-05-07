@@ -1,4 +1,12 @@
 extends ../layouts/default
+
+
+block banner
+  include ../includes/banner
+  +banner
+block banner-scripts
+  +banner-scripts
+
 block main
   h1= title
   - if (req.isAuthenticated())
@@ -13,31 +21,15 @@ block main
 block content
   .row
     .col-md-8
-      - if (nodos.length)
-        - each nodo in nodos
-          .nodo
-            h3
-              a(href='/nodos/'+nodo._id, title=nodo.title) #{nodo.title}
-            p= nodo.body
-            .meta
-              span.muted= formatDate(nodo.createdAt)
-              - if (nodo.user)
-                | &nbsp; - &nbsp;
-                span Author &nbsp;
-                - var name = nodo.user.name ? nodo.user.name : nodo.user.username
-                a(href="/users/"+nodo.user._id)= name
-              - if (nodo.tags)
-                | &nbsp; - &nbsp;
-                span Tags &nbsp;
-                - each tag in nodo.tags.split(',')
-                  i.muted.fa.fa-tag &nbsp;
-                  a.tag(href="/tags/"+tag)= tag
-                  | &nbsp;&nbsp;
-        - if (pages > 1)
-          ul.pagination
-            != createPagination(pages, page)
-      - else
-        h4.muted No nodos.&nbsp;
-          a(href="/nodos/new") create one
+      h1 Courses
+      include ../components/courses/list
+      +courseslist(courses)
+      
+      
+      h1 Nodos
+      include ../components/nodos/list
+      +nodoslist(nodos)
     .col-md-4
-      p side bar
+      include ../components/categories/list
+      - each categoryType in categories
+        +categorieslist(categoryType)

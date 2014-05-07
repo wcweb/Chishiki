@@ -28,9 +28,8 @@ describe('Nodos', function () {
                 username: 'foobar',
                 password: 'foobar'
             })
-            user.save(done)
-
-
+            user.save(done);
+            
     })
 
     describe('GET /nodos', function () {

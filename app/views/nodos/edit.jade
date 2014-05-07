@@ -21,9 +21,6 @@ block content
             a(href="#video",data-toggle="tab") Video
           li
             a(href="#quiz",data-toggle="tab") Quiz
-          //li
-          //  a(href="#reading",data-toggle="tab") Reading
-
           li
             a(href="#discuss",data-toggle="tab") Discuss
           li
@@ -31,33 +28,41 @@ block content
         hr
         .tab-content
           .tab-pane.active#basic
-            include components/_basicForm
+            include partials/_basicForm
 
           .tab-pane#video
-            include  components/_videoForm
+            include  partials/_videoForm
           .tab-pane#quiz
             form.form-horizontal(method="post",
                 action="/nodos/#{nodo._id}/quizzes", enctype="multipart/form-data",
                 role="form", id="quizForm2")
               input(type="hidden", name="_csrf", value="#{csrf_token}")
-
-          //.tab-pane#reading
-            //include components/_readingForm
-
           .tab-pane#discuss
             //include components/_discussForm
           .tab-pane#scorm
-            include components/_scormForm
+            include partials/_scormForm
 
     - else
       .col-md-12
-        include components/_basicForm
+        include partials/_basicForm
 
-block foot
-
+block scripts
+  script(src='/tinymce/js/tinymce/tinymce.min.js')
   script.
-    console.log(!{JSON.stringify(req.nodo)});
     var nodo = !{JSON.stringify(req.nodo)};
     $(document).ready(function(){
       MyApp.formBuild({data:nodo,formBody:'#quizForm2'});
+    });
+    
+  script.
+    tinymce.init({
+      selector: "#desc",
+      language : 'zh_CN',
+    });
+    
+  script.
+    tinymce.init({
+      selector: "#reading",
+      plugins: ["emoticons visualblocks advlist autolink link image hr anchor pagebreak"],
+      language : 'zh_CN',
     });

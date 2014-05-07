@@ -8,8 +8,10 @@ var Schema = mongoose.Schema;
 var _= utils = require('../../lib/utils');
 var Quiz = require('./quizzesDao');
 var Answer = mongoose.model('Answer');
-
+var Category = mongoose.model('Category');
 var extend = require('util')._extend;
+
+var forms = require('forms-mongoose');
 /**
  * Getters
  */
@@ -32,10 +34,17 @@ var setTags = function (tags) {
  */
 
 var NodoSchema = new Schema({
-    title: {type : String, default : '', trim : true},
-    body: {type : String, default : '', trim : true},
+    title: {type : String, default : '', trim : true, forms: {all:{}}},
+    body: {type : String, default : '', trim : true,
+                forms:
+                {all:
+                  {widget:
+                    forms.widgets.textarea(
+                      {rows:3,
+                        classes: ['input-with-feedback'] 
+                      })}}},
     user: {type : Schema.ObjectId, ref : 'User'},
-    reading: {type : String, default : '', trim : true},
+    reading: {type : String, default : '', trim : true, forms: {all:{}}},
     videos:[{
         title:{ type : String, default :''},
         link: { type : String, default :''}
@@ -47,9 +56,10 @@ var NodoSchema = new Schema({
         createdAt: { type : Date, default : Date.now }
     }],
     tags: {type: [], get: getTags, set: setTags},
+    categories: [{type: Schema.ObjectId, ref : 'Category' }],
     image: {
         cdnUri: String,
-        files: []
+        files: [{type : String, default : '', trim : true}]
     }
     ,createdAt  : {type : Date, default : Date.now}
     ,scorm: {type: Schema.Types.ObjectId, ref : "Scorm"}
@@ -101,7 +111,6 @@ NodoSchema.methods = {
         if (!images || !images.length) return this.save(cb);
 
         var imager = new Imager(imagerConfig, 'Local');
-        console.log(imager);
         var self = this;
 
         this.validate(function (err) {
@@ -384,6 +393,7 @@ NodoSchema.statics = {
             .populate('user', 'name email username')
             .populate('quizzes.quiz')
             .populate('comments.user')
+            .populate('categories')
             .populate('scorm')
             .exec(cb);
     },
@@ -392,6 +402,7 @@ NodoSchema.statics = {
         var criteria = options.criteria || {};
         this.find(criteria)
             .populate('user', 'name username')
+            .populate('categories')
             .sort({'createdAt': -1})
             .limit(options.perPage)
             .skip(options.perPage * options.page)

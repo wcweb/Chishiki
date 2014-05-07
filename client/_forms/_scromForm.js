@@ -12,8 +12,8 @@ exports.init= function(){
             error:function(err){
                 console.log(err);
             }
-        })
-    })
+        });
+    });
     $('#downloadSCORM').on('click',function(e){
         e.preventDefault();
         var aid = $(e.currentTarget).attr('data-target');
@@ -27,7 +27,7 @@ exports.init= function(){
             error:function(err){
                 console.log(err);
             }
-        })
-    })
+        });
+    });
 
-}
+};

@@ -9,10 +9,19 @@
     "DS": true,
     "console":true,
     "jwplayer":true,
-    "$": true
+    "$": true,
+    /* MOCHA */
+        "describe"   : false,
+        "it"         : false,
+        "before"     : false,
+        "beforeEach" : false,
+        "after"      : false,
+        "afterEach"  : false
+
   },
-  "node" : false,
-  "browser" : false,
+  "laxcomma": true,
+  "node" : true,
+  "browser" : true,
   "boss" : true,
   "curly": false,
   "debug": false,

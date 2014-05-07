@@ -1,0 +1,19 @@
+.bs-sidebar.affix-top
+  ul.nav.nav-list.bs-sidenav
+    li
+      a(href="#") Nodos
+    li
+      a(href="#") Categories
+    li
+      a(href="#") Group
+    li(class="dropdown")
+      a(href="#", data-toggle="dropdown") Dashboard
+      ul(class="dropdown-menu",role="menu")
+        li(class=isActive('/dashboard/index') ? 'active' : '')
+          a(href="/dashboard/index", title="dashboard/index") Memember
+
+        li(class=isActive('/dashboard/users/list') ? 'active' : '')
+          a(href="/dashboard/users/list", title="Users list") Users List
+
+        li(class=isActive('/dashboard/admin') ? 'active' : '')
+          a(href="/dashboard/admin", title="dashboard/admin") Admin

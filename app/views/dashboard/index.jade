@@ -1,5 +1,8 @@
 extends ../layouts/default
-block main
-    h1= title
-block content
-    p "dashboard is here"
+
+block dashboard
+    .row
+      .col-md-2
+        include ../includes/sidebar
+      .col-md-8
+        

@@ -5,7 +5,7 @@ var config = require('./config')[env];
 
 module.exports = {
     variants: {
-        article: {
+        nodo: {
             resize: {
                 original: "100%",
                 detail: "800x600"
@@ -45,7 +45,7 @@ module.exports = {
 //            bucket: 'BUCKET_NAME',
 //            region: 'REGION'
 //        }
-        uploadDirectory: config.uploadImagesDirectory
+        uploadDirectory: config.tempDirectory+config.uploadImagesDirectory
     },
 
     debug: true

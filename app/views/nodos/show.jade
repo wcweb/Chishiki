@@ -57,6 +57,13 @@ block content
               | &nbsp;&nbsp;
 
 
+        - if (nodo.categories)
+          h3 Category &nbsp;
+          p
+            - each category in nodo.categories
+              i.muted.fa.fa-tag &nbsp;
+              a.tag(href="/categories/"+category.id)= category.label
+              | &nbsp;&nbsp;
 
     .col-md-4
       - if (!nodo.isNew && nodo.image && nodo.image.files && nodo.image.files.length)

@@ -28,7 +28,7 @@ module.exports = function(app, config, passport){
     app.use(express.favicon());
     app.use(express.static(config.root + '/public'));
     app.use(express.static(config.root + '/public/dist'));
-    app.use('/bower_components',  express.static(config.root + '/bower_components'));
+    app.use(express.static(config.root + '/bower_components'));
     app.use('/tmp',  express.static(config.root + '/tmp'));
     var log;
     if(env !== 'development'){
@@ -131,6 +131,7 @@ module.exports = function(app, config, passport){
 
     });
 
+    app.locals._= require('underscore');
 
     app.configure('development', function(){
         app.locals.pretty = true;

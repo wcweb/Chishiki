@@ -33,7 +33,7 @@ exports.videoInit= function(){
             var template =$('.video-group').first().clone();
             $(template).children('.crud-video-control').toggleClass('hide').children();
             var elements = $(template).children().children().children("[name^='videos']");
-            var button = $(template).children('.crud-video-control').children().children(' button')
+            var button = $(template).children('.crud-video-control').children().children(' button');
             button.attr('id','temp-video-id');
             button.attr('data-target',count);
             elements.each(function(idx, ele){
@@ -66,7 +66,7 @@ exports.videoInit= function(){
                     flash('success update video.');
 
                 }
-            })
+            });
         });
 //        $('#videoForm').on('submit', function(e){
 //            e.preventDefault();
@@ -84,7 +84,7 @@ exports.videoInit= function(){
         //    ul
         //    - each error in errors
         //    li!= error
-    }
+    };
 
 
     var removeVideoFn = function(e){
@@ -93,7 +93,7 @@ exports.videoInit= function(){
         var currentIndex= $(target).attr('data-target');
         console.log($(target).attr('id'));
 
-        if('temp-video-id' == $(target).attr('id') ){
+        if('temp-video-id' === $(target).attr('id')){
             $('.video-group')[currentIndex].remove();
         }else{
             var form = $('#videoForm');
@@ -128,7 +128,6 @@ exports.videoInit= function(){
             remove_btn.attr('data-target',idx);
 
         });
-    }
-//}
-//});
-}
+    };
+
+};

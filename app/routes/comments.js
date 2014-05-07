@@ -1,4 +1,4 @@
-var auth = require('../../config/auth-rules');
+var auth = require('../../config/auth-rules').auth;
 var comments = require('../controllers/comments');
 
 module.exports = function( app ){

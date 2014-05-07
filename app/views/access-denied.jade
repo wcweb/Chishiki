@@ -1,7 +1,16 @@
 extends layouts/default
+
 block main
     h1 Access Denied
-    h2 You don\'t have permission to:
-        span= action
+
 block content
-    pre= error
+    - if (req.isAuthenticated())
+      p ask administor for help !!!
+    - else
+       
+     
+      h2= action
+      p That You don\'t have permission to. You can try to 
+        a(href="/login", title="Login") Login
+        | &nbsp; or &nbsp;
+        a(href="/signup", title="Sign") Signup
