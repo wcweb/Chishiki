@@ -55,6 +55,7 @@ module.exports = function(app, config, passport){
         app.use(function (req, res, next){
           // @TODO 3.0 use app.locals
             res.locals.pkg = pkg;
+            res.locals.env = env;
             next();
         })
 

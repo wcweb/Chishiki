@@ -1,8 +1,11 @@
-
+- if( env !== 'production')
+  script(src='/javascripts/app.js')
+- else
+  script(src='/javascripts/application.min.js')
+  
 script(src='/javascripts/bootstraped.min.js')
 script(src='/javascripts/jquery.tagsinput.min.js')
 script(src='/javascripts/loader.js')
-script(src='/javascripts/app.js')
 
 block foot
 block scripts

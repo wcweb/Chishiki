@@ -43,7 +43,7 @@ describe('Model Category test : @fast', function(){
         catCLen += 1;
         category.children.length.should.equal(
           catCLen);
-          category.getChildren(function(err, subcats){
+          Category.getChildren(category._id,function(err, subcats){
             subcats.length.should.equal(catCLen);
           })
       })

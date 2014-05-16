@@ -51,15 +51,14 @@ block scripts
   script.
     var nodo = !{JSON.stringify(req.nodo)};
     $(document).ready(function(){
+      var MyApp = window['MyApp'] || {};
       MyApp.formBuild({data:nodo,formBody:'#quizForm2'});
     });
-    
   script.
     tinymce.init({
       selector: "#desc",
       language : 'zh_CN',
     });
-    
   script.
     tinymce.init({
       selector: "#reading",

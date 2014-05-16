@@ -2,6 +2,16 @@ var gulp = require('gulp');
 
 var libsPath=[
 {
+   "name": "jquery",
+   "scripts": "./bower_components/jquery/jquery.js"
+},
+{
+   "name": "bootstrap",
+   "styles":  "./bower_components/bootstrap/dist/bootstrap.css",
+   "scripts": "./bower_components/bootstrap/dist/bootstrap.js",
+   "images": "./bower_components/tinymce/js/tinymce/**/*{.ttf|.woff|.svg}",
+},
+{
     "name": "jquery.dataTables",
     "styles":  "./bower_components/datatables/media/css/jquery.dataTables.css",
     "scripts": "./bower_components/datatables/media/js/jquery.dataTables.js"
@@ -21,8 +31,16 @@ var libsPath=[
     "styles": "./bower_components/tinymce/js/tinymce/**/*.css",
     "images": "./bower_components/tinymce/js/tinymce/**/*{.ttf|.woff|.svg}",
     "scripts": "./bower_components/tinymce/js/tinymce/**/*.js"
+},
+{
+   "name": "unslider",
+   "scripts": "./bower_components/unslider/src/unslider.js"
+},
+{
+   "name": "jqtree",
+   "styles":  "./bower_components/jqtree/jqtree.css",
+   "scripts": "./bower_components/jqtree/tree.jquery.js"
 }
-
 ];
 
 gulp.task('bowerfiles:copy', function(){

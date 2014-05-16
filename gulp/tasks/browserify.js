@@ -8,15 +8,18 @@ var rename = require('gulp-rename');
 var plumber = require('gulp-plumber');
 var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
+var paths = require('../config').paths;
+
+
 
 gulp.task('hbs',['lint'], function(){
-    return gulp.src('./client/app.js',{ read: false })
+    return gulp.src(paths.client+'/app.js',{ read: false })
         .pipe(plumber())
         .pipe(jshint())
         .pipe(browserify({
               basedir: './public/',
               transform: [hbsfy],
-              ignore: './node_modules/**',
+              ignore: ['./node_modules/**', './lib/**'],
               debug:true
             }))
         .pipe(rename('app.js'))
@@ -25,11 +28,11 @@ gulp.task('hbs',['lint'], function(){
 });
 
 gulp.task('watch-hbs', ['hbs'],function() {
-    gulp.watch(['./client/**'], ['hbs']);
+    gulp.watch([paths.client+'/**'], ['hbs']);
 });
 
 gulp.task('lint', function() {
-  return gulp.src('./client/**/*.js')
+  return gulp.src(paths.client+'/**/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });

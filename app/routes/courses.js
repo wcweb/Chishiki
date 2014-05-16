@@ -12,18 +12,15 @@ module.exports = function( app ){
 
     // @TODO env role test.
     app.get('/courses', courses.index);
-    // if( process.env.NODE_ENV !== 'test'){
-  //       app.get('/courses/new',middleware, courses.new);
-  //       app.post('/courses', courses.create);
-  // 
-  //   }else{
-  //       app.get('/courses/new', auth.requiresLogin, middleware,courses.new);
-  //       app.post('/courses', auth.requiresLogin,middleware, courses.create);
-  // 
-  //   }
-  // 
+     if( process.env.NODE_ENV !== 'test'){
+         app.get('/courses/new',middleware, courses.new);
+         app.post('/courses', courses.create);
+     }else{
+         app.get('/courses/new', auth.requiresLogin, middleware,courses.new);
+         app.post('/courses', auth.requiresLogin,middleware, courses.create);
+     }
     app.get('/courses/:crid',  courses.show);
-  //   app.get('/courses/:crid/edit', nodoAuth,middleware, courses.edit);
-  //   app.put('/courses/:crid', courseAuth, middleware, courses.update);
-  //   app.del('/courses/:crid', courseAuth, courses.destroy);
+     //app.get('/courses/:crid/edit', courseAuth,middleware, courses.edit);
+     //app.put('/courses/:crid', courseAuth, middleware, courses.update);
+     //app.del('/courses/:crid', courseAuth, courses.destroy);
 }

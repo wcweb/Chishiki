@@ -37,7 +37,6 @@ require('./config/mongoose').connect(function(){
         dumpExceptions: true, showStack: true }))
     }
 
-    
       if(config.socketEnable){
           var sio = require('socket.io');
 
@@ -48,23 +47,22 @@ require('./config/mongoose').connect(function(){
       }
 
       // console.log("instant init: "+process.env.NODE_ENV);
-      
       if( process.env.NODE_ENV !== 'test'){
         require('./lib/dbUtils')
-          .clearDb(require('./lib/dbUtils')
-          .initDb(function(){
-            console.log('inited database');
-            var port = process.env.PORT || 3000;
-            if(config.socketEnable){
-                server.listen(port);
-            }else{
-                app.listen(port);
+          .clearDb(function(){
+              require('./lib/dbUtils').initDb(function(){
+                console.log('inited database');
+                var port = process.env.PORT || 3000;
+                if(config.socketEnable){
+                    server.listen(port);
+                }else{
+                    app.listen(port);
+                }
+                console.log('Express server listening on port ' + port);
+              })
             }
-            console.log('Express server listening on port ' + port);
-          }));
-         
+          );
       }
-    
 });
 
 

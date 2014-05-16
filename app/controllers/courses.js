@@ -24,8 +24,6 @@ var mongoose = require('mongoose')
 
       });
   };
-  
-  
   exports.list = function(req,res,next){
       Course.list({}, function(err, courses){
         if( err ) next(err);
@@ -61,4 +59,17 @@ var mongoose = require('mongoose')
           title:  req.course.title,
           course: req.course
       });
+  }
+
+  exports.new = function(req, res){
+  }
+
+  exports.create = function(req,res){
+  }
+  exports.edit = function(req,res){
+  }
+  exports.update = function(req,res){
+  }
+  exports.destroy = function(req,res){
+
   }

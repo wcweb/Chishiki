@@ -14,7 +14,9 @@ mixin banner
                 a.btn(href='/nodos/'+nodo._id, title=nodo.title) enter
 
 mixin banner-scripts
-  script(src='/unslider/src/unslider.min.js')
+  - if( env !== 'production')
+    script(src='/unslider/src/unslider.min.js')
+    
   script.
     $('.banner').unslider({
         fluid: true,
