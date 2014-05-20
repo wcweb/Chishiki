@@ -14,6 +14,7 @@ var args = require('yargs')
   })
   .usage('Usage: $0 -f/flag [^@string] ')
   .argv;
+
 var flag = args.f;
 
 gulp.task('test', function() {

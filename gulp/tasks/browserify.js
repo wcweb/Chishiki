@@ -19,13 +19,32 @@ gulp.task('hbs',['lint'], function(){
         .pipe(browserify({
               basedir: './public/',
               transform: [hbsfy],
-              ignore: ['./node_modules/**', './lib/**'],
+              ignore: ['./node_modules/*', './lib/*'],
+              ignoreGlobals:true,
               debug:true
             }))
         .pipe(rename('app.js'))
         .pipe(gulp.dest('./public/javascripts'))
         .on('error', gutil.log);
 });
+
+
+gulp.task('production:hbs',['lint'], function(){
+    return gulp.src(paths.client+'/app.js',{ read: false })
+        .pipe(plumber())
+        .pipe(jshint())
+        .pipe(browserify({
+              basedir: './public/',
+              transform: [hbsfy],
+              ignore: ['./node_modules/*', './lib/*'],
+              ignoreGlobals:true,
+              debug:false
+            }))
+        .pipe(rename('app.js'))
+        .pipe(gulp.dest('./public/javascripts'))
+        .on('error', gutil.log);
+});
+
 
 gulp.task('watch-hbs', ['hbs'],function() {
     gulp.watch([paths.client+'/**'], ['hbs']);

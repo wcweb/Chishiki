@@ -34,6 +34,7 @@ var libsPath=[
 },
 {
    "name": "unslider",
+   "base": "./bower_components/unslider/",
    "scripts": "./bower_components/unslider/src/unslider.js"
 },
 {

@@ -12,7 +12,7 @@ mixin nodoslist(nodos)
             span Author &nbsp;
             - var name = nodo.user.name ? nodo.user.name : nodo.user.username
             a(href="/users/"+nodo.user._id)= name
-          - if (nodo.tags)
+          - if (nodo.tags && nodo.tags.length)
             | &nbsp; - &nbsp;
             span Tags &nbsp;
             - each tag in nodo.tags.split(',')

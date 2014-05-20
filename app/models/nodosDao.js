@@ -63,6 +63,7 @@ var NodoSchema = new Schema({
     }
     ,createdAt  : {type : Date, default : Date.now}
     ,scorm: {type: Schema.Types.ObjectId, ref : "Scorm"}
+    , frontpage:{type:Boolean ,default: false}
 });
 
 

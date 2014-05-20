@@ -7,6 +7,7 @@ var async = require('async');
 var User = mongoose.model('User');
 var Nodo = mongoose.model('Nodo');
 var utils = require('../../lib/utils');
+var _ = require('underscore');
 
 
 var login = function (req, res){
@@ -72,10 +73,31 @@ exports.create = function(req, res){
 
 exports.show = function (req, res){
     var user = req.profile;
-    res.render('users/show', {
-        title: user.name,
-        user: user
-    });
+    Nodo
+        .aggregate(
+          [{
+           $match:{
+             "user":  user._id
+             }
+           }]
+        )
+        .exec(function(err, nodos){
+          if(err) throw err;
+
+          if(req.is('json')){
+            res.jsonp({
+              title: user.name,
+              nodos:nodos,
+              user: user
+            })
+          }else {
+            res.render('users/show', {
+                title: user.name,
+                nodos:nodos,
+                user: user
+            });
+          }
+        });
 }
 
 /**
@@ -83,8 +105,10 @@ exports.show = function (req, res){
  * */
 
 exports.user = function (req, res, next, id){
+    var criteria = id.match(/^[0-9a-fA-F]{24}$/) ? { _id :id }:{user_name:id};
     User
-        .findOne({ _id :id })
+        .findOne()
+        .select('-salt -hashed_password -authToken')
         .exec(function (err, user){
             if (err) return next(err);
             if (!user) return next( new Error(' Failed to load User '+ id));

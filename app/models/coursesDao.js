@@ -11,16 +11,20 @@ var Nodo = mongoose.model('Nodo');
 
 var CourseSchema = new Schema({
   title: {type : String, default : '', trim : true, forms: {all:{}}},
+  courseID: {type : Number, trim : true},
   nodos:[{type: Schema.Types.ObjectId, ref : "Nodo"}],
   description: {type : String, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
+  participants:[{type: Schema.Types.ObjectId, ref : "User"}],
   image: {
       cdnUri: String,
       files: [{type : String, default : '', trim : true}]
   },
   createdAt  : {type : Date, default : Date.now},
   categories:[{type: Schema.Types.ObjectId, ref : "Category"}],
-  scorm: {type: Schema.Types.ObjectId, ref : "Scorm"}
+  scorm: {type: Schema.Types.ObjectId, ref : "Scorm"},
+  quizzes:[{type: Schema.Types.ObjectId, ref : "Quiz"}],
+  frontpage:{type:Boolean ,default: false}
 });
 
 /**

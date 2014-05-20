@@ -5,3 +5,6 @@ block main
   h1= name
   p= user.email
   p=user.role
+
+  include ../components/nodos/list
+  +nodoslist(nodos)
