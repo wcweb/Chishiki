@@ -1,5 +1,5 @@
-var example = require('./../lib/example/quiz').quiz;
-
+var example = require('./../../../lib/fixture/quiz').quiz;
+var _ = require('underscore');
 
 /*
  {
@@ -74,8 +74,6 @@ NodeTree.prototype.add = function (child) {
 
     //@TODO
     //$(this.template).append(child.template);
-    
-    
 };
 
 
@@ -147,29 +145,22 @@ var config = {
         nt.templateId = '#quizzes-group-0';
 
 
-        for (var idx = 0; idx < data.quizzes[0].quiz.questions.length; idx++) {
-//            data.quizzes[idx].index = idx;  // handlebar have been added hindex an oindex.
-            (function () {
-
+        _.each(data.quizzes[0].quiz.questions, function (el, idx) {
                 var childTree = new NodeTree(nt);
 
                 var cT = $('#group-pane-0-' + idx);
                 childTree.template = cT;
                 childTree.templateId = '#group-pane-0-' + idx;
                 var currentQuiz = data.quizzes[0].quiz.questions[idx];
-                for (var j = 0; j < currentQuiz.answers.length; j++) {
-                    (function () {
+                _.each(currentQuiz.answers,function (elem, j) {
                         var childElementTemplate = $('#group-pane-sub-' + idx + '-' + j);
                         var childElement = new NodeElement($(childElementTemplate));
                         childElement.templateId = '#group-pane-sub-' + idx + '-' + j;
                         childTree.add(childElement);
-                    })();
-                }
+                });
 
-            })();
+        });
 
-        }
-        // console.log('reTemplate', nt);
         nodeTree = nt;
         next();
     },
@@ -179,7 +170,6 @@ var config = {
             var element = data[prop];
             if (isArray(element)) {
                 //buildReduce(element);
-
             }
         }
     },
@@ -196,19 +186,15 @@ var config = {
 
 
         var targetString = target;
-        console.log(targetString);
-        
         var templateClone,newIndex,parent,indexArray,newId,tempName;
-        
-        
         if (targetString.indexOf('nav') >= 0) {
             // handle tree node now.
 
             var cloneNode = nodeTree.children[0];
-            console.log(nodeTree.children);
+            //console.log(nodeTree.children);
             parent = cloneNode.parent;
             templateClone = getEmptyNodeTemplate($(parent.children[0].templateId).clone());
-            console.log("templateClone",templateClone);
+            //console.log("templateClone",templateClone);
             var templateNavClone = ($('#quizzes-groups-nav li').first().clone());
             newIndex = parent.children[0].templateId;// #sub-0-0-0-...  when nodeTree.templateId ='';
             var childrenIndex = parent.children.length;
@@ -219,10 +205,9 @@ var config = {
 
             indexArray = newIndex.split('-');
             newId = '';
-            for (var i = 0; i < indexArray.length - 1; i++) {
-                newId += indexArray[i] + "-";
-            }
-
+            _.each(indexArray, function(elem,idx){
+                newId += indexArray[idx] + "-";
+            });
 
             newId += childrenIndex;
 
@@ -232,7 +217,6 @@ var config = {
             $(templateClone).find('#options-group-pane-sub-0-0-wrapper .group-pane-sub').each(function (idx, ele) {
                 var tempId = $(ele).attr('id');
                 var idArray = tempId.split('-');
-                
                 $(ele).find('button').attr('data-target', '#group-pane-sub-' + childrenIndex + '-' + idx);
                 $(ele).attr('id', 'group-pane-sub-' + childrenIndex + '-' + idArray[idArray.length - 1]);
 
@@ -245,7 +229,7 @@ var config = {
                 $(ele).find('input[type="text"]').attr('name', tempName);
 
             });
-            console.log('childrenIndex',childrenIndex);
+            //console.log('childrenIndex',childrenIndex);
             $(templateClone).find('.group-pane-sub-add-btn')
                 .attr('data-target', '#group-pane-0-' + childrenIndex + '-0');
             $(templateClone).find('.group-pane-remove-btn')
@@ -267,18 +251,14 @@ var config = {
                 child.template = $(child.templateId);
                 child.parent = newTree;
             }
-            for (var ix = 0; ix < newTree.elements.length; ix++) {
-                (function () {
+            _.each(newTree.elements, function (elem, ix) {
                     var element = newTree.elements[ix];
                     var idArray = element.templateId.split('-');
                     idArray[idArray.length - 2] = childrenIndex;
                     element.templateId = idArray.join('-');
                     element.template = $(element.templateId);
                     element.parent = newTree;
-                })();
-
-            }
-
+            });
 
             newTree.template = $(templateClone);
             newTree.templateId = '#' + newId;
@@ -397,11 +377,11 @@ var config = {
         // sub-1-2  level 1 second one.
 
         var targets = $(target);
-        console.log(targets);
+        //console.log(targets);
         var i = 0;
-        for (i = 0; i < targets.length; i++) {
+        _.each(targets, function(elem,i){
             var finalFn = function (treeArray, whichIndex,type) {
-                console.log(whichIndex !== 0);
+                //console.log(whichIndex !== 0);
 
                 if(whichIndex !== 0){
                     if(type === 'NodeTree'){
@@ -423,7 +403,7 @@ var config = {
             };
             (function (done) {
                 var targetString = $(targets[i]).attr('id');
-                console.log(targetString);
+                //console.log(targetString);
                 var whichNode = getChildNode(targetString);
                 var whichIndex = whichNode.index;
                 var parentTree = whichNode.parent;
@@ -432,9 +412,8 @@ var config = {
                 if (whichIndex !== 0) $('div').remove(whichNode.templateId);
 
                 if(whichNode.constructor.name === 'NodeElement') {
+                  _.each(parentTree.elements, function(element,idx){
 
-                    for (idx = whichIndex+1; idx < parentTree.elements.length; idx++) {
-                        (function () {
                             //if(idx === whichIndex) continue;
 
                             parentTree.elements[idx].index = idx;
@@ -461,76 +440,50 @@ var config = {
                             if (idx === parentTree.elements.length - 1) {
                                 done(parentTree.elements, whichIndex,'NodeElement');
                             }
-                        })();
-                    }
+                        });
                 }else if(whichNode.constructor.name === 'NodeTree'){
-                    console.log('whichIndex:',whichIndex);
+                    //console.log('whichIndex:',whichIndex);
                     if(whichIndex !== 0) $('#group-nav-'+whichIndex).remove();
 
-                    for (idx = whichIndex; idx < parentTree.children.length; idx++) {
-                        if(idx === whichIndex){
-
-                            if (idx === parentTree.children.length - 1 || idx === 0) {
-
-                                return done(parentTree.children, whichIndex,'NodeTree');
-                            }
-                            continue;
-                        }
-                        (function () {
-
+                    _.each(parentTree.children, function(elem, idx){
+                        //if(idx === whichIndex) continue;
+                        $('#group-nav-'+idx).children('a').html(idx).attr('href','#group-pane-0-'+(idx-1));
+                        $('#group-nav-'+idx).attr('id','group-nav-'+(idx-1));
+                        $('#group-pane-0-'+idx).attr('id','group-pane-0-'+(idx-1));
+                        $('#group-pane-0-'+idx).find('.group-pane-remove-btn')
+                            .attr('data-target','#group-pane-0-'+(idx-1));
+                        parentTree.children[idx].index = idx-1;
+                        parentTree.children[idx].templateId  = '#group-pane-0-'+(idx-1);
+                        var childTree = parentTree.children[idx];
+                        _.each(childTree.elements, function(elem, cidx){
                             //if(idx === whichIndex) continue;
-                            $('#group-nav-'+idx).children('a').html(idx).attr('href','#group-pane-0-'+(idx-1));
-                            $('#group-nav-'+idx).attr('id','group-nav-'+(idx-1));
-                            $('#group-pane-0-'+idx).attr('id','group-pane-0-'+(idx-1));
-                            $('#group-pane-0-'+idx).find('.group-pane-remove-btn')
-                                .attr('data-target','#group-pane-0-'+(idx-1));
-                            parentTree.children[idx].index = idx-1;
-                            parentTree.children[idx].templateId  = '#group-pane-0-'+(idx-1);
-                            var childTree = parentTree.children[idx];
-                            for (var cidx = 0 ; cidx < childTree.elements.length; cidx++) {
-                                (function () {
-                                    //if(idx === whichIndex) continue;
 
+                            var newId = childTree.elements[cidx].index;
+                            var newTemplateId = 'group-pane-sub-' + childTree.index + '-' + newId;
+                            var tempOldIdObject = $(childTree.elements[cidx].templateId);
+                            tempOldIdObject.attr('id', newTemplateId);
 
-                                    var newId = childTree.elements[cidx].index;
-                                    var newTemplateId = 'group-pane-sub-' + childTree.index + '-' + newId;
-                                    var tempOldIdObject = $(childTree.elements[cidx].templateId);
-                                    tempOldIdObject.attr('id', newTemplateId);
+                            newTemplateId = "#" + newTemplateId;
 
-                                    newTemplateId = "#" + newTemplateId;
+                            tempOldIdObject.find('button').attr('data-target', newTemplateId);
 
-                                    tempOldIdObject.find('button').attr('data-target', newTemplateId);
+                            // var tempName = tempOldIdObject.find('input[type="checkbox"]').attr('name');
+                            tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][correct]";
+                            tempOldIdObject.find('input[type="checkbox"]').attr('name', tempName);
 
-                                    // var tempName = tempOldIdObject.find('input[type="checkbox"]').attr('name');
-                                    tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][correct]";
-                                    tempOldIdObject.find('input[type="checkbox"]').attr('name', tempName);
+                            // var tempName = tempOldIdObject.find('input[type="text"]').attr('name');
+                            tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][option]";
+                            tempOldIdObject.find('input[type="text"]').attr('name', tempName);
 
-                                    // var tempName = tempOldIdObject.find('input[type="text"]').attr('name');
-                                    tempName = "quizzes[" + childTree.index + "][answers][" + newId + "][option]";
-                                    tempOldIdObject.find('input[type="text"]').attr('name', tempName);
+                            childTree.elements[cidx].templateId = newTemplateId;
 
-
-                                    childTree.elements[cidx].templateId = newTemplateId;
-
-
-                                })();
-                            }
-                            if (idx === parentTree.children.length - 1) {
-                                done(parentTree.children, whichIndex,'NodeTree');
-                            }
-                        })();
-                    }
-
-                }
-
-
+                        });
+                });
+                done(parentTree.children, whichIndex,'NodeTree');
+              }
             })(finalFn);
-
-
             //console.log(nodeTree);
-        }
-
-
+        });
     },
     handleMouseClickFactory = function (e) {
         e.preventDefault();// @TODO use button type instead
@@ -572,7 +525,7 @@ exports.formBuild = function (options) {
     config.formBody = options.formBody;
     var data = config.data,
         questions = data['questions'];
-    console.log("data.quizzes", data.quizzes);
+    //console.log("data.quizzes", data.quizzes);
     data = reformerData(data);
 
     var wrapper = $(config.formBody);

@@ -10,8 +10,8 @@ block banner-scripts
 block main
   h1= title
   - if (req.isAuthenticated())
-    p role:
-    p=req.user.role
+    //- p role:
+    //- p=req.user.role
   - else
     p You have not authenticated.
       | You can

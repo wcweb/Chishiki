@@ -59,7 +59,7 @@ var NodoSchema = new Schema({
     categories: [{type: Schema.ObjectId, ref : 'Category' }],
     image: {
         cdnUri: String,
-        files: [{type : String, default : '', trim : true}]
+        files: [{type : String, default : '', trim : true}] 
     }
     ,createdAt  : {type : Date, default : Date.now}
     ,scorm: {type: Schema.Types.ObjectId, ref : "Scorm"}
