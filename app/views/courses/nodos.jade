@@ -5,10 +5,10 @@ block main
     .pull-right
       - if(!course.isNew)
         | &nbsp;
-        a.btn.btn-default(href="/courses/"+course._id, class="")
+        a.btn.btn-default(href="/courses/"+course.name, class="")
           span back
         | &nbsp;
-        a.btn.btn-default(href="/courses/"+ course._id + "/edit", class="")
+        a.btn.btn-default(href="/courses/"+ course.name + "/edit", class="")
           span edit this course
   hr
 
@@ -37,17 +37,40 @@ block scripts
 
   script.
     var course = !{JSON.stringify(req.course)};
+    
+  script.
+    $(function(){
+      var tempSortList = [];
+      (function(done){
+        $(".sortable li").each(function(idx, elem){
+          tempSortList.push($(elem).clone());      
+        });
+        done();
+      })(function(){
+
+        for(var m = 0; m<= tempSortList.length-1;m++){
+          for(var n= 0; n<= tempSortList.length-1; n++){
+          (function(){
+          //console.log(parseInt($(tempSortList[m]).attr('data-sort')) );
+           if(parseInt($(tempSortList[m]).attr('data-sort') )< parseInt($(tempSortList[n]).attr('data-sort'))){
+           // if(tempSortList[m]<tempSortList[n]){
+              var temp = tempSortList[n];
+              tempSortList[n] =tempSortList[m];
+              tempSortList[m] = temp;
+            };
+          })();
+          }
+        }
+        $(".sortable").empty();
+        for(var m = 0; m<= tempSortList.length-1;m++){
+          (function(){
+            $(".sortable").append(tempSortList[m]);
+          })();
+        }
+      });
+      
+    });
     $(document).ready(function(){
-        var tempSortList = $('<ol></ol>');
-       $(".sortable li").each(function(idx, elem){
-         tempSortList.append($(elem).clone());
-       
-       });
-       $(".sortable").empty();
-       for(var idx = 0; idx< tempSortList.children().length;idx++){
-         $(".sortable").append(tempSortList.children('[data-sort='+idx+']'));
-       }
-       
        
        var group = $(".sortable").sortable({
          delay:200,
