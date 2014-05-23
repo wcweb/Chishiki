@@ -10,6 +10,7 @@ var Quiz = require('./quizzesDao');
 var Answer = mongoose.model('Answer');
 var Category = mongoose.model('Category');
 var extend = require('util')._extend;
+var mongoHelper = require('../../lib/helpers/mongo-helper');
 
 var forms = require('forms-mongoose');
 /**
@@ -390,7 +391,8 @@ NodoSchema.statics = {
      * */
 
     load: function (id, cb){
-        this.findOne({ _id : id })
+        var criteria = mongoHelper.isObjectId(id) ? {_id:id}:{title:id};
+        this.findOne(criteria)
             .populate('user', 'name email username')
             .populate('quizzes.quiz')
             .populate('comments.user')

@@ -29,7 +29,6 @@ describe('Nodos', function () {
                 password: 'foobar'
             })
             user.save(done);
-            
     })
 
     describe('GET /nodos', function () {

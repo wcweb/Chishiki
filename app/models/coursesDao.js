@@ -5,13 +5,16 @@ var Schema = mongoose.Schema;
 var Category = mongoose.model('Category');
 require('./nodosDao');
 var Nodo = mongoose.model('Nodo');
+var mongoHelper = require('../../lib/helpers/mongo-helper');
+var imagerConfig = require(config.root + '/config/imager.js');
+var Imager = require('imager');
 /**
  * course Schema
  */
 
 var CourseSchema = new Schema({
-  title: {type : String, default : '', trim : true, forms: {all:{}}},
-  courseID: {type : Number, trim : true},
+  name: {type : String, default : '', trim : true, forms: {all:{}}},
+  id: {type : Number, trim : true},
   nodos:[{type: Schema.Types.ObjectId, ref : "Nodo"}],
   description: {type : String, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
@@ -31,7 +34,7 @@ var CourseSchema = new Schema({
  * Validations
  */
 
-CourseSchema.path('title').required(true, 'Nodo title cannot be blank');
+CourseSchema.path('name').required(true, 'Course name cannot be blank');
 
 
 /**
@@ -45,7 +48,7 @@ CourseSchema.pre('remove', function (next) {
     // if there are files associated with the item, remove from the cloud too
     imager.remove(files, function (err) {
         if (err) return next(err)
-    }, 'nodo');
+    }, 'course');
 
     // @TODO remove video quiz discuss
 
@@ -83,7 +86,7 @@ CourseSchema.methods = {
                     self.image = { cdnUri : cdnUri, files : files };
                 }
                 self.save(cb);
-            }, 'nodo');
+            }, 'course');
         })
     }
 }
@@ -105,9 +108,11 @@ CourseSchema.statics = {
      * */
 
     load: function (id, cb){
-        this.findOne({ _id : id })
+        var criteria = mongoHelper.isObjectId(id) ? {_id:id}:{name:id};
+        this.findOne(criteria)
             .populate('user', 'name email username')
             .populate('nodos')
+            .populate('participants')
             .populate('categories')
             .populate('scorm')
             .exec(cb);

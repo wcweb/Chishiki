@@ -13,6 +13,13 @@ if( process.env.NODE_ENV !== 'test'){
         auth.requiresLogin,
         auth.comment.hasAuthorization
     ];
+
+
+    var courseAuth = [
+      auth.requiresLogin,
+      auth.course.hasAuthorization
+    ];
 exports.nodo = nodoAuth;
 exports.comment = commentAuth;
+exports.course = courseAuth;
 exports.auth = auth;

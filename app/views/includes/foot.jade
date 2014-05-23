@@ -2,15 +2,17 @@
 
 script(src='/jquery.tagsinput/jquery.tagsinput.min.js')
 script(src='/metisMenu/jquery.metisMenu.js')
+script(src='/chosen/chosen.jquery.js')
+script(src='/tinymce/js/tinymce/tinymce.min.js')
 - if( env !== 'production')
   script(src='/bootstrap/dist/js/bootstrap.js')
   // script(src='/javascripts/bootstraped.js')
   script(src='/javascripts/loader.js')
   script(src='/javascripts/app.js')
-  
+
 - else
   script(src='/javascripts/application.js')
-  
+
 block foot
 block scripts
   // scripts here

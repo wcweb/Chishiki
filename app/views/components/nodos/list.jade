@@ -3,7 +3,7 @@ mixin nodoslist(nodos)
     - each nodo in nodos
       .nodo
         h3
-          a(href='/nodos/'+nodo._id, title=nodo.title) #{nodo.title}
+          a(href='/nodos/'+nodo.title, title=nodo.title) #{nodo.title}
         p= nodo.body
         .meta
           span.muted= formatDate(nodo.createdAt)
@@ -11,7 +11,7 @@ mixin nodoslist(nodos)
             | &nbsp; - &nbsp;
             span Author &nbsp;
             - var name = nodo.user.name ? nodo.user.name : nodo.user.username
-            a(href="/users/"+nodo.user._id)= name
+            a(href="/users/"+nodo.user.name)= name
           - if (nodo.tags && nodo.tags.length)
             | &nbsp; - &nbsp;
             span Tags &nbsp;

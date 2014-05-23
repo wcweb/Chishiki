@@ -3,7 +3,7 @@ mixin courseslist(courses)
     - each course in courses
       .course
         h3
-          a(href='/courses/'+course._id, title=course.title) #{course.title}
+          a(href='/courses/'+course.name, title=course.name) #{course.name}
         p= course.body
         .meta
           span.muted= formatDate(course.createdAt)
@@ -19,7 +19,7 @@ mixin courseslist(courses)
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/nodos/"+nodo.id)= nodo.title
               | &nbsp;&nbsp;
-          
+
           - if (course.tags)
             | &nbsp; - &nbsp;
             span Tags &nbsp;

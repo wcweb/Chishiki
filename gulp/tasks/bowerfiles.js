@@ -38,6 +38,12 @@ var libsPath=[
    "scripts": "./bower_components/unslider/src/unslider.js"
 },
 {
+   "name": "chosen",
+   "images":"./bower_components/chosen/public/*.png",
+   "styles":  "./bower_components/chosen/public/chosen.css",
+   "scripts": "./bower_components/chosen/public/chosen.jquery.js"
+},
+{
    "name": "jqtree",
    "styles":  "./bower_components/jqtree/jqtree.css",
    "scripts": "./bower_components/jqtree/tree.jquery.js"

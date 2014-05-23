@@ -3,6 +3,6 @@ mixin categorieslist(categoriesByType)
   ul
     - each category in categoriesByType.categories
       li
-        a(href="/categories/"+category._id)= category.label
+        a(href="/categories/"+category.label)= category.label
 
 

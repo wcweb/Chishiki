@@ -43,11 +43,16 @@ exports.nodo = {
 
 exports.course = {
     hasAuthorization: function (req, res, next) {
-        if (req.course.user.id != req.user.id) {
-            req.flash('info', 'You are not authorized')
-            return res.redirect('/courses/' + req.nodo.id)
+        if (req.course.user.id == req.user.id)  return next();
+        var participantBool = false;
+        if(req.course.participants.some(function(participant){
+          return participant.id == req.user.id;
+        })){
+          next();
+        }else{
+          req.flash('info', 'You are not authorized')
+          return res.redirect('/courses/' + req.course.name)
         }
-        next()
     }
 }
 

@@ -5,6 +5,18 @@ var config = require('./config')[env];
 
 module.exports = {
     variants: {
+        course: {
+            resize: {
+                original: "100%",
+                detail: "800x600"
+            },
+            crop: {
+                thumb: "200x200"
+            },
+            resizeAndCrop: {
+                mini: {resize: "200x150", crop: "100x100"}
+            }
+        },
         nodo: {
             resize: {
                 original: "100%",

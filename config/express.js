@@ -9,6 +9,7 @@ var flash = require('connect-flash');
 //var winston = require('winston');
 var helpers = require('view-helpers');
 var pkg = require('../package.json');
+var viewHelpers = require('../lib/helpers/view-helper');
 
 //var cons = require('consolidate');
 
@@ -28,6 +29,7 @@ module.exports = function(app, config, passport){
     app.use(express.favicon());
     app.use(express.static(config.root + '/public'));
     app.use(express.static(config.root + '/public/dist'));
+    app.use(express.static(config.root + '/public/bowers'));
     app.use(express.static(config.root + '/bower_components'));
     app.use('/tmp',  express.static(config.root + '/tmp'));
     var log;
@@ -96,10 +98,14 @@ module.exports = function(app, config, passport){
 
             // This could be moved to view-helpers :-)
             app.use(function(req, res, next){
-                res.locals.csrf_token = req.csrfToken()
-                next()
+                res.locals.csrf_token = req.csrfToken();
+                next();
             })
         }
+        app.use( function(req, res, next){
+          res.locals.createPagination = viewHelpers.createPagination(req);
+          next();
+        });
 
         app.use(app.router);
 

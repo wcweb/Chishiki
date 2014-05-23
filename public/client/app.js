@@ -7,7 +7,7 @@ $(document).ready(function () {
   });
 
   $('#side-menu').metisMenu();
-
+  $(".chosen-select").chosen();
 });
 
 
@@ -56,3 +56,4 @@ function flash(msg){
 if($('#buildScorm').length){
     require('./_forms/_scromForm.js').init();
 }
+
