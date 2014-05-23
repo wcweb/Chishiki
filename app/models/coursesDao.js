@@ -3,7 +3,9 @@ var env = process.env.NODE_ENV || 'development';
 var config = require('../../config/config')[env];
 var Schema = mongoose.Schema;
 var Category = mongoose.model('Category');
+
 require('./nodosDao');
+
 var Nodo = mongoose.model('Nodo');
 var mongoHelper = require('../../lib/helpers/mongo-helper');
 var imagerConfig = require(config.root + '/config/imager.js');
@@ -15,12 +17,15 @@ var Imager = require('imager');
 var CourseSchema = new Schema({
   name: {type : String, default : '', trim : true, forms: {all:{}}},
   id: {type : Number, trim : true},
-  nodos:[{type: Schema.Types.ObjectId, ref : "Nodo"}],
+  nodos:[{
+    sortIndex: { type: Number, default: -1},
+    nodo:{ type: Schema.Types.ObjectId, ref : "Nodo"}
+  }],
   description: {type : String, default : '', trim : true},
   user: {type : Schema.ObjectId, ref : 'User'},
   participants:[{type: Schema.Types.ObjectId, ref : "User"}],
   image: {
-      cdnUri: String,
+      cdnUri: {type :String , trim:true},
       files: [{type : String, default : '', trim : true}]
   },
   createdAt  : {type : Date, default : Date.now},
@@ -111,7 +116,7 @@ CourseSchema.statics = {
         var criteria = mongoHelper.isObjectId(id) ? {_id:id}:{name:id};
         this.findOne(criteria)
             .populate('user', 'name email username')
-            .populate('nodos')
+            .populate('nodos.nodo')
             .populate('participants')
             .populate('categories')
             .populate('scorm')
@@ -122,7 +127,8 @@ CourseSchema.statics = {
         var criteria = options.criteria || {};
         this.find(criteria)
             .populate('user', 'name username')
-            .populate('nodos')
+            .populate('nodos.nodo')
+            .populate('participants')
             .populate('categories')
             .sort({'createdAt': -1})
             .limit(options.perPage)

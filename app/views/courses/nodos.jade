@@ -1,0 +1,90 @@
+extends ../layouts/default
+
+block main
+  h1= course.name
+    .pull-right
+      - if(!course.isNew)
+        | &nbsp;
+        a.btn.btn-default(href="/courses/"+course._id, class="")
+          span back
+        | &nbsp;
+        a.btn.btn-default(href="/courses/"+ course._id + "/edit", class="")
+          span edit this course
+  hr
+
+block content
+  .row
+    .col-md-2
+        p Add Nodo
+        form
+          .form-group
+            .col-sm-12
+              select.form-control.chosen-select(name='user_own_nodos')
+                - each nodo in user.nodos
+                  option(value=nodo.id)= nodo.title
+
+    .col-md-10
+      ol.sortable.example
+        - each nodoObject in course.nodos
+          li(data-sort=nodoObject.sortIndex, data-nodo-id=nodoObject._id.toString())
+            .well
+              a(href="/nodos/" + nodo.title )= nodoObject.nodo.title
+                span.sortIndex.pull-right= nodoObject.sortIndex
+              .descripton= nodoObject.nodo.body
+
+
+block scripts
+
+  script.
+    var course = !{JSON.stringify(req.course)};
+    $(document).ready(function(){
+        var tempSortList = $('<ol></ol>');
+       $(".sortable li").each(function(idx, elem){
+         tempSortList.append($(elem).clone());
+       
+       });
+       $(".sortable").empty();
+       for(var idx = 0; idx< tempSortList.children().length;idx++){
+         $(".sortable").append(tempSortList.children('[data-sort='+idx+']'));
+       }
+       
+       
+       var group = $(".sortable").sortable({
+         delay:200,
+         onDrop: function (item, container, _super) {
+           var data = group.sortable(".sortable").get();
+
+           var course_nodos = [];
+           $(data).children().each(function(index,elem){
+             $(elem).attr('data-sort', index);
+             $(elem).find('.sortIndex').text(index);
+             course_nodos.push({
+               sortIndex: index,
+               _id:$(elem).attr('data-nodo-id')
+             })
+           });
+           /*course_nodos = JSON.stringify(course_nodos)*/
+           $.ajax({
+             type:"POST",
+             headers: {'X-CSRF-Token': '#{csrf_token}'},
+             url: "/courses/"+ course._id+"/nodos/sort",
+             dataType: 'json',
+             data: { course_nodos:course_nodos}
+           }).done(function(e){
+             console.log(e);
+             _super(item, container)
+           }).fail(function(e){
+             console.log(e);
+           })
+
+             // console.log($(data).children().first());
+      //        console.log(item);
+      //     var jsonString = JSON.stringify(null, ' ');
+      // 
+      //      console.log(jsonString);
+          
+         }
+       });
+    });
+     
+  

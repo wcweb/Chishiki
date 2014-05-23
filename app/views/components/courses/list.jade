@@ -15,9 +15,9 @@ mixin courseslist(courses)
           - if (course.nodos)
             | &nbsp; - &nbsp;
             span Nodos &nbsp;
-            - each nodo in course.nodos
+            - each nodoObject in course.nodos
               i.muted.fa.fa-tag &nbsp;
-              a.tag(href="/nodos/"+nodo.id)= nodo.title
+              a.tag(href="/nodos/"+nodoObject.nodo.id)= nodoObject.nodo.title
               | &nbsp;&nbsp;
 
           - if (course.tags)

@@ -19,10 +19,14 @@ module.exports = function( app ){
          app.get('/courses/new', auth.requiresLogin, middleware,courses.new);
          app.post('/courses', auth.requiresLogin,middleware, courses.create);
      }
+    app.get('/courses/:crid/learn', courseAuth,middleware, courses.learn);
+    
     app.get('/courses/:crid', middleware, courses.show);
     app.get('/courses/:crid/edit', courseAuth, middleware, courses.edit);
     app.get('/courses/:crid/nodos', courseAuth, middleware, courses.nodos);
+
     app.get('/courses/:crid/nodos/edit', courseAuth,middleware, courses.nodosEdit);
+    app.post('/courses/:crid/nodos/sort', courseAuth, courses.nodosSort);
     app.put('/courses/:crid', courseAuth,courses.update);
     app.del('/courses/:crid', courseAuth, courses.destroy);
 }

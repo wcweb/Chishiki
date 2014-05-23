@@ -1,0 +1,80 @@
+extends ../layouts/default
+block main
+  h1= title
+    .pull-right
+      - if(!course.isNew)
+        | &nbsp;
+        a.btn.btn-default(href="/courses/"+course._id, class="")
+          span back
+        | &nbsp;
+        a.btn.btn-default(href="/courses/"+ course._id +"/nodos", class="")
+          span edit nodos
+
+  hr
+
+
+block content
+
+  - var action = '/courses'
+  - action += course.isNew? '' : '/' + course._id
+  .row
+    .col-md-12
+      form.form-horizontal(method="post", action=action, enctype="multipart/form-data", role="form")
+
+        input(type="hidden", name="_csrf", value="#{csrf_token}")
+
+        - if (!course.isNew)
+          input(type="hidden", name="_method", value="PUT")
+
+        .form-group
+          label.col-sm-2.control-label(for='name') Name
+          .col-sm-10
+            input.form-control#category(type='text', name="name", value=course.name, placeholder='Enter the course name')
+
+        - if (categories)
+          - each categoryType in categories
+              .form-group
+                label.col-sm-2.control-label(for='category')= categoryType._id
+                .col-sm-10
+                  select.form-control.chosen-select#category(name='categories{#categoryType._id}[]')
+                      - each category  in categoryType.categories
+                        - if (_.find(course.categories, function(cat){ return cat.id == category.id; }))
+                            option(selected, value=category.id) #{category.label}
+                        - else
+                            option(value=category.id)= category.label
+        .form-group
+          label.col-sm-2.control-label(for='file') Image
+          - if (!course.isNew && course.image && course.image.files && course.image.files.length)
+            .col-sm-2
+              a(href=course.image.cdnUri + '/detail_' + course.image.files[0])
+                img(src=course.image.cdnUri + '/mini_' + course.image.files[0])
+            .col-sm-8
+              input.form-control#file(type='file', name="image[]")
+          - else
+            .col-sm-10
+              input.form-control#file(type='file', name="image[]")
+
+
+        .form-group
+          label.col-sm-2.control-label(for='desc') Description
+          .col-sm-10
+            textarea.form-control#desc(rows="5", name="description", placeholder='Enter the course description')=course.body
+
+        .form-group
+          .col-sm-offset-2.col-sm-10
+            button.btn.btn-primary(type='submit') Save and Next
+            | &nbsp;
+            a.btn(href='/courses', category="cancel") Cancel
+
+
+block scripts
+  script.
+    tinymce.init({
+      selector: "#desc",
+      language : 'zh_CN',
+    });
+    tinymce.init({
+      selector: "#reading",
+      plugins: ["emoticons visualblocks advlist autolink link image hr anchor pagebreak"],
+      language : 'zh_CN',
+    });

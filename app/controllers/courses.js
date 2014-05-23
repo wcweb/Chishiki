@@ -5,6 +5,7 @@ var mongoose = require('mongoose')
   , Category = mongoose.model('Category');
 
 var extend = require('util')._extend;
+var _ = require('underscore');
 
 exports.load = function(req, res, next, id){
     var User = mongoose.model('User');
@@ -17,19 +18,18 @@ exports.load = function(req, res, next, id){
         }
         if(course){
           req.course = course;
+          next();
         }else{
 
           req.flash('error', 'no that nodo you requested! ');
           return res.redirect('/');
         }
-        next();
 
     });
 };
 exports.list = function(req,res,next){
     Course.list({}, function(err, courses){
       if( err ) next(err);
-
       res.locals.courses = courses;
       next();
     });
@@ -116,7 +116,13 @@ exports.destroy = function(req,res){
   });
 
 }
-
+exports.learn = function(req, res){
+  res.render('courses/learn',{
+    title: 'Learn '+ req.course.name+ ' Now!',
+    course: req.course,
+    user:req.user
+  })
+}
 exports.nodos = function(req, res){
   var user = req.user;
   Nodo.find({user: user})
@@ -135,4 +141,20 @@ exports.nodos = function(req, res){
 
 exports.nodosEdit = function(req, res){
   var course = req.course;
+}
+
+exports.nodosSort = function(req, res){
+
+  var course_nodos = req.body.course_nodos;
+  var course = req.course;
+  _.each(course.nodos,function(nodoObject){
+    _.each(course_nodos,function(elem){
+      if(elem._id == nodoObject._id)
+        nodoObject.sortIndex = elem.sortIndex;
+    });
+  });
+  course.save(function(err){
+    if(err) throw err;
+    res.jsonp('ok');
+  })
 }

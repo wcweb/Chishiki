@@ -5,9 +5,9 @@ block content
 
   - if (courses.length)
     - each course in courses
-      .nodo
+      .course
         h3
-          a(href='/courses/'+course._id, title=nodo.title) #{course.title}
+          a(href='/courses/'+course.name, title=course.name) #{course.name}
         p= course.description
 
         .meta
@@ -17,9 +17,9 @@ block content
             | &nbsp; - &nbsp;
             span Author &nbsp;
 
-            - var name = nodo.user.name ? nodo.user.name : nodo.user.username
+            - var name = course.user.name ? course.user.name : course.user.username
 
-            a(href="/users/"+nodo.user._id)= name
+            a(href="/users/"+course.user._id)= name
 
           - if (course.tags)
             | &nbsp; - &nbsp;

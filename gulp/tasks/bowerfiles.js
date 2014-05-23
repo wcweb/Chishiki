@@ -44,13 +44,17 @@ var libsPath=[
    "scripts": "./bower_components/chosen/public/chosen.jquery.js"
 },
 {
+   "name": "jquery-sortable",
+   "scripts": "./bower_components/jquery-sortable/build/js/jquery-sortable.js"
+},
+{
    "name": "jqtree",
    "styles":  "./bower_components/jqtree/jqtree.css",
    "scripts": "./bower_components/jqtree/tree.jquery.js"
 }
 ];
 
-gulp.task('bowerfiles:copy', function(){
+gulp.task('bowerfiles:copy',['bowerfiles:watch'], function(){
   libsPath.forEach(function(lib){
     if(lib.styles){
       gulp.src(lib.styles,{base: lib.base})
@@ -66,4 +70,9 @@ gulp.task('bowerfiles:copy', function(){
     }
   })
 
+});
+
+
+gulp.task('bowerfiles:watch',function(){
+  gulp.watch('./gulp/tasks/bowerfiles.js');
 });

@@ -1,0 +1,27 @@
+extends ../layouts/learnboard
+
+
+
+
+block content
+  //if lt IE 8
+    p.browsehappy You are using an 
+      strong outdated
+      browser. Please
+      a(href="http://browsehappy.com/")upgrade your browser
+      | to improve your experience.
+
+block style
+  link(rel="stylesheet" href="/assets/ac435d9c.app.min.css")
+
+
+
+block scripts
+  script(src="/assets/1e77f8bd.config.min.js")
+
+  script(src="/assets/ceccbe42.vendor.min.js")
+
+  script(src="/assets/482cf9db.app.min.js")
+  
+  script.
+    window.App = require('appkit/app')["default"].create();

@@ -8,6 +8,7 @@ $(document).ready(function () {
 
   $('#side-menu').metisMenu();
   $(".chosen-select").chosen();
+ 
 });
 
 
