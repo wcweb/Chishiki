@@ -46,13 +46,14 @@ require('./config/mongoose').connect(function(){
           require('./config/socketio')(io);
       }
 
-      // console.log("instant init: "+process.env.NODE_ENV);
+      console.log("instant init: "+process.env.NODE_ENV);
       if( process.env.NODE_ENV !== 'test'){
         require('./lib/dbUtils')
           .clearDb(function(){
               require('./lib/dbUtils').initDb(function(){
                 console.log('inited database');
                 var port = process.env.PORT || 3000;
+                if( process.env.NODE_ENV == 'production') port = 8080;
                 if(config.socketEnable){
                     server.listen(port);
                 }else{

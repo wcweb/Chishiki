@@ -5954,6 +5954,81 @@ td.visible-print {
     display: none !important;
   }
 }
+/* Sticky footer styles
+-------------------------------------------------- */
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+.container .text-muted {
+  margin: 20px 0;
+}
+#footer > .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* -----------------------------------------------
+  App styles
+  ------------------------------------------------ */
+body {
+  padding-top: 51px;
+}
+.article,
+.comment {
+  padding: 15px 0;
+  border-top: 1px solid #e8e8e8;
+}
+.error,
+a.error,
+a.error:hover,
+a.error:focus,
+button.error,
+button.error:hover,
+button.error:focus {
+  color: #D9534F;
+}
+.form-actions {
+  background: #fff;
+  border: 0;
+}
+#spacer {
+  display: inline-block;
+}
+.muted {
+  color: #aaa;
+  font-size: 12px;
+}
+.alert {
+  margin-top: 10px;
+}
+.navbar-brand {
+  font-size: 14px;
+  color: #000 !important;
+}
+.navbar-nav > li > a.travis {
+  padding-top: 13px;
+}
+.options-group {
+  background: #fcfcfc;
+}
 /* -----------------------------------------------
   Banner styles
   ------------------------------------------------ */
@@ -6064,78 +6139,94 @@ td.visible-print {
   background: #fff;
   opacity: 1;
 }
-/* Sticky footer styles
--------------------------------------------------- */
-html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+/* Wrappers */
+/* ------------------------------- */
+#wrapper {
+  width: 100%;
 }
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+#page-wrapper {
+  padding: 0 15px;
+  min-height: 568px;
+  background-color: #fff;
 }
-/* Set the fixed height of the footer here */
-#footer {
-  height: 60px;
-  background-color: #f5f5f5;
+@media (min-width: 768px) {
+  #page-wrapper {
+    position: inherit;
+    margin: 0 0 0 250px;
+    padding: 0 30px;
+    min-height: 1300px;
+    border-left: 1px solid #e7e7e7;
+  }
 }
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-.container .text-muted {
-  margin: 20px 0;
+/* Sidebar Menu Styles */
+.navbar-static-side ul li {
+  border-bottom: 1px solid #e7e7e7;
 }
-#footer > .container {
-  padding-left: 15px;
-  padding-right: 15px;
+.sidebar-search {
+  padding: 15px;
 }
-/* -----------------------------------------------
-  App styles
-  ------------------------------------------------ */
-body {
-  padding-top: 61px;
+.arrow {
+  float: right;
 }
-.article,
-.comment {
-  padding: 15px 0;
-  border-top: 1px solid #e8e8e8;
+.fa.arrow:before {
+  content: "\f104";
 }
-.error,
-a.error,
-a.error:hover,
-a.error:focus,
-button.error,
-button.error:hover,
-button.error:focus {
-  color: #D9534F;
+.active > a > .fa.arrow:before {
+  content: "\f107";
 }
-.form-actions {
-  background: #fff;
-  border: 0;
+.nav-second-level li,
+.nav-third-level li {
+  border-bottom: none !important;
 }
-#spacer {
-  display: inline-block;
+.nav-second-level li a {
+  padding-left: 37px;
 }
-.muted {
-  color: #aaa;
-  font-size: 12px;
+.nav-third-level li a {
+  padding-left: 52px;
 }
-.alert {
-  margin-top: 10px;
+@media (min-width: 768px) {
+  .navbar-static-side {
+    z-index: 1;
+    position: absolute;
+    width: 250px;
+    margin-top: 1px;
+  }
+  .navbar-top-links .dropdown-messages,
+  .navbar-top-links .dropdown-tasks,
+  .navbar-top-links .dropdown-alerts {
+    margin-left: auto;
+  }
 }
-.navbar-brand {
-  font-size: 14px;
-  color: #000 !important;
+@media (max-height: 600px) and (max-width: 767px) {
+  .sidebar-collapse {
+    max-height: 300px;
+    overflow-y: scroll;
+  }
 }
-.navbar-nav > li > a.travis {
-  padding-top: 13px;
+@media (max-height: 400px) and (max-width: 767px) {
+  .sidebar-collapse {
+    max-height: 200px;
+    overflow-y: scroll;
+  }
 }
-.options-group {
-  background: #fcfcfc;
+body.dragging,
+body.dragging * {
+  cursor: move !important;
+}
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+ol.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ol.example li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+.sortable-vertical {
+  margin: 0 0 9px 0;
+  min-height: 20px;
 }
