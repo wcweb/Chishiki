@@ -1,7 +1,9 @@
 var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var User = mongoose.model('User');
-
+var BasicStrategy = require('passport-http').BasicStrategy;
+var ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
+var BearerStrategy = require('passport-http-bearer').Strategy;
 
 module.exports = function (passport, conifg){
     passport.serializeUser(function(user, done){
@@ -32,6 +34,28 @@ module.exports = function (passport, conifg){
 
         })
     );
+    
+    passport.use(new BearerStrategy(
+      function(token, done) {
+        User.findOne({ authToken: token }, function (err, user) {
+          if (err) { return done(err); }
+          if (!user) { return done(null, false); }
+          return done(null, user, { scope: 'all' });
+        });
+      }
+    ));
+    
+    
+    passport.use(new BasicStrategy(
+      function(username, password, done) {
+        db.clients.findByClientId(username, function(err, client) {
+          if (err) { return done(err); }
+          if (!client) { return done(null, false); }
+          if (client.clientSecret != password) { return done(null, false); }
+          return done(null, client);
+        });
+      }
+    ));
 
 //
 //

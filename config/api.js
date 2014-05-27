@@ -9,70 +9,31 @@ module.exports = function (app) {
     // Create an API namespace, so that the root does not
     // have to be repeated for each end point.
     app.namespace('/api', function () {
-        var post = {
-            "post": {
-                "id": 1,
-                "title": "Rails is omakase",
-                "comments": ["1", "2"],
-                "user": "dhh"
-            },
-
-            "comments": [
-                {
-                    "id": "1",
-                    "body": "Rails is unagi"
-                },
-                {
-                    "id": "2",
-                    "body": "Omakase O_o"
-                }
-            ]
-        };
-        var posts = {
-
-            "posts": [
-                {
-                    "id": 1,
-                    "title": "这里是标题",
-                    "comments": ["1", "2"],
-                    "user": "这里是内容",
-                },
-                {
-                    "id": 2,
-                    "title": "这里是标题",
-                    "comments": ["1", "2"],
-                    "user": "这里是内容",
-                }
-            ],
-
-            "comments": [
-                {
-                    "id": "1",
-                    "body": "这里是评论"
-                },
-                {
-                    "id": "2",
-                    "body": "这里是评论"
-                }
-            ]
-
-        }
-        app.get('/posts', function (req, res) {
-            res.send(JSON.stringify(posts));
-        })
-        app.get('/posts/:id', function (req, res) {
-            res.send(JSON.stringify(post));
-        })
-
-        var users = {
-           user:{
-             _id:123,
-             name:'abc',
-             username: 'username',
-             email: 'aaa@sss.com',
-             role: 'role'
+      app.all('*', function(req, res, next) {
+        // @TODO allow white list
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        next();
+       });
+       
+       app.post('/session', function(req, res){
+         
+         passport.authenticate('bearer', { session: false }),
+         var userReq = req.body.session['login_or_email'];
+         User.findOne({username: userReq})
+         .exec(function(err, user){
+           //JSON.stringify(user)
+           if(err) throw err;
+           
+           if(user !== null){
+             console.log(user == true);
+             res.jsonp({auth_token:user.authToken,account_id:user.id});
+           }else{
+             res.send('no user');
            }
-        };
+           
+         })
+       })
 
         app.get('/users', function (req, res) {
             User.find({})

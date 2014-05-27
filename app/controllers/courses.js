@@ -105,7 +105,8 @@ exports.update = function(req,res){
 exports.show = function (req, res){
     res.render('courses/show', {
         title:  req.course.title,
-        course: req.course
+        course: req.course,
+        user: req.user
     });
 }
 exports.destroy = function(req,res){

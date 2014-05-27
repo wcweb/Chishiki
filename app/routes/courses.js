@@ -20,7 +20,6 @@ module.exports = function( app ){
          app.post('/courses', auth.requiresLogin,middleware, courses.create);
      }
     app.get('/courses/:crid/learn', courseAuth,middleware, courses.learn);
-    
     app.get('/courses/:crid', middleware, courses.show);
     app.get('/courses/:crid/edit', courseAuth, middleware, courses.edit);
     app.get('/courses/:crid/nodos', courseAuth, middleware, courses.nodos);

@@ -15,7 +15,7 @@ mixin nodoslist(nodos)
           - if (nodo.tags && nodo.tags.length)
             | &nbsp; - &nbsp;
             span Tags &nbsp;
-            - each tag in nodo.tags.split(',')
+            - each tag in nodo.tags
               i.muted.fa.fa-tag &nbsp;
               a.tag(href="/tags/"+tag)= tag
               | &nbsp;&nbsp;

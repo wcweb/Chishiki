@@ -98,6 +98,21 @@ describe('Users', function () {
                     done()
                 })
             })
+            it('should show the user on user/show page with username', function(done){
+              request(app)
+                    .get('/users/'+'foobar2')
+                    .expect(200)
+                    .expect(/Foo bar2/)
+                    .end(done);
+            })
+
+            it('should show the user on user/show page with name', function(done){
+              request(app)
+                    .get('/users/'+'Foo bar2')
+                    .expect(200)
+                    .expect(/Foo bar2/)
+                    .end(done);
+            })
         })
     })
 

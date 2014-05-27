@@ -7,18 +7,18 @@ block main
       a.btn.btn-primary(href='/courses/'+course.name+'/learn', title="edit") Learn It
       | &nbsp;
       a.btn.btn-default(href='/courses/'+course.name+'/edit', title="edit") Edit
+      - console.log(req.user)
       -if (req.isAuthenticated())
-          form.btn(action="/courses/"+course.name, method="post", onsubmit="return confirm('Are you sure?')")
-            input(type='hidden', name='_csrf', value="#{csrf_token}")
-            | &nbsp;
-            input(type="hidden", name="_method", value="DELETE")
-            button.btn.btn-danger(type="submit") Delete
+          - if (_.some(course.participants,function(participant){console.log(participant, user);return participant.id === user.id;}))
+            form.btn(action="/courses/"+course.name, method="post", onsubmit="return confirm('Are you sure?')")
+              input(type='hidden', name='_csrf', value="#{csrf_token}")
+              input(type="hidden", name="_method", value="DELETE")
+              button.btn.btn-danger(type="submit") Delete
   hr
 
 block content
   .row
     .col-md-8
-    
       - if (course.participants)
         - each participant in course.participants
           - var name = participant.name ? participant.name : participant.username
@@ -41,7 +41,6 @@ block content
                 img(src=cnodo.nodo.image.cdnUri + '/thumb_' + cnodo.nodo.image.files[0] width=80)
 
 
-       
 
     .col-md-4
       - if (!course.isNew && course.image && course.image.files && course.image.files.length)

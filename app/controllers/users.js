@@ -8,7 +8,7 @@ var User = mongoose.model('User');
 var Nodo = mongoose.model('Nodo');
 var utils = require('../../lib/utils');
 var _ = require('underscore');
-
+var ObjectId = mongoose.Types.ObjectId
 
 var login = function (req, res){
     var redirectTo = req.session.returnTo ? req.session.returnTo : '/';
@@ -105,9 +105,9 @@ exports.show = function (req, res){
  * */
 
 exports.user = function (req, res, next, id){
-    var criteria = id.match(/^[0-9a-fA-F]{24}$/) ? { _id :id }:{user_name:id};
+    var criteria = id.match(/^[0-9a-fA-F]{24}$/) ? { _id :ObjectId(id) }:{$or:[{name:id},{username:id}]};
     User
-        .findOne()
+        .findOne(criteria)
         .select('-salt -hashed_password -authToken')
         .exec(function (err, user){
             if (err) return next(err);
