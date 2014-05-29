@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var ClientSchema = new Schema({
+var ClientsSchema = new Schema({
   name: {type : String, default : '', trim : true},
-  id: {type : Number, trim : true},
   clientId: {type : String, default : '', trim : true},
-  clientSecret: {type : String, default : '', trim : true}
+  clientSecret: {type : String, default : '', trim : true},
+  trusted: { type: Boolean, default: false }
 });
 
 
@@ -14,7 +14,7 @@ var ClientSchema = new Schema({
  * Methods
  */
 
-ClientSchema.methods = {
+ClientsSchema.methods = {
     
 }
 
@@ -22,7 +22,7 @@ ClientSchema.methods = {
  * Statics
  * */
 
-ClientSchema.statics = {
+ClientsSchema.statics = {
   
   /**
    * Find client by id or clientId
@@ -50,4 +50,4 @@ ClientSchema.statics = {
 }
 
 
-module.exports = mongoose.model('Client', ClientSchema);
+module.exports = mongoose.model('Client', ClientsSchema);

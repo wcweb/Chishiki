@@ -21,6 +21,15 @@ var path = require('path')
     }
     , uploadImagesDirectory = '/images/uploads'
     , tempDirectory = rootPath+'/tmp'
+    , token = {
+      expiresIn: 3600,
+      calculateExpirationDate: function() {
+          return new Date(new Date().getTime() + (this.expiresIn * 1000));
+      },
+      authorizationCodeLength: 16,
+      accessTokenLength: 256,
+      refreshTokenLength: 256
+    }
 
 module.exports = {
     development: {
@@ -32,6 +41,7 @@ module.exports = {
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
         , SCORM_Directory:tempDirectory+'/scorms'
+        , token:token
     },
     test: {
         db: 'mongodb://localhost/Chishiki_test'
@@ -42,6 +52,7 @@ module.exports = {
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
         , SCORM_Directory:tempDirectory+'/scorms'
+        , token:token
     },
     production: {
         db: 'mongodb://localhost/Chishiki_pro'
@@ -52,5 +63,6 @@ module.exports = {
         , uploadImagesDirectory: uploadImagesDirectory
         , tempDirectory:tempDirectory
         , SCORM_Directory:tempDirectory+'/scorms'
+        , token:token
     }
 }

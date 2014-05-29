@@ -3,8 +3,8 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var mongoStore = require('connect-mongo')(express);
+var cors = require('cors');
+
 var flash = require('connect-flash');
 //var winston = require('winston');
 var helpers = require('view-helpers');
@@ -16,9 +16,13 @@ var viewHelpers = require('../lib/helpers/view-helper');
 
 var env = process.env.NODE_ENV || 'development';
 
-module.exports = function(app, config, passport){
+module.exports = function(express, app, config, passport){
+    var mongoStore = require('connect-mongo')(express);
     app.set('trust proxy',true);
     app.set('showStackError', true);
+    
+
+    
     app.use(express.compress({
         filter: function (req, res){
             return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
@@ -91,17 +95,21 @@ module.exports = function(app, config, passport){
 
         // should be declared after session and flash
         app.use(helpers(pkg.name));
-
-        // add CSRF support
-        if( process.env.NODE_ENV !== 'test'){
-            app.use(express.csrf());
-
-            // This could be moved to view-helpers :-)
-            app.use(function(req, res, next){
-                res.locals.csrf_token = req.csrfToken();
-                next();
-            })
-        }
+        
+        app.use(cors());
+        
+        // @TODO white list cors or csrf.
+        
+        // // add CSRF support
+ //        if( process.env.NODE_ENV !== 'test'){
+ //            app.use(express.csrf());
+ // 
+ //            // This could be moved to view-helpers :-)
+ //            app.use(function(req, res, next){
+ //                res.locals.csrf_token = req.csrfToken();
+ //                next();
+ //            })
+ //        }
         app.use( function(req, res, next){
           res.locals.createPagination = viewHelpers.createPagination(req);
           next();

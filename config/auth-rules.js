@@ -1,4 +1,8 @@
 var auth = require('./middlewares/authorization');
+// var oauth2 = require('./middlewares/oauth2');
+
+
+
 if( process.env.NODE_ENV !== 'test'){
   var nodoAuth = [
       auth.requiresLogin,
@@ -19,6 +23,11 @@ if( process.env.NODE_ENV !== 'test'){
       auth.requiresLogin,
       auth.course.hasAuthorization
     ];
+    
+    // var oauth = [
+    // oauth2.au
+    // ]
+    
 exports.nodo = nodoAuth;
 exports.comment = commentAuth;
 exports.course = courseAuth;

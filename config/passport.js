@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var LocalStrategy = require('passport-local').Strategy;
 var User = mongoose.model('User');
+var Client = mongoose.model('Client');
+var AccessToken = mongoose.model('AccessToken');
 var BasicStrategy = require('passport-http').BasicStrategy;
 var ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy;
 var BearerStrategy = require('passport-http-bearer').Strategy;
@@ -36,11 +38,38 @@ module.exports = function (passport, conifg){
     );
     
     passport.use(new BearerStrategy(
-      function(token, done) {
-        User.findOne({ authToken: token }, function (err, user) {
+      function(accessToken, done) {
+        
+        //  console.log('BearerStrategy, accessToken found nothing \n ',accessToken);
+        AccessToken.findOne({ token: accessToken }, function (err, token) {
           if (err) { return done(err); }
-          if (!user) { return done(null, false); }
-          return done(null, user, { scope: 'all' });
+          
+          if (!token) { return done(null, false); }
+          
+          if(token.userID != null){
+            User.findOne({_id:token.userID},function(err, user){
+              if (err) { return done(err); }
+              
+              if (!user) { return done(null, false); }
+              // to keep this example simple, restricted scopes are not implemented,
+              // and this is just for illustrative purposes
+              var info = { scope: '*'};
+              return done(null, user, info);
+            
+            });
+          }else{
+            Client.findOne({_id:token.clientID},function(err, client){
+              if (err) { return done(err); }
+              if (!client) { return done(null, false); }
+              // to keep this example simple, restricted scopes are not implemented,
+              // and this is just for illustrative purposes
+              var info = { scope: '*'};
+              return done(null, client, info);
+              
+            });
+          }
+          
+         // return done(null, token, { scope: 'all' });
         });
       }
     ));
@@ -48,13 +77,41 @@ module.exports = function (passport, conifg){
     
     passport.use(new BasicStrategy(
       function(username, password, done) {
-        db.clients.findByClientId(username, function(err, client) {
+        //console.log('BasicStrategy, client found nothing \n ',username, password);
+
+        Client.findOne({clientId:username}, function(err, client) {
+          
           if (err) { return done(err); }
           if (!client) { return done(null, false); }
+          
           if (client.clientSecret != password) { return done(null, false); }
+          
+        
           return done(null, client);
         });
       }
+    ));
+
+    passport.use(new ClientPasswordStrategy(
+      
+        function (clientId, clientSecret, done) {
+          
+          //console.log('ClientPasswordStrategy, client found nothing \n ',clientId, clientSecret);
+          
+            Client.findOne({_id:clientId}, function (err, client) {
+                if (err) {
+                    return done(err);
+                }
+                if (!client) {
+                    return done(null, false);
+                }
+                console.log(client);
+                if (client.clientSecret != clientSecret) {
+                    return done(null, false);
+                }
+                return done(null, client);
+            });
+        }
     ));
 
 //
